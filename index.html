@@ -3,34 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="deBUILD — Decolonial Building Science Database" />
 <title>deBUILD</title>
 
 <style>
 :root{
-
-  /* MUCH LIGHTER GRAY — strong gray presence */
-  --bg:#e6e6e6;
-  --surface:#f0f0f0;
-
-  /* text */
-  --fg:#0f3b2e;
-  --muted:#5e756c;
-
-  /* structure */
-  --rule:#cfcfcf;
-
-  /* links */
-  --link:#7b0b0b;
-  --linkHover:#520606;
+  --bg:#181818;          /* requested plain gray */
+  --surface:#202020;     /* panels */
+  --fg:#e6e6e6;          /* main text */
+  --muted:#9aa3a0;       /* secondary */
+  --rule:#2e2e2e;        /* borders */
+  --link:#c44747;        /* red links (visible on dark bg) */
+  --linkHover:#ff6b6b;
 
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 
   --max:1100px;
 }
-
-/* ================= BASE ================= */
 
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -50,22 +39,8 @@ a:hover{color:var(--linkHover); text-decoration:underline}
 .wrap{
   max-width:var(--max);
   margin:auto;
-  padding:36px 24px 80px;
+  padding:36px 24px 84px;
 }
-
-/* subtle grid */
-.grid{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.4;
-  background-image:
-    linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
-  background-size:32px 32px;
-}
-
-/* ================= HEADER ================= */
 
 header{
   border-bottom:1px solid var(--rule);
@@ -78,8 +53,9 @@ header{
 }
 
 .title{
-  font-weight:800;
+  font-weight:850;
   font-size:20px;
+  letter-spacing:-.2px;
 }
 
 .tag{
@@ -87,12 +63,13 @@ header{
   font-size:12px;
   color:var(--muted);
   margin-top:6px;
-  max-width:70ch;
+  max-width:78ch;
 }
 
 nav{
   display:flex;
   gap:12px;
+  flex-wrap:wrap;
   font-family:var(--mono);
   font-size:12px;
 }
@@ -104,15 +81,11 @@ nav a{
 }
 
 nav a[aria-current="page"]{
-  background:#dddddd;
+  background:#2a2a2a;
 }
-
-/* ================= PAGE SYSTEM ================= */
 
 .page{display:none}
 .page.active{display:block}
-
-/* ================= STRUCTURE ================= */
 
 .card{
   border:1px solid var(--rule);
@@ -126,10 +99,23 @@ nav a[aria-current="page"]{
   text-transform:uppercase;
   letter-spacing:.14em;
   color:var(--muted);
-  margin-bottom:14px;
+  margin:0 0 14px;
 }
 
-/* ================= TABLE ================= */
+.small{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--muted);
+}
+
+.hr{
+  border-top:1px solid var(--rule);
+  margin:18px 0;
+}
+
+.p{ margin:0 0 12px; color:var(--fg); max-width:85ch; }
+.p.muted{ color:var(--muted); }
+.p:last-child{ margin-bottom:0; }
 
 .table{
   width:100%;
@@ -143,23 +129,47 @@ nav a[aria-current="page"]{
   padding:10px 6px;
   border-bottom:1px solid var(--rule);
   color:var(--muted);
+  font-weight:500;
 }
 
 .table td{
   padding:12px 6px;
-  border-bottom:1px solid #d9d9d9;
+  border-bottom:1px solid #262626;
+  vertical-align:top;
 }
 
-.table tr:hover{
-  background:#dddddd55;
+.table tr:hover{ background:#242424; }
+
+.two{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:16px;
+  margin-top:12px;
+}
+@media (max-width:900px){
+  .two{grid-template-columns:1fr;}
 }
 
-/* ================= ENTRY ================= */
+.box{
+  border:1px dashed var(--rule);
+  padding:14px;
+  background:#1e1e1e;
+}
+
+.label{
+  font-family:var(--mono);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin:0 0 8px;
+}
 
 .entry-title{
   font-size:18px;
-  font-weight:800;
+  font-weight:850;
   margin:0 0 8px 0;
+  letter-spacing:-.15px;
 }
 
 .entry-meta{
@@ -169,33 +179,37 @@ nav a[aria-current="page"]{
   margin-bottom:16px;
 }
 
-.two{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-top:12px;
-}
-
-@media (max-width:900px){
-  .two{grid-template-columns:1fr;}
-}
-
-.box{
-  border:1px dashed var(--rule);
-  padding:14px;
-  background:#ededed;
-}
-
-.label{
+.btnrow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
   font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--muted);
-  margin-bottom:8px;
+  font-size:12px;
 }
 
-.small{
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid var(--rule);
+  background:#1c1c1c;
+}
+.btn:hover{ background:#252525; text-decoration:none; }
+
+.cvlist{ list-style:none; padding:0; margin:0; }
+.cvitem{
+  padding:10px 0;
+  border-bottom:1px dashed var(--rule);
+  display:grid;
+  grid-template-columns: 160px 1fr;
+  gap:14px;
+}
+@media (max-width:760px){
+  .cvitem{ grid-template-columns:1fr; }
+}
+.meta{
   font-family:var(--mono);
   font-size:12px;
   color:var(--muted);
@@ -208,112 +222,672 @@ footer{
   font-family:var(--mono);
   font-size:12px;
   color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
 }
-
 </style>
 </head>
 
 <body>
-
-<div class="grid"></div>
-
 <div class="wrap">
 
 <header>
   <div>
     <div class="title">deBUILD</div>
     <div class="tag">
-      Decolonial Building Science Database — archive first. Editor second.
+      Decolonial Building Science Database — an index-first archive (not a personal portfolio).
+      Entries are standardized and comparable. The editor is contextual and secondary.
     </div>
   </div>
 
   <nav>
     <a href="#/archive" data-route="archive" aria-current="page">/archive</a>
     <a href="#/method" data-route="method">/method</a>
+    <a href="#/projects" data-route="projects">/projects</a>
+    <a href="#/writing" data-route="writing">/writing</a>
     <a href="#/editor" data-route="editor">/editor</a>
   </nav>
 </header>
 
 <!-- ================= ARCHIVE ================= -->
-
 <main id="page-archive" class="page active">
   <div class="card">
     <div class="kicker">Archive Index</div>
 
-    <table class="table">
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Location</th>
-        <th>Date</th>
-        <th>Category</th>
-      </tr>
-      <tr>
-        <td>001</td>
-        <td><a href="#/entry/001">Shelter Intake Thresholds</a></td>
-        <td>Washington, DC</td>
-        <td>2026</td>
-        <td>Housing Systems</td>
-      </tr>
-      <tr>
-        <td>002</td>
-        <td><a href="#/entry/002">Corridors of Compliance</a></td>
-        <td>Baltimore, MD</td>
-        <td>2025</td>
-        <td>Carceral Edges</td>
-      </tr>
+    <table class="table" aria-label="Archive index">
+      <thead>
+        <tr>
+          <th style="width:70px;">#</th>
+          <th>Title</th>
+          <th style="width:200px;">Location</th>
+          <th style="width:120px;">Date</th>
+          <th style="width:210px;">Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td><a href="#/entry/001">Shelter Intake Thresholds</a></td>
+          <td>Washington, DC</td>
+          <td>2026</td>
+          <td>Housing Systems</td>
+        </tr>
+        <tr>
+          <td>002</td>
+          <td><a href="#/entry/002">Corridors of Compliance</a></td>
+          <td>Baltimore, MD</td>
+          <td>2025</td>
+          <td>Carceral Edges</td>
+        </tr>
+        <tr>
+          <td>003</td>
+          <td><a href="#/entry/003">Informal Repair Practices</a></td>
+          <td>DC–Baltimore Region</td>
+          <td>2025</td>
+          <td>Maintenance Culture</td>
+        </tr>
+        <tr>
+          <td>004</td>
+          <td><a href="#/entry/004">Public Space Surveillance Geometry</a></td>
+          <td>DC Metro</td>
+          <td>2024</td>
+          <td>Infrastructure</td>
+        </tr>
+        <tr>
+          <td>005</td>
+          <td><a href="#/entry/005">School Entry Protocols &amp; Behavior Routing</a></td>
+          <td>Prince George’s County, MD</td>
+          <td>2024</td>
+          <td>Institutional Space</td>
+        </tr>
+        <tr>
+          <td>006</td>
+          <td><a href="#/entry/006">Waiting Rooms as Eligibility Filters</a></td>
+          <td>Montgomery County, MD</td>
+          <td>2023</td>
+          <td>Civic Services</td>
+        </tr>
+        <tr>
+          <td>007</td>
+          <td><a href="#/entry/007">Street Furniture as Anti-Use Design</a></td>
+          <td>Downtown Corridor (DC)</td>
+          <td>2023</td>
+          <td>Public Space Controls</td>
+        </tr>
+        <tr>
+          <td>008</td>
+          <td><a href="#/entry/008">Service Windows &amp; Counter Governance</a></td>
+          <td>County Admin Building</td>
+          <td>2022</td>
+          <td>Civic Services</td>
+        </tr>
+      </tbody>
     </table>
+
+    <div class="hr"></div>
+    <p class="small">
+      Each entry page follows the same sections: Entry #, Title, Date, Location, Method Notes, Main Analysis, Diagrams/Images, References.
+    </p>
   </div>
 </main>
 
-<!-- ================= ENTRY SAMPLE ================= -->
+<!-- ================= METHOD ================= -->
+<main id="page-method" class="page">
+  <div class="card">
+    <div class="kicker">Method / About deBUILD</div>
+
+    <p class="p muted">
+      deBUILD is a research database documenting architecture as infrastructure: how spatial systems shape governance through access rules,
+      control, maintenance, and constraint. The archive is designed for continuity and referenceability rather than visibility.
+    </p>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Design rules</div>
+        <p class="p muted">Index-first navigation. Text-forward. Repeatable structure. Minimal decoration.</p>
+        <p class="p muted">No portfolio hero. No personal homepage. The archive is the main object.</p>
+      </div>
+      <div class="box">
+        <div class="label">Geographic specificity</div>
+        <p class="p muted">Cases prioritize comparability within a region (DC–Baltimore) while remaining legible as a general method.</p>
+        <p class="p muted">Metadata is treated as part of the research object, not admin overhead.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Field protocol</div>
+        <p class="p muted">Observe: thresholds, queues, signage, sightlines, barriers, staff-only boundaries, maintenance traces.</p>
+        <p class="p muted">Record: time windows, eligibility scripting, “soft denial” mechanics, and where friction accumulates.</p>
+      </div>
+      <div class="box">
+        <div class="label">Entry template</div>
+        <p class="p muted">Method Notes → Main Analysis → Diagrams/Images → References.</p>
+        <p class="p muted">The goal is a stable unit of reference that can be revisited, compared, and expanded over time.</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/archive">← back to index</a>
+      <a class="btn" href="#/projects">projects →</a>
+    </div>
+  </div>
+</main>
+
+<!-- ================= PROJECTS ================= -->
+<main id="page-projects" class="page">
+  <div class="card">
+    <div class="kicker">Projects (sample)</div>
+
+    <p class="p muted">
+      Projects are not “portfolio pieces.” They are research infrastructures: indexes, schemas, protocols, and long-term casework systems.
+    </p>
+
+    <table class="table" aria-label="Projects">
+      <thead>
+        <tr>
+          <th style="width:140px;">Status</th>
+          <th>Project</th>
+          <th style="width:260px;">Output type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="small">Ongoing</td>
+          <td>
+            <strong>deBUILD Core Archive</strong><br>
+            <span class="small">Entry system + indexing conventions + repeatable templates.</span>
+          </td>
+          <td class="small">Database / archive design</td>
+        </tr>
+        <tr>
+          <td class="small">2025–2026</td>
+          <td>
+            <strong>Shelter Systems Atlas</strong><br>
+            <span class="small">Spatial inventory of intake procedures, access constraints, and denial points.</span>
+          </td>
+          <td class="small">Atlas / case series</td>
+        </tr>
+        <tr>
+          <td class="small">2024–2025</td>
+          <td>
+            <strong>Carceral Edges: Civic Interiors</strong><br>
+            <span class="small">Everyday carcerality across schools, courts, and administrative corridors.</span>
+          </td>
+          <td class="small">Comparative casework</td>
+        </tr>
+        <tr>
+          <td class="small">2024</td>
+          <td>
+            <strong>Maintenance as Knowledge: Repair Log Commons</strong><br>
+            <span class="small">Public template for recording repairs/workarounds as research artifacts.</span>
+          </td>
+          <td class="small">Protocol + template set</td>
+        </tr>
+        <tr>
+          <td class="small">2023</td>
+          <td>
+            <strong>Public Space Controls Inventory</strong><br>
+            <span class="small">Bench geometries, signage scripts, barriers, and visibility management.</span>
+          </td>
+          <td class="small">Typology / index</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btnrow">
+      <a class="btn" href="#/writing">writing →</a>
+      <a class="btn" href="#/editor">editor →</a>
+    </div>
+  </div>
+</main>
+
+<!-- ================= WRITING ================= -->
+<main id="page-writing" class="page">
+  <div class="card">
+    <div class="kicker">Writing / Publications (sample)</div>
+
+    <p class="p muted">
+      Writing here functions as method documentation, case interpretation, and archival annotation—kept legible and citable.
+    </p>
+
+    <table class="table" aria-label="Writing">
+      <thead>
+        <tr>
+          <th style="width:120px;">Year</th>
+          <th>Title</th>
+          <th style="width:240px;">Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="small">Forthcoming</td>
+          <td><a href="#">Architecture as Intake: The Spatial Logic of Shelter Access</a><br><span class="small">How rules become rooms: thresholds, waiting, and eligibility.</span></td>
+          <td class="small">Essay</td>
+        </tr>
+        <tr>
+          <td class="small">2025</td>
+          <td><a href="#">Decolonial Building Science: Toward Referenceable Casework</a><br><span class="small">Why archives matter more than takes; annotation standards and ethics.</span></td>
+          <td class="small">Methods paper</td>
+        </tr>
+        <tr>
+          <td class="small">2024</td>
+          <td><a href="#">The Corridor is Policy: Compliance Space in Civic Buildings</a><br><span class="small">Circulation as governance: compression, visibility, and enforced pace.</span></td>
+          <td class="small">Field notes / analysis</td>
+        </tr>
+        <tr>
+          <td class="small">2024</td>
+          <td><a href="#">Maintenance Traces: Repair as Survival Infrastructure</a><br><span class="small">Repair logs, improvisation, and the distribution of endurance.</span></td>
+          <td class="small">Short paper</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btnrow">
+      <a class="btn" href="#/archive">← index</a>
+      <a class="btn" href="#/editor">editor →</a>
+    </div>
+  </div>
+</main>
+
+<!-- ================= EDITOR ================= -->
+<main id="page-editor" class="page">
+  <div class="card">
+    <div class="kicker">Editor</div>
+
+    <p class="p muted">
+      Mohamed Benmansour maintains the deBUILD archive. The role is not “author as brand,” but editor as infrastructure:
+      maintaining standards, expanding cases, and keeping the database usable over time.
+    </p>
+
+    <div class="hr"></div>
+
+    <div class="kicker">CV (condensed)</div>
+    <ul class="cvlist">
+      <li class="cvitem">
+        <div class="meta">Short profile</div>
+        <div>
+          Architectural researcher examining housing insecurity, institutional environments, carceral systems, and decolonial building science
+          through standardized casework and archival methods.
+        </div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Research Projects</div>
+        <div>
+          <strong>deBUILD</strong> — Decolonial Building Science Database (ongoing)<br>
+          <span class="small">Editor/founder; archive structure, case indexing, diagram annotation conventions.</span>
+        </div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Research Experience</div>
+        <div>
+          Field documentation across shelters, civic buildings, and infrastructure sites (DC–Baltimore).<br>
+          <span class="small">Focus: thresholds, intake procedures, surveillance geometry, maintenance traces.</span>
+        </div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Publications</div>
+        <div>
+          “Architecture as Intake” (forthcoming) • “Decolonial Building Science” (2025) • “The Corridor is Policy” (2024)
+        </div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Talks</div>
+        <div>
+          “Infrastructure as Governance” (sample lecture) • “The Corridor is Policy” (sample presentation)
+        </div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Education</div>
+        <div>Architecture / Urban Studies (sample entry)</div>
+      </li>
+      <li class="cvitem">
+        <div class="meta">Contact</div>
+        <div>
+          <a href="mailto:email@example.com">email@example.com</a><br>
+          <span class="small">Professional links only; keep the archive primary.</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="btnrow">
+      <a class="btn" href="#/archive">← index</a>
+      <a class="btn" href="#/method">method →</a>
+    </div>
+  </div>
+</main>
+
+<!-- ================= ENTRIES ================= -->
 
 <main id="page-entry-001" class="page">
   <div class="card">
     <div class="kicker">Entry</div>
-
     <h1 class="entry-title">001 — Shelter Intake Thresholds</h1>
     <div class="entry-meta">Washington, DC • 2026 • Housing Systems</div>
 
     <div class="two">
       <div class="box">
         <div class="label">Method Notes</div>
-        Document intake sequence, queue compression, signage, denial points.
+        <p class="p muted">Document intake sequence: queueing, ID checks, time windows, signage language, denial points.</p>
+        <p class="p muted">Record spatial chokepoints: vestibules, reception counters, seating layouts, security partitions.</p>
       </div>
       <div class="box">
         <div class="label">Main Analysis</div>
-        Thresholds spatialize eligibility. Architecture becomes governance.
+        <p class="p muted">Thresholds operate as governance: eligibility is spatialized through waiting, visibility, and controlled movement.</p>
+        <p class="p muted">Design encodes compliance requirements and produces differential access.</p>
       </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] plan sketch of intake path + queue compression zones.</p>
+        <p class="p muted">[placeholder] counter/partition section + signage transcription.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] municipal shelter policy excerpt; intake procedure memo.</p>
+        <p class="p muted">[placeholder] comparable: Entry 006 (waiting rooms).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/archive">← index</a>
+      <a class="btn" href="#/entry/002">next →</a>
     </div>
   </div>
 </main>
 
-<!-- ================= METHOD ================= -->
-
-<main id="page-method" class="page">
+<main id="page-entry-002" class="page">
   <div class="card">
-    <div class="kicker">Method</div>
-    deBUILD documents architecture as infrastructure through repeatable field structure.
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">002 — Corridors of Compliance</h1>
+    <div class="entry-meta">Baltimore, MD • 2025 • Carceral Edges</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Track circulation controls: badge points, doors, sightlines, waiting nodes, staff-only boundaries.</p>
+        <p class="p muted">Note behavioral routing: narrowing, barriers, floor markings, furniture as directional control.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Corridors act as policy instruments: they sort bodies through compression, visibility, and enforced pace.</p>
+        <p class="p muted">Institutional design produces compliance prior to explicit interaction.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] corridor section with sightline cones + checkpoint placements.</p>
+        <p class="p muted">[placeholder] photo log: signage + threshold hardware.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] building use policies; public safety procedures.</p>
+        <p class="p muted">[placeholder] adjacent: Entry 005 (school entry protocols).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/001">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/003">next →</a>
+    </div>
   </div>
 </main>
 
-<!-- ================= EDITOR ================= -->
-
-<main id="page-editor" class="page">
+<main id="page-entry-003" class="page">
   <div class="card">
-    <div class="kicker">Editor</div>
-    Mohamed Benmansour maintains the deBUILD archive.
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">003 — Informal Repair Practices</h1>
+    <div class="entry-meta">DC–Baltimore Region • 2025 • Maintenance Culture</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Collect repair traces: patches, shims, taped seams, re-used parts, handwritten instructions.</p>
+        <p class="p muted">Treat “maintenance knowledge” as expertise: who fixes, with what tools, under what constraints.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Repair is building science under precarity: adaptation becomes survival infrastructure and a knowledge system.</p>
+        <p class="p muted">Informal practices create continuity where formal systems fail or refuse maintenance.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] annotated “repair log” template; workaround typology.</p>
+        <p class="p muted">[placeholder] detail drawings of common fixes.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] maintenance records; tenant repair guides.</p>
+        <p class="p muted">[placeholder] related: Method page protocols.</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/002">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/004">next →</a>
+    </div>
+  </div>
+</main>
+
+<main id="page-entry-004" class="page">
+  <div class="card">
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">004 — Public Space Surveillance Geometry</h1>
+    <div class="entry-meta">DC Metro • 2024 • Infrastructure</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Map camera placement, lighting, reflective surfaces, and “soft barriers” (planters, benches, rails).</p>
+        <p class="p muted">Track where bodies are encouraged to pass quickly vs. linger.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Surveillance works spatially: geometry + circulation produce risk management and exclusion.</p>
+        <p class="p muted">The design of publicness is often the design of controlled visibility.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] sightline map + camera cone diagram.</p>
+        <p class="p muted">[placeholder] threshold inventory: gates, rails, seating anti-use details.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] procurement docs; signage standards.</p>
+        <p class="p muted">[placeholder] adjacent: Entry 007 (street furniture).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/003">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/005">next →</a>
+    </div>
+  </div>
+</main>
+
+<main id="page-entry-005" class="page">
+  <div class="card">
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">005 — School Entry Protocols &amp; Behavior Routing</h1>
+    <div class="entry-meta">Prince George’s County, MD • 2024 • Institutional Space</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Observe entry sequencing: drop-off flows, security desks, ID procedures, controlled circulation.</p>
+        <p class="p muted">Document where “safety” becomes architecture: partitions, locked vestibules, queue rails.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Educational space can reproduce carceral logics through constant thresholding and monitored movement.</p>
+        <p class="p muted">Routing practices normalize compliance as spatial habit.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] entry plan with checkpoints + flow separation.</p>
+        <p class="p muted">[placeholder] signage capture + door hardware taxonomy.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] visitor policies; safety guidelines.</p>
+        <p class="p muted">[placeholder] related: Entry 002 (corridors).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/004">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/006">next →</a>
+    </div>
+  </div>
+</main>
+
+<main id="page-entry-006" class="page">
+  <div class="card">
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">006 — Waiting Rooms as Eligibility Filters</h1>
+    <div class="entry-meta">Montgomery County, MD • 2023 • Civic Services</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Record appointment systems: tickets, kiosks, timing, seating capacity, visibility to staff.</p>
+        <p class="p muted">Observe “soft denial”: long waits, unclear signage, inaccessible forms, forced exposure.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Waiting rooms function as procedural filters: time becomes a resource barrier and compliance test.</p>
+        <p class="p muted">Architecture distributes endurance unevenly—governing by friction rather than direct refusal.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] waiting room plan: seating density + staff visibility zones.</p>
+        <p class="p muted">[placeholder] queue diagram: ticketing and re-check points.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] intake policies; accessibility standards.</p>
+        <p class="p muted">[placeholder] related: Entry 001 (thresholds).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/005">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/007">next →</a>
+    </div>
+  </div>
+</main>
+
+<main id="page-entry-007" class="page">
+  <div class="card">
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">007 — Street Furniture as Anti-Use Design</h1>
+    <div class="entry-meta">Downtown Corridor (DC) • 2023 • Public Space Controls</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Inventory bench geometries, armrest spacing, angled seating, spikes, “no sitting” cues.</p>
+        <p class="p muted">Record enforcement adjacency: cameras, patrol routes, sightlines, complaint-driven redesigns.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Anti-use design governs by removing rest. It converts public space into transit-only space.</p>
+        <p class="p muted">Exclusion appears as neutral design: comfort is distributed unevenly.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] bench typology sheet; annotated dimensions.</p>
+        <p class="p muted">[placeholder] photo index: hardware + placement context.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] municipal furniture specs; public space ordinances.</p>
+        <p class="p muted">[placeholder] adjacent: Entry 004 (surveillance geometry).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/006">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/entry/008">next →</a>
+    </div>
+  </div>
+</main>
+
+<main id="page-entry-008" class="page">
+  <div class="card">
+    <div class="kicker">Entry</div>
+    <h1 class="entry-title">008 — Service Windows &amp; Counter Governance</h1>
+    <div class="entry-meta">County Admin Building • 2022 • Civic Services</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Method Notes</div>
+        <p class="p muted">Measure counter height, glazing, transaction slots, audio clarity, and line organization.</p>
+        <p class="p muted">Note how documents move: forms, ID verification, receipts, and where interruptions occur.</p>
+      </div>
+      <div class="box">
+        <div class="label">Main Analysis</div>
+        <p class="p muted">Counters mediate power: they regulate proximity, voice, and the tempo of negotiation.</p>
+        <p class="p muted">“Service” is designed as controlled exchange rather than mutual accessibility.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Diagrams / images</div>
+        <p class="p muted">[placeholder] counter section drawing; transaction flow diagram.</p>
+        <p class="p muted">[placeholder] signage scripts: requirements and refusal language.</p>
+      </div>
+      <div class="box">
+        <div class="label">References</div>
+        <p class="p muted">[placeholder] agency intake requirements; building standards.</p>
+        <p class="p muted">[placeholder] related: Entry 006 (waiting rooms).</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/entry/007">← prev</a>
+      <a class="btn" href="#/archive">index</a>
+    </div>
   </div>
 </main>
 
 <footer>
-© <span id="year"></span> deBUILD
+  <div>© <span id="year"></span> deBUILD</div>
+  <div>single HTML • hash routing • title scroll</div>
 </footer>
 
 </div>
 
 <script>
-/* ================= TITLE ROTATOR ================= */
+/* ===== ROTATING TITLE ===== */
 (function titleScroller(text) {
   document.title = text;
   setTimeout(function () {
@@ -321,23 +895,41 @@ footer{
   }, 500);
 })("deBUILD — archive in progress — ");
 
-/* ================= ROUTER ================= */
-
+/* ===== ROUTER ===== */
 const pages = {
   archive: document.getElementById("page-archive"),
   method: document.getElementById("page-method"),
+  projects: document.getElementById("page-projects"),
+  writing: document.getElementById("page-writing"),
   editor: document.getElementById("page-editor"),
-  "entry-001": document.getElementById("page-entry-001")
+  "entry-001": document.getElementById("page-entry-001"),
+  "entry-002": document.getElementById("page-entry-002"),
+  "entry-003": document.getElementById("page-entry-003"),
+  "entry-004": document.getElementById("page-entry-004"),
+  "entry-005": document.getElementById("page-entry-005"),
+  "entry-006": document.getElementById("page-entry-006"),
+  "entry-007": document.getElementById("page-entry-007"),
+  "entry-008": document.getElementById("page-entry-008"),
 };
+
+const navLinks = Array.from(document.querySelectorAll("nav a[data-route]"));
 
 function setActive(route){
   Object.values(pages).forEach(p=>p.classList.remove("active"));
   (pages[route] || pages.archive).classList.add("active");
+
+  // update nav state
+  navLinks.forEach(a => a.removeAttribute("aria-current"));
+  const top = route.startsWith("entry-") ? "archive" : route;
+  const activeNav = navLinks.find(a => a.dataset.route === top) || navLinks[0];
+  activeNav.setAttribute("aria-current","page");
+
+  window.scrollTo({top:0, behavior:"instant"});
 }
 
 function parse(){
-  const h = location.hash.replace("#/","");
-  if(h.startsWith("entry/")) return "entry-"+h.split("/")[1];
+  const h = (location.hash || "#/archive").replace("#/","");
+  if(h.startsWith("entry/")) return "entry-"+(h.split("/")[1] || "001");
   return h || "archive";
 }
 
