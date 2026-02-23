@@ -1,319 +1,664 @@
-```html
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mohamed Benmansour</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="CV / research profile" />
+  <title>Mohamed Benmansour</title>
 
-<style>
+  <style>
+    :root{
+      /* VERY off-white */
+      --bg: #fbfaf4;
 
-/* ===============================
-   COLOR SYSTEM
-=================================*/
+      /* dark green ink */
+      --fg: #0f3b2e;
+      --muted: #4f6f63;
 
-:root{
-  --bg:#f7f6f2;          /* off white background */
-  --text:#0f3b2e;        /* dark green text */
-  --muted:#4f6f63;
-  --border:#e6e3da;
-  --link:#8b0000;        /* dark red */
-  --link-hover:#5a0000;  /* deeper red */
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --max: 920px;
-}
+      /* lines + surfaces */
+      --rule: #e6e2d7;
+      --surface: rgba(255,255,255,.55);
 
-/* ===============================
-   BASE
-=================================*/
+      /* links: dark red */
+      --link: #7b0b0b;
+      --linkHover: #520606;
 
-*{box-sizing:border-box}
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--sans);
-  line-height:1.55;
-  letter-spacing:.15px;
-}
+      --max: 1020px;
+      --radius: 14px;
+    }
 
-.wrap{
-  max-width:var(--max);
-  margin:auto;
-  padding:40px 22px 80px;
-}
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
 
-a{
-  color:var(--link);
-  text-decoration:none;
-}
+    body{
+      margin:0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      line-height: 1.55;
+      letter-spacing: .12px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-a:hover{
-  color:var(--link-hover);
-  text-decoration:underline;
-}
+    a{ color: var(--link); text-decoration:none }
+    a:hover{ color: var(--linkHover); text-decoration:underline }
+    ::selection{ background: rgba(15,59,46,.12); }
 
-/* ===============================
-   HEADER
-=================================*/
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 20px 70px;
+    }
 
-header{
-  border-bottom:1px solid var(--border);
-  padding-bottom:24px;
-  margin-bottom:32px;
-}
+    /* ---------- header ---------- */
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      padding: 8px 0 22px;
+      border-bottom: 1px solid var(--rule);
+    }
 
-.name{
-  font-size:20px;
-  font-weight:600;
-}
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-width: 260px;
+    }
 
-.tagline{
-  margin-top:6px;
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-}
+    .name{
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.2px;
+    }
 
-nav{
-  margin-top:16px;
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  font-family:var(--mono);
-  font-size:12px;
-}
+    .sig{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-/* ===============================
-   SECTIONS
-=================================*/
+    .sig .chip{
+      border:1px solid var(--rule);
+      background: var(--surface);
+      padding: 6px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
 
-section{
-  margin-bottom:34px;
-}
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    nav a{
+      padding: 7px 10px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+    }
+    nav a:hover{
+      border-color: var(--rule);
+      text-decoration:none;
+      background: rgba(255,255,255,.35);
+    }
 
-.kicker{
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-bottom:12px;
-  color:var(--muted);
-}
+    /* ---------- layout ---------- */
+    main{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 26px;
+      padding-top: 26px;
+    }
 
-p{
-  max-width:70ch;
-  margin-top:0;
-}
+    @media (max-width: 920px){
+      header{ flex-direction:column; align-items:flex-start }
+      nav{ justify-content:flex-start }
+      main{ grid-template-columns: 1fr; gap: 18px; }
+    }
 
-/* ===============================
-   CV LIST STYLE
-=================================*/
+    /* ---------- “coding & design” hero ---------- */
+    .hero{
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
 
-.list{
-  list-style:none;
-  padding:0;
-  margin:0;
-}
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(15,59,46,.08), rgba(123,11,11,.06), rgba(15,59,46,.08));
+      filter: blur(12px);
+      opacity:.7;
+      pointer-events:none;
+    }
 
-.item{
-  display:grid;
-  grid-template-columns:120px 1fr;
-  gap:12px;
-  padding:12px 0;
-  border-bottom:1px dashed var(--border);
-}
+    .hero-inner{ position:relative; }
 
-.meta{
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-}
+    .codebar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
 
-.title{
-  font-weight:600;
-  margin-bottom:4px;
-}
+    .dots{
+      display:flex;
+      gap:7px;
+      align-items:center;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      border:1px solid var(--rule);
+      background: rgba(255,255,255,.6);
+    }
 
-.desc{
-  color:var(--muted);
-  font-size:14px;
-}
+    .path{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
-/* ===============================
-   FOOTER
-=================================*/
+    .code{
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.6;
+      margin:0;
+      white-space: pre-wrap;
+    }
 
-footer{
-  border-top:1px solid var(--border);
-  padding-top:18px;
-  margin-top:40px;
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-}
+    .kw{ color: var(--fg); font-weight:700; }
+    .fn{ color: var(--fg); text-decoration: underline dotted rgba(15,59,46,.35); text-underline-offset: 3px; }
+    .st{ color: var(--link); }
+    .cm{ color: var(--muted); }
+    .ty{ color: rgba(15,59,46,.85); }
+    .op{ color: rgba(15,59,46,.85); }
 
-@media (max-width:700px){
-  .item{
-    grid-template-columns:1fr;
-  }
-}
+    /* ---------- sections ---------- */
+    section{
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+    }
+    section:first-of-type{ border-top:none; padding-top: 14px; }
 
-</style>
+    .kicker{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      margin: 0 0 12px;
+    }
+
+    .lead{
+      margin: 0 0 12px;
+      max-width: 72ch;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ---------- list items (CV blocks) ---------- */
+    .list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .item{
+      border:1px solid var(--rule);
+      background: rgba(255,255,255,.35);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .item-top{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,.45);
+    }
+
+    .title{
+      font-size: 15px;
+      font-weight: 750;
+      margin: 0;
+      letter-spacing: -.15px;
+    }
+
+    .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 78ch;
+    }
+
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .links a{
+      border: 1px solid var(--rule);
+      padding: 7px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.45);
+    }
+    .links a:hover{
+      text-decoration:none;
+      background: rgba(255,255,255,.75);
+      border-color: rgba(230,226,215,.5);
+    }
+
+    /* ---------- aside card ---------- */
+    aside{
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 16px;
+      overflow:hidden;
+    }
+
+    aside:before{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      background:
+        radial-gradient(700px 180px at 30% 0%, rgba(15,59,46,.10), transparent 60%),
+        radial-gradient(520px 180px at 70% 20%, rgba(123,11,11,.08), transparent 60%);
+      pointer-events:none;
+    }
+    .aside-inner{ position:relative; }
+
+    @media (max-width: 920px){
+      aside{ position: relative; top: auto; }
+    }
+
+    .cardtitle{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 10px;
+    }
+    .cardtitle strong{
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.1px;
+    }
+    .small{
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    .contact{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .contact a{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 9px 10px;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      background: rgba(255,255,255,.45);
+    }
+    .contact a:hover{
+      text-decoration:none;
+      background: rgba(255,255,255,.78);
+    }
+
+    .footer{
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* subtle grid for design-y feel */
+    .grid{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      opacity: .35;
+      background-image:
+        linear-gradient(to right, rgba(15,59,46,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15,59,46,.06) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(closest-side at 50% 40%, black 0%, transparent 85%);
+    }
+  </style>
 </head>
 
 <body>
+  <div class="grid"></div>
 
-<div class="wrap">
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="name">Mohamed Benmansour</div>
+        <div class="sig">
+          <span class="chip">architectural research</span>
+          <span class="chip">housing insecurity</span>
+          <span class="chip">carceral systems</span>
+          <span class="chip">decolonial building science</span>
+        </div>
+      </div>
 
-<header>
+      <nav>
+        <a href="#about">/about</a>
+        <a href="#projects">/projects</a>
+        <a href="#writing">/writing</a>
+        <a href="#methods">/methods</a>
+        <a href="#contact">/contact</a>
+      </nav>
+    </header>
 
-<div class="name">Mohamed Benmansour</div>
+    <main>
+      <div>
+        <div class="hero">
+          <div class="hero-inner">
+            <div class="codebar">
+              <div class="dots" aria-hidden="true">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+              <div class="path">~/mohamedbenmansour/profile.md</div>
+              <div class="small" id="updated"></div>
+            </div>
 
-<div class="tagline">
-A researcher using architectural analysis to document how housing, infrastructure, and carceral systems shape everyday survival and governance.
-</div>
+<pre class="code"><span class="cm">// positioning profile (sample)</span>
+<span class="kw">const</span> <span class="ty">research</span> = {
+  <span class="fn">domain</span>: [<span class="st">"housing"</span>, <span class="st">"institutions"</span>, <span class="st">"infrastructure"</span>],
+  <span class="fn">method</span>: [<span class="st">"field documentation"</span>, <span class="st">"case indexing"</span>, <span class="st">"diagram annotation"</span>],
+  <span class="fn">question</span>: <span class="st">"How does architecture function as governance—quietly shaping access, control, and survival?"</span>,
+  <span class="fn">output</span>: <span class="st">"durable research structures (archives, protocols, reference systems)"</span>
+};
 
-<nav>
-<a href="#about">about</a>
-<a href="#work">research</a>
-<a href="#projects">projects</a>
-<a href="#writing">writing</a>
-<a href="#contact">contact</a>
-</nav>
+<span class="cm">// current thread</span>
+<span class="kw">export</span> <span class="kw">default</span> <span class="st">"Build referenceable knowledge that outlasts cycles of visibility."</span>;</pre>
+          </div>
+        </div>
 
-</header>
+        <section id="about">
+          <p class="kicker">About</p>
+          <p class="lead">
+            This site is a CV-style index of work that treats architecture as infrastructure: a system that governs
+            everyday life through policies, spatial rules, maintenance, and constraint. The emphasis is on methods,
+            case specificity, and building research objects that remain usable over time.
+          </p>
+          <p class="lead" style="margin-bottom:0;">
+            Themes include shelter and institutional housing, carceral-adjacent environments, public space controls,
+            and decolonial building science—how communities adapt, repair, and inhabit under structural precarity.
+          </p>
+        </section>
 
-<!-- ================= ABOUT ================= -->
+        <section id="projects">
+          <p class="kicker">Selected projects (sample)</p>
+          <ul class="list">
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">deBUILD — Decolonial Building Science Database</a></p>
+                  <p class="subtitle">
+                    An independent research archive: indexed case studies + annotated diagrams documenting adaptive
+                    building practices, maintenance cultures, and “informal” expertise.
+                  </p>
+                </div>
+                <span class="badge">ongoing</span>
+              </div>
+              <div class="links">
+                <a href="#">/index</a>
+                <a href="#">/case-studies</a>
+                <a href="#">/protocols</a>
+                <a href="#">/notes</a>
+              </div>
+            </li>
 
-<section id="about">
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">Shelter Systems Atlas (DC–Baltimore)</a></p>
+                  <p class="subtitle">
+                    A spatial inventory of shelters and transitional housing: access rules, intake chokepoints, time
+                    limits, enforcement patterns, and the architectures of “service delivery.”
+                  </p>
+                </div>
+                <span class="badge">2025–2026</span>
+              </div>
+              <div class="links">
+                <a href="#">/maps</a>
+                <a href="#">/field-notes</a>
+                <a href="#">/diagrams</a>
+              </div>
+            </li>
 
-<div class="kicker">About</div>
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">Carceral Edges: Schools, Courts, and Compliance Space</a></p>
+                  <p class="subtitle">
+                    Case studies of “everyday carcerality” in civic buildings—waiting rooms, corridors, entry
+                    checkpoints, and the spatial scripting of behavior.
+                  </p>
+                </div>
+                <span class="badge">2024–2025</span>
+              </div>
+              <div class="links">
+                <a href="#">/cases</a>
+                <a href="#">/policy-reads</a>
+                <a href="#">/visual-methods</a>
+              </div>
+            </li>
 
-<p>
-Mohamed Benmansour is an emerging architectural researcher working at the intersection of housing insecurity, carceral systems, and decolonial building science. His practice does not center on producing buildings, but on documenting how architecture operates as infrastructure — shaping access, control, and survival across institutional and informal environments.
-</p>
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">Maintenance as Knowledge: Repair Log Commons</a></p>
+                  <p class="subtitle">
+                    A public template for recording repairs, workarounds, and material improvisations—positioning
+                    maintenance as a research method and a shared archive.
+                  </p>
+                </div>
+                <span class="badge">2024</span>
+              </div>
+              <div class="links">
+                <a href="#">/template</a>
+                <a href="#">/examples</a>
+                <a href="#">/license</a>
+              </div>
+            </li>
+          </ul>
+        </section>
 
-<p>
-Rather than approaching architecture as a purely design-driven discipline, Benmansour treats spatial conditions as systems embedded within governance, policy, and lived constraint. His work examines shelters, schools, public infrastructure, and informal settlements as sites where architecture quietly enforces or resists broader social structures.
-</p>
+        <section id="writing">
+          <p class="kicker">Writing / publications (sample)</p>
+          <ul class="list">
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">Architecture as Intake: The Spatial Logic of Shelter Access</a></p>
+                  <p class="subtitle">
+                    An essay on how rules become rooms: queues, appointments, thresholds, and the built choreography
+                    of eligibility.
+                  </p>
+                </div>
+                <span class="badge">forthcoming</span>
+              </div>
+              <div class="links">
+                <a href="#">/pdf</a>
+                <a href="#">/notes</a>
+                <a href="#">/citations</a>
+              </div>
+            </li>
 
-<p>
-He is the founder of <a href="#">deBUILD (Decolonial Building Science Database)</a>, an independent research archive developed outside institutional sponsorship. deBUILD assembles spatial case studies, annotated diagrams, and analytical texts documenting how marginalized communities adapt, repair, and inhabit environments shaped by structural precarity.
-</p>
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">Decolonial Building Science: Toward Referenceable Casework</a></p>
+                  <p class="subtitle">
+                    A methodological piece arguing for archives over takes: diagram standards, annotation practice,
+                    and the ethics of geographic specificity.
+                  </p>
+                </div>
+                <span class="badge">2025</span>
+              </div>
+              <div class="links">
+                <a href="#">/read</a>
+                <a href="#">/appendix</a>
+              </div>
+            </li>
 
-<p>
-Benmansour’s trajectory reflects a hybrid lineage between architectural theory, urban sociology, and public research practices. Influenced by practitioners who build long-term knowledge systems rather than singular design objects, his work prioritizes sustained observation, methodological clarity, and geographic specificity, particularly within the DC–Baltimore region.
-</p>
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title"><a href="#">The Corridor is Policy: Everyday Carcerality in Civic Space</a></p>
+                  <p class="subtitle">
+                    Notes from field observation across schools, courts, and administrative buildings—where
+                    circulation becomes compliance.
+                  </p>
+                </div>
+                <span class="badge">2024</span>
+              </div>
+              <div class="links">
+                <a href="#">/read</a>
+                <a href="#">/figures</a>
+              </div>
+            </li>
+          </ul>
+        </section>
 
-<p>
-Operating early in his career without significant institutional backing, he has focused on developing durable research structures that can outlast credentialing cycles and resist the rapid production norms common to contemporary digital environments. This approach frames architecture as a field of translation — mediating between lived experience, institutional systems, and spatial form.
-</p>
+        <section id="methods">
+          <p class="kicker">Methods</p>
+          <ul class="list">
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title">Field documentation protocol</p>
+                  <p class="subtitle">
+                    Repeatable site-note structure (thresholds, queues, signage, surveillance, maintenance traces),
+                    with consistent metadata for long-term comparability.
+                  </p>
+                </div>
+                <span class="badge">v0.3</span>
+              </div>
+              <div class="links">
+                <a href="#">/protocol</a>
+                <a href="#">/checklist</a>
+                <a href="#">/schema</a>
+              </div>
+            </li>
 
-</section>
+            <li class="item">
+              <div class="item-top">
+                <div>
+                  <p class="title">Case indexing schema</p>
+                  <p class="subtitle">
+                    A lightweight classification system for cross-referencing sites by governance mechanism,
+                    material condition, and institutional boundary.
+                  </p>
+                </div>
+                <span class="badge">draft</span>
+              </div>
+              <div class="links">
+                <a href="#">/taxonomy</a>
+                <a href="#">/examples</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
 
-<!-- ================= RESEARCH ================= -->
+      <aside id="contact">
+        <div class="aside-inner">
+          <div class="cardtitle">
+            <strong>Contact</strong>
+            <span class="small">links</span>
+          </div>
 
-<section id="work">
+          <div class="small">
+            Replace these placeholders with your real links. Keep it sparse; let the index do the work.
+          </div>
 
-<div class="kicker">Research focus</div>
+          <div class="contact">
+            <a href="mailto:you@domain.com"><span>email</span><span>you@domain.com</span></a>
+            <a href="#"><span>cv.pdf</span><span>download</span></a>
+            <a href="#"><span>github</span><span>@yourhandle</span></a>
+            <a href="#"><span>are.na</span><span>/yourchannel</span></a>
+            <a href="#"><span>notes</span><span>/feed</span></a>
+          </div>
 
-<ul class="list">
+          <div style="margin-top:14px;" class="small">
+            <div style="margin-top:10px; border-top:1px solid var(--rule); padding-top:12px;">
+              <span class="cm">status:</span>
+              building long-term reference systems for institutional space + survival infrastructure.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
 
-<li class="item">
-<div class="meta">01</div>
-<div>
-<div class="title">Housing insecurity and spatial governance</div>
-<div class="desc">Documentation of shelter systems, institutional housing, and spatial regulation mechanisms.</div>
-</div>
-</li>
+    <div class="footer">
+      <div>© <span id="year"></span> Mohamed Benmansour</div>
+      <div>single-file HTML • GitHub Pages ready</div>
+    </div>
+  </div>
 
-<li class="item">
-<div class="meta">02</div>
-<div>
-<div class="title">Carceral architectures</div>
-<div class="desc">Analysis of built environments shaping control, access, and institutional power.</div>
-</div>
-</li>
-
-<li class="item">
-<div class="meta">03</div>
-<div>
-<div class="title">Decolonial building science</div>
-<div class="desc">Research into adaptive spatial practices emerging from marginalized communities.</div>
-</div>
-</li>
-
-</ul>
-
-</section>
-
-<!-- ================= PROJECTS ================= -->
-
-<section id="projects">
-
-<div class="kicker">Projects</div>
-
-<ul class="list">
-
-<li class="item">
-<div class="meta">Ongoing</div>
-<div>
-<div class="title"><a href="#">deBUILD — Decolonial Building Science Database</a></div>
-<div class="desc">Independent research archive assembling spatial case studies and annotated analysis.</div>
-</div>
-</li>
-
-</ul>
-
-</section>
-
-<!-- ================= WRITING ================= -->
-
-<section id="writing">
-
-<div class="kicker">Writing / Publications</div>
-
-<ul class="list">
-
-<li class="item">
-<div class="meta">—</div>
-<div>
-<div class="title"><a href="#">Coming soon</a></div>
-<div class="desc">Add essays, research publications, or lectures here.</div>
-</div>
-</li>
-
-</ul>
-
-</section>
-
-<!-- ================= CONTACT ================= -->
-
-<section id="contact">
-
-<div class="kicker">Contact</div>
-
-<p>
-Email: <a href="mailto:your@email.com">your@email.com</a><br>
-GitHub: <a href="#">github.com/yourname</a><br>
-CV (PDF): <a href="#">download</a>
-</p>
-
-</section>
-
-<footer>
-© <span id="year"></span> Mohamed Benmansour
-</footer>
-
-</div>
-
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    const d = new Date();
+    document.getElementById("year").textContent = d.getFullYear();
+    document.getElementById("updated").textContent =
+      d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"2-digit" });
+  </script>
 </body>
 </html>
-```
