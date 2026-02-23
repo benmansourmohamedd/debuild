@@ -1,142 +1,434 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>deBUILD — Decolonial Building Science Database</title>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Personal website" />
+  <title>Your Name</title>
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Helvetica, Arial, sans-serif;
-      background: #ffffff;
-      color: #000000;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.05; /* EXTREMELY tight */
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#666666;
+      --rule:#e8e8e8;
+      --link:#111111;
+      --linkHover:#000000;
+      --accent:#111111;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --max: 980px;
     }
 
-    h1 {
-      font-size: 36px;
-      font-weight: 600;
-      color: #8b1e1e;
-      margin: 0 0 2px 0;
-      line-height: 1.05;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
+      line-height:1.45;
+      letter-spacing:.1px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      color: #0b5f3c;
-      margin: 0 0 6px 0;
-      line-height: 1.05;
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline; color:var(--linkHover)}
+    ::selection{background:#111; color:#fff}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:32px 20px 64px;
     }
 
-    p {
-      margin: 4px 0;
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0 28px;
+      border-bottom:1px solid var(--rule);
     }
 
-    p.subtitle {
-      font-size: 14px;
-      color: #333333;
-      margin: 0 0 12px 0;
-      line-height: 1.05;
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:220px;
+    }
+    .brand .name{
+      font-size:18px;
+      font-weight:600;
+      letter-spacing:.2px;
+    }
+    .brand .tag{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 8px 0 12px 0;
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:flex-end;
+      font-family:var(--mono);
+      font-size:12px;
+      margin-top:2px;
+    }
+    nav a{
+      padding:6px 8px;
+      border:1px solid transparent;
+      border-radius:8px;
+    }
+    nav a:hover{
+      border-color:var(--rule);
+      text-decoration:none;
     }
 
-    th, td {
-      text-align: left;
-      padding: 4px 6px; /* very tight rows */
-      border-bottom: 1px solid #dddddd;
-      vertical-align: top;
-      line-height: 1.05;
+    main{
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap:28px;
+      padding-top:28px;
     }
 
-    th {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #333333;
-      width: 180px;
+    @media (max-width: 860px){
+      main{grid-template-columns:1fr; gap:18px}
+      nav{justify-content:flex-start}
+      header{flex-direction:column; align-items:flex-start}
     }
 
-    td {
-      font-size: 14px;
-      color: #000000;
+    .hero{
+      padding:8px 0 10px;
+    }
+    .hero h1{
+      font-size:34px;
+      line-height:1.1;
+      margin:0 0 12px;
+      font-weight:650;
+      letter-spacing:-.4px;
+    }
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:62ch;
+      font-size:15px;
     }
 
-    img {
-      max-width: 100%;
-      margin: 6px 0;
-      border: 1px solid #dddddd;
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      border:1px solid var(--rule);
+      border-radius:999px;
+      padding:7px 10px;
+      color:var(--fg);
+      background:#fff;
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid #dddddd;
-      margin: 20px 0 10px 0; /* ONLY divider, very tight */
+    section{
+      padding:18px 0;
+      border-top:1px solid var(--rule);
+    }
+    section:first-of-type{border-top:none; padding-top:8px}
+
+    .kicker{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      margin:0 0 12px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .item{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap:12px;
+      padding:12px 0;
+      border-bottom:1px dashed var(--rule);
+    }
+    .item:last-child{border-bottom:none}
+    .meta{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      padding-top:2px;
+    }
+    .title{
+      font-size:15px;
+      font-weight:600;
+      margin:0 0 4px;
+    }
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:8px;
+      font-family:var(--mono);
+      font-size:12px;
+    }
+    .links a{
+      border:1px solid var(--rule);
+      padding:6px 8px;
+      border-radius:10px;
+    }
+    .links a:hover{
+      text-decoration:none;
+      border-color:#cfcfcf;
+    }
+
+    aside{
+      position:sticky;
+      top:18px;
+      align-self:start;
+      border:1px solid var(--rule);
+      border-radius:14px;
+      padding:16px;
+      background:#fff;
+    }
+    @media (max-width: 860px){
+      aside{position:relative; top:auto}
+    }
+    .cardtitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 10px;
+    }
+    .cardtitle strong{
+      font-size:14px;
+      font-weight:650;
+    }
+    .small{
+      font-size:12px;
+      color:var(--muted);
+      font-family:var(--mono);
+    }
+
+    .contact{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:12px;
+    }
+    .contact a{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:9px 10px;
+      border:1px solid var(--rule);
+      border-radius:12px;
+      font-family:var(--mono);
+      font-size:12px;
+    }
+    .contact a:hover{ text-decoration:none; border-color:#cfcfcf }
+
+    footer{
+      margin-top:34px;
+      padding-top:18px;
+      border-top:1px solid var(--rule);
+      color:var(--muted);
+      font-family:var(--mono);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* subtle “print-like” vibe */
+    .hairline{
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--rule), transparent);
+      margin:18px 0;
     }
   </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="name">Your Name</div>
+        <div class="tag">research / writing / projects</div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#talks">Talks</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-  <h1>deBUILD</h1>
-  <p class="subtitle">Decolonial Building Science Database</p>
+    <main>
+      <div>
+        <div class="hero">
+          <h1>Minimal personal site template</h1>
+          <p>
+            Replace this intro with a short bio. Add links to your work, publications,
+            and anything you want people to find quickly.
+          </p>
+          <div class="pillrow">
+            <span class="pill">based in: New York</span>
+            <span class="pill">focus: creative research</span>
+            <span class="pill">email: you@domain.com</span>
+          </div>
+        </div>
 
-  <p>
-    deBUILD is a public research archive documenting housing insecurity,
-    carceral space, and informal survival architectures. The database
-    treats survival, repair, and adaptation as architectural knowledge.
-  </p>
+        <div class="hairline"></div>
 
-  <!-- ONLY divider -->
-  <hr>
+        <section id="about">
+          <p class="kicker">About</p>
+          <p class="desc" style="margin:0; max-width:70ch;">
+            Write a concise paragraph about who you are and what you do. Keep it human.
+            Add a second paragraph if needed. You can also add a short list of current roles,
+            affiliations, or interests.
+          </p>
+        </section>
 
-  <h2>Shelter Is Not Housing</h2>
+        <section id="projects">
+          <p class="kicker">Selected projects</p>
+          <ul class="list">
+            <li class="item">
+              <div class="meta">2026</div>
+              <div>
+                <p class="title"><a href="#">Project title one</a></p>
+                <p class="desc">One-sentence description of what it is and why it matters.</p>
+                <div class="links">
+                  <a href="#">Website</a>
+                  <a href="#">GitHub</a>
+                  <a href="#">Press</a>
+                </div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="meta">2025</div>
+              <div>
+                <p class="title"><a href="#">Project title two</a></p>
+                <p class="desc">Short description. Keep it crisp, add a link or two.</p>
+                <div class="links">
+                  <a href="#">Case study</a>
+                  <a href="#">Demo</a>
+                </div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="meta">2024</div>
+              <div>
+                <p class="title"><a href="#">Project title three</a></p>
+                <p class="desc">Short description with an emphasis on outcome or theme.</p>
+                <div class="links">
+                  <a href="#">Read more</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
 
-  <table>
-    <tr>
-      <th>Date</th>
-      <td>March 2026</td>
-    </tr>
-    <tr>
-      <th>Location</th>
-      <td>DC–Baltimore Region</td>
-    </tr>
-    <tr>
-      <th>Type</th>
-      <td>Spatial analysis / housing infrastructure</td>
-    </tr>
-    <tr>
-      <th>Focus</th>
-      <td>
-        Emergency shelter intake, circulation, surveillance,
-        and governance
-      </td>
-    </tr>
-  </table>
+        <section id="writing">
+          <p class="kicker">Writing</p>
+          <ul class="list">
+            <li class="item">
+              <div class="meta">Feb 2026</div>
+              <div>
+                <p class="title"><a href="#">Essay / article title</a></p>
+                <p class="desc">Publication name • a short blurb describing the piece.</p>
+              </div>
+            </li>
+            <li class="item">
+              <div class="meta">Oct 2025</div>
+              <div>
+                <p class="title"><a href="#">Another writing title</a></p>
+                <p class="desc">Where it appeared • what it covers.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
 
-  <p>
-    This entry examines emergency shelters as architectures of control,
-    analyzing how intake procedures, circulation paths, and spatial
-    surveillance reproduce carceral logics within systems of care.
-  </p>
+        <section id="talks">
+          <p class="kicker">Talks & teaching</p>
+          <ul class="list">
+            <li class="item">
+              <div class="meta">2026</div>
+              <div>
+                <p class="title"><a href="#">Event / institution</a></p>
+                <p class="desc">Talk title • city • link to recording or slides.</p>
+              </div>
+            </li>
+            <li class="item">
+              <div class="meta">2025</div>
+              <div>
+                <p class="title"><a href="#">Workshop / class</a></p>
+                <p class="desc">Topic • syllabus link or notes.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
 
-  <img src="shelter-diagram.jpg" alt="Annotated shelter diagram">
+      <aside>
+        <div class="cardtitle">
+          <strong>Now</strong>
+          <span class="small" id="updated"></span>
+        </div>
+        <div class="small">
+          A compact sidebar for quick links, a short status, or featured items.
+        </div>
 
-  <p>
-    The spatial organization of shelters often prioritizes monitoring,
-    compliance, and throughput over privacy, autonomy, and dignity.
-    These design decisions are not neutral; they encode policy,
-    risk management, and moral judgment into built form.
-  </p>
+        <div class="contact" id="contact">
+          <a href="mailto:you@domain.com"><span>Email</span><span>you@domain.com</span></a>
+          <a href="#"><span>Newsletter</span><span>subscribe</span></a>
+          <a href="#"><span>GitHub</span><span>@yourhandle</span></a>
+          <a href="#"><span>LinkedIn</span><span>/in/you</span></a>
+          <a href="#"><span>Instagram</span><span>@you</span></a>
+        </div>
 
+        <div class="hairline"></div>
+
+        <div class="small">
+          <strong style="color:var(--fg); font-family:var(--sans); font-weight:650;">Featured</strong><br/>
+          <span>• <a href="#">One highlight link</a></span><br/>
+          <span>• <a href="#">Another highlight link</a></span><br/>
+          <span>• <a href="#">A third highlight link</a></span>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Your Name</div>
+      <div>Built with plain HTML/CSS • Host on GitHub Pages</div>
+    </footer>
+  </div>
+
+  <script>
+    // tiny helpers (optional)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const d = new Date();
+    const fmt = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
+    document.getElementById('updated').textContent = "updated " + fmt;
+  </script>
 </body>
 </html>
