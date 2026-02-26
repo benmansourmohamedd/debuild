@@ -1,233 +1,212 @@
 <!doctype html>
 <html lang="en">
-<link rel="icon" type="image/png" href="dB.png">
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>deBUILD</title>
+<head>
+  <link rel="icon" type="image/png" href="dB.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>deBUILD</title>
 
-<style>
-:root{
-  --bg:#181818;          /* requested plain gray */
-  --surface:#202020;     /* panels */
-  --fg:#e6e6e6;          /* main text */
-  --muted:#9aa3a0;       /* secondary */
-  --rule:#2e2e2e;        /* borders */
-  --link:#c44747;        /* red links (visible on dark bg) */
-  --linkHover:#ff6b6b;
+  <style>
+  :root{
+    --bg:#181818;
+    --surface:#202020;
+    --fg:#e6e6e6;
+    --muted:#9aa3a0;
+    --rule:#2e2e2e;
+    --link:#c44747;
+    --linkHover:#ff6b6b;
 
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 
-  --max:1100px;
-}
+    --max:1000px;
+  }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+  *{box-sizing:border-box}
+  html,body{height:100%}
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:var(--sans);
-  line-height:1.55;
-  letter-spacing:.12px;
-}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--sans);
+    line-height:1.6;
+    letter-spacing:.12px;
+  }
 
-a{color:var(--link); text-decoration:none}
-a:hover{color:var(--linkHover); text-decoration:underline}
+  a{color:var(--link); text-decoration:none}
+  a:hover{color:var(--linkHover); text-decoration:underline}
 
-.wrap{
-  max-width:var(--max);
-  margin:auto;
-  padding:36px 24px 84px;
-}
+  .wrap{
+    max-width:var(--max);
+    margin:auto;
+    padding:36px 24px 84px;
+  }
 
-header{
-  border-bottom:1px solid var(--rule);
-  padding-bottom:18px;
-  margin-bottom:28px;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:16px;
-}
+  header{
+    border-bottom:1px solid var(--rule);
+    padding-bottom:18px;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
 
-.title{
-  font-weight:850;
-  font-size:20px;
-  letter-spacing:-.2px;
-}
+  .title{
+    font-weight:850;
+    font-size:20px;
+    letter-spacing:-.2px;
+  }
 
-.tag{
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-  margin-top:6px;
-  max-width:78ch;
-}
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin-top:6px;
+    max-width:78ch;
+  }
 
-nav{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  font-family:var(--mono);
-  font-size:12px;
-}
+  nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    font-family:var(--mono);
+    font-size:12px;
+    align-items:flex-start;
+  }
 
-nav a{
-  padding:8px 10px;
-  border:1px solid var(--rule);
-  background:var(--surface);
-}
+  nav a{
+    padding:8px 10px;
+    border:1px solid var(--rule);
+    background:var(--surface);
+  }
 
-nav a[aria-current="page"]{
-  background:#2a2a2a;
-}
+  nav a[aria-current="page"]{
+    background:#2a2a2a;
+  }
 
-.page{display:none}
-.page.active{display:block}
+  .page{display:none}
+  .page.active{display:block}
 
-.card{
-  border:1px solid var(--rule);
-  background:var(--surface);
-  padding:18px;
-}
+  .card{
+    border:1px solid var(--rule);
+    background:var(--surface);
+    padding:18px;
+  }
 
-.kicker{
-  font-family:var(--mono);
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  color:var(--muted);
-  margin:0 0 14px;
-}
+  .kicker{
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
 
-.small{
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-}
+  .small{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+  }
 
-.hr{
-  border-top:1px solid var(--rule);
-  margin:18px 0;
-}
+  .hr{
+    border-top:1px solid var(--rule);
+    margin:18px 0;
+  }
 
-.p{ margin:0 0 12px; color:var(--fg); max-width:85ch; }
-.p.muted{ color:var(--muted); }
-.p:last-child{ margin-bottom:0; }
+  .p{ margin:0 0 12px; color:var(--fg); max-width:88ch; }
+  .p.muted{ color:var(--muted); }
+  .p:last-child{ margin-bottom:0; }
 
-.table{
-  width:100%;
-  border-collapse:collapse;
-  font-family:var(--mono);
-  font-size:13px;
-}
+  .two{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+    margin-top:12px;
+  }
+  @media (max-width:900px){
+    .two{grid-template-columns:1fr;}
+  }
 
-.table th{
-  text-align:left;
-  padding:10px 6px;
-  border-bottom:1px solid var(--rule);
-  color:var(--muted);
-  font-weight:500;
-}
+  .box{
+    border:1px dashed var(--rule);
+    padding:14px;
+    background:#1e1e1e;
+  }
 
-.table td{
-  padding:12px 6px;
-  border-bottom:1px solid #262626;
-  vertical-align:top;
-}
+  .label{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--muted);
+    margin:0 0 8px;
+  }
 
-.table tr:hover{ background:#242424; }
+  .entry-title{
+    font-size:18px;
+    font-weight:850;
+    margin:0 0 8px 0;
+    letter-spacing:-.15px;
+  }
 
-.two{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:16px;
-  margin-top:12px;
-}
-@media (max-width:900px){
-  .two{grid-template-columns:1fr;}
-}
+  .entry-meta{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
 
-.box{
-  border:1px dashed var(--rule);
-  padding:14px;
-  background:#1e1e1e;
-}
+  .list{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
 
-.label{
-  font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--muted);
-  margin:0 0 8px;
-}
+  .row{
+    padding:10px 0;
+    border-bottom:1px dashed var(--rule);
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap:14px;
+  }
+  @media (max-width:760px){
+    .row{ grid-template-columns:1fr; }
+  }
 
-.entry-title{
-  font-size:18px;
-  font-weight:850;
-  margin:0 0 8px 0;
-  letter-spacing:-.15px;
-}
+  .btnrow{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:16px;
+    font-family:var(--mono);
+    font-size:12px;
+  }
 
-.entry-meta{
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 10px;
+    border:1px solid var(--rule);
+    background:#1c1c1c;
+  }
+  .btn:hover{ background:#252525; text-decoration:none; }
 
-.btnrow{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:16px;
-  font-family:var(--mono);
-  font-size:12px;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px;
-  border:1px solid var(--rule);
-  background:#1c1c1c;
-}
-.btn:hover{ background:#252525; text-decoration:none; }
-
-.cvlist{ list-style:none; padding:0; margin:0; }
-.cvitem{
-  padding:10px 0;
-  border-bottom:1px dashed var(--rule);
-  display:grid;
-  grid-template-columns: 160px 1fr;
-  gap:14px;
-}
-@media (max-width:760px){
-  .cvitem{ grid-template-columns:1fr; }
-}
-.meta{
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-}
-
-footer{
-  border-top:1px solid var(--rule);
-  margin-top:40px;
-  padding-top:16px;
-  font-family:var(--mono);
-  font-size:12px;
-  color:var(--muted);
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
-}
-</style>
+  footer{
+    border-top:1px solid var(--rule);
+    margin-top:40px;
+    padding-top:16px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  </style>
 </head>
 
 <body>
@@ -237,669 +216,462 @@ footer{
   <div>
     <div class="title">deBUILD</div>
     <div class="tag">
-      Decolonial computational architecture archive — an index-first research infrastructure (not a personal portfolio).
-      Entries are standardized and comparable. Computation, ethnomathematics, and socio-spatial analysis anchor the work.
+      Minimal architectural research site. Investigations combine essay + design: grief, displacement, governance, instability, survival—translated into spatial systems and architectural products.
     </div>
   </div>
 
   <nav>
-    <a href="#/archive" data-route="archive" aria-current="page">/archive</a>
-    <a href="#/method" data-route="method">/method</a>
-    <a href="#/projects" data-route="projects">/projects</a>
-    <a href="#/writing" data-route="writing">/writing</a>
-    <a href="#/editor" data-route="editor">/editor</a>
+    <a href="#/home" data-route="home" aria-current="page">/home</a>
+    <a href="#/cv" data-route="cv">/cv</a>
+    <a href="#/investigations" data-route="investigations">/investigations</a>
   </nav>
 </header>
 
-<!-- ================= ARCHIVE ================= -->
-<main id="page-archive" class="page active">
+<!-- ================= HOME ================= -->
+<main id="page-home" class="page active">
   <div class="card">
-    <div class="kicker">Archive Index</div>
+    <div class="kicker">Home</div>
 
-    <table class="table" aria-label="Archive index">
-      <thead>
-        <tr>
-          <th style="width:70px;">#</th>
-          <th>Title</th>
-          <th style="width:200px;">Location</th>
-          <th style="width:120px;">Date</th>
-          <th style="width:210px;">Category</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td><a href="#/entry/001">Algorithmic Thresholds of Access</a></td>
-          <td>Washington, DC</td>
-          <td>2026</td>
-          <td>Housing + Governance</td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td><a href="#/entry/002">Compliance Corridors (Institutional Routing)</a></td>
-          <td>Baltimore, MD</td>
-          <td>2025</td>
-          <td>Carceral Logics</td>
-        </tr>
-        <tr>
-          <td>003</td>
-          <td><a href="#/entry/003">Repair as Ethnomathematical Practice</a></td>
-          <td>DC–Baltimore Region</td>
-          <td>2025</td>
-          <td>Survival Infrastructures</td>
-        </tr>
-        <tr>
-          <td>004</td>
-          <td><a href="#/entry/004">Visibility Management (Surveillance Geometry)</a></td>
-          <td>DC Metro</td>
-          <td>2024</td>
-          <td>Public Space Governance</td>
-        </tr>
-        <tr>
-          <td>005</td>
-          <td><a href="#/entry/005">School Entry Systems &amp; Behavioral Scripting</a></td>
-          <td>Prince George’s County, MD</td>
-          <td>2024</td>
-          <td>Institutional Thresholding</td>
-        </tr>
-        <tr>
-          <td>006</td>
-          <td><a href="#/entry/006">Waiting as Procedure (Eligibility by Time)</a></td>
-          <td>Montgomery County, MD</td>
-          <td>2023</td>
-          <td>Administrative Friction</td>
-        </tr>
-        <tr>
-          <td>007</td>
-          <td><a href="#/entry/007">Anti-Use Street Furniture (Publicness as Transit)</a></td>
-          <td>Downtown Corridor (DC)</td>
-          <td>2023</td>
-          <td>Hostile Design Systems</td>
-        </tr>
-        <tr>
-          <td>008</td>
-          <td><a href="#/entry/008">Counter Governance (Service as Controlled Exchange)</a></td>
-          <td>County Admin Building</td>
-          <td>2022</td>
-          <td>Civic Interfaces</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="hr"></div>
-    <p class="small">
-      Each entry page follows the same sections: Entry #, Title, Date, Location, Method Notes, Main Analysis, Diagrams/Images, References.
-      The goal is comparable casework for computational, anthropological, and decolonial spatial analysis.
+    <p class="p">
+      I’m an emerging architectural investigator working at the intersection of spatial design, computational methods, and critical theory.
+      My work studies how governance, historical trauma, displacement, and instability become spatial form—and how architecture can respond without spectacle.
     </p>
-  </div>
-</main>
-
-<!-- ================= METHOD ================= -->
-<main id="page-method" class="page">
-  <div class="card">
-    <div class="kicker">Method / About deBUILD</div>
-
     <p class="p muted">
-      deBUILD is Mohamed Benmansour’s index-first research archive for studying architecture as a socio-technical system:
-      how governance and power become spatial rules, and how those rules can be modeled, visualized, and challenged through computation.
-      The archive integrates algorithms, ethnomathematics, anthropology, and sociology through a decolonial lens.
-    </p>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Design rules</div>
-        <p class="p muted">Index-first navigation. Text-forward. Repeatable structure. Minimal decoration.</p>
-        <p class="p muted">No portfolio hero. No lifestyle framing. The archive is the main object.</p>
-      </div>
-      <div class="box">
-        <div class="label">What “computation” means here</div>
-        <p class="p muted">Algorithms are treated as analytic tools and cultural artifacts—not neutral instruments.</p>
-        <p class="p muted">Models and diagrams translate social procedures into spatial logics that can be compared across sites.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Field protocol</div>
-        <p class="p muted">Observe: thresholds, queues, signage, sightlines, barriers, staff-only boundaries, maintenance traces.</p>
-        <p class="p muted">Record: procedural scripting, “soft denial” mechanics, and where friction accumulates over time.</p>
-      </div>
-      <div class="box">
-        <div class="label">Ethnomathematics + social reading</div>
-        <p class="p muted">Treat spatial reasoning as plural: measure how different practices encode logic, care, constraint, and survival.</p>
-        <p class="p muted">Read built form as social organization: a meeting point of lived experience, institutional systems, and design.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Entry template</div>
-        <p class="p muted">Method Notes → Main Analysis → Diagrams/Images → References.</p>
-        <p class="p muted">Each entry is a stable unit for comparison: a repeatable method, not a one-off narrative.</p>
-      </div>
-      <div class="box">
-        <div class="label">Decolonial lens</div>
-        <p class="p muted">Question what gets treated as “universal” in design and mathematics.</p>
-        <p class="p muted">Center excluded knowledge systems, and track how institutions produce space as governance.</p>
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <a class="btn" href="#/archive">← back to index</a>
-      <a class="btn" href="#/projects">projects →</a>
-    </div>
-  </div>
-</main>
-
-<!-- ================= PROJECTS ================= -->
-<main id="page-projects" class="page">
-  <div class="card">
-    <div class="kicker">Projects (sample)</div>
-
-    <p class="p muted">
-      Projects are not “portfolio pieces.” They are research infrastructures: computational schemas, casework protocols,
-      ethnomathematical diagrams, and long-term socio-spatial studies designed to stay citable and comparable over time.
-    </p>
-
-    <table class="table" aria-label="Projects">
-      <thead>
-        <tr>
-          <th style="width:140px;">Status</th>
-          <th>Project</th>
-          <th style="width:260px;">Output type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="small">Ongoing</td>
-          <td>
-            <strong>deBUILD Core Archive</strong><br>
-            <span class="small">Entry system + indexing conventions + computational case templates.</span>
-          </td>
-          <td class="small">Database / archive design</td>
-        </tr>
-        <tr>
-          <td class="small">2025–2026</td>
-          <td>
-            <strong>Threshold Algorithms: Housing Access Systems</strong><br>
-            <span class="small">Modeling how eligibility, waiting, and intake procedures become spatial computation.</span>
-          </td>
-          <td class="small">Case series + diagrams</td>
-        </tr>
-        <tr>
-          <td class="small">2024–2025</td>
-          <td>
-            <strong>Everyday Carcerality: Institutional Interiors</strong><br>
-            <span class="small">Routing, checkpoints, visibility, and behavioral scripting across civic environments.</span>
-          </td>
-          <td class="small">Comparative casework</td>
-        </tr>
-        <tr>
-          <td class="small">2024</td>
-          <td>
-            <strong>Ethnomathematics of Repair</strong><br>
-            <span class="small">Repair logs as cultural mathematics: workarounds, constraints, and survival knowledge systems.</span>
-          </td>
-          <td class="small">Protocol + template set</td>
-        </tr>
-        <tr>
-          <td class="small">2023</td>
-          <td>
-            <strong>Publicness as Algorithm</strong><br>
-            <span class="small">Hostile design, surveillance geometry, and how “neutral” objects govern bodies.</span>
-          </td>
-          <td class="small">Typology / index</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="btnrow">
-      <a class="btn" href="#/writing">writing →</a>
-      <a class="btn" href="#/editor">editor →</a>
-    </div>
-  </div>
-</main>
-
-<!-- ================= WRITING ================= -->
-<main id="page-writing" class="page">
-  <div class="card">
-    <div class="kicker">Writing / Publications (sample)</div>
-
-    <p class="p muted">
-      Writing functions as method documentation, computational framing, and socio-spatial interpretation—kept legible, referenceable, and citable.
-      It links algorithmic models to lived experience, and architectural description to decolonial critique.
-    </p>
-
-    <table class="table" aria-label="Writing">
-      <thead>
-        <tr>
-          <th style="width:120px;">Year</th>
-          <th>Title</th>
-          <th style="width:240px;">Format</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="small">Forthcoming</td>
-          <td><a href="#">Algorithmic Access: How Eligibility Becomes Architecture</a><br><span class="small">Thresholds, waiting, and intake as spatial computation.</span></td>
-          <td class="small">Essay</td>
-        </tr>
-        <tr>
-          <td class="small">2025</td>
-          <td><a href="#">Ethnomathematics in the Built World: Cultural Logics of Repair and Space</a><br><span class="small">Plural mathematics, informal expertise, and survival infrastructures.</span></td>
-          <td class="small">Methods paper</td>
-        </tr>
-        <tr>
-          <td class="small">2024</td>
-          <td><a href="#">The Corridor is an Algorithm: Routing, Visibility, and Compliance</a><br><span class="small">Institutional circulation as governance before interaction.</span></td>
-          <td class="small">Field notes / analysis</td>
-        </tr>
-        <tr>
-          <td class="small">2024</td>
-          <td><a href="#">Decolonial Computational Architecture: Toward Comparable Casework</a><br><span class="small">Why standards matter: ethics, annotation, and referenceable archives.</span></td>
-          <td class="small">Short paper</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="btnrow">
-      <a class="btn" href="#/archive">← index</a>
-      <a class="btn" href="#/editor">editor →</a>
-    </div>
-  </div>
-</main>
-
-<!-- ================= EDITOR ================= -->
-<main id="page-editor" class="page">
-  <div class="card">
-    <div class="kicker">Editor</div>
-
-    <p class="p muted">
-      Mohamed Benmansour maintains the deBUILD archive. The role is not “author as brand,” but editor as infrastructure:
-      maintaining standards, developing computational/diagrammatic protocols, and expanding comparable casework over time.
-      His research integrates algorithms, ethnomathematics, anthropology, sociology, and architecture through a decolonial lens.
+      I prefer design-led computation (parametric/diagrammatic systems, spatial analysis) over coding as an end in itself. The goal is architectural authorship:
+      making space legible as power, and making new spatial propositions from that legibility.
     </p>
 
     <div class="hr"></div>
 
-    <div class="kicker">CV (condensed)</div>
-    <ul class="cvlist">
-      <li class="cvitem">
-        <div class="meta">Short profile</div>
+    <div class="kicker">Process / Lab</div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Field protocol (portable)</div>
+        <p class="p muted">Observe thresholds, queues, visibility, signage scripts, barriers, and maintenance traces.</p>
+        <p class="p muted">Record “soft denial” mechanics: where friction accumulates (time windows, unclear requirements, enforced exposure).</p>
+      </div>
+      <div class="box">
+        <div class="label">Translation protocol</div>
+        <p class="p muted">1) Forensic drawings (plan/section) → 2) system diagrams → 3) architectural hypothesis (final proposition).</p>
+        <p class="p muted">Every design move must cite an observed rule, constraint, or lived condition.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Tools (current / learning)</div>
+        <p class="p muted">QGIS (spatial overlays) • Illustrator (diagram + annotation) • Photoshop (light tone control)</p>
+        <p class="p muted">Rhino + Grasshopper (learning; used as a “drawing machine” + rule-based iteration).</p>
+      </div>
+      <div class="box">
+        <div class="label">Questions that recur</div>
+        <p class="p muted">When does care withdraw? Where does waiting become a filter? What spatial logics survive displacement?</p>
+        <p class="p muted">How do “neutral” design decisions distribute access, dignity, and risk?</p>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <a class="btn" href="#/investigations">investigations →</a>
+      <a class="btn" href="#/cv">cv →</a>
+    </div>
+  </div>
+</main>
+
+<!-- ================= CV ================= -->
+<main id="page-cv" class="page">
+  <div class="card">
+    <div class="kicker">CV</div>
+
+    <ul class="list">
+      <li class="row">
+        <div class="small">Profile</div>
         <div>
-          Computational architectural researcher working at the intersection of algorithms, ethnomathematics, anthropology, sociology,
-          and decolonial spatial analysis—studying how governance and power are encoded into built form across housing, institutional, and survival environments.
+          Architectural investigator focused on grief, displacement, institutional power, and survival environments.
+          Uses spatial analysis, parametric/diagrammatic methods, and critical theory to translate lived instability into architectural propositions.
         </div>
       </li>
-      <li class="cvitem">
-        <div class="meta">Research Projects</div>
+
+      <li class="row">
+        <div class="small">Education</div>
         <div>
-          <strong>deBUILD</strong> — Decolonial Computational Architecture Archive (ongoing)<br>
-          <span class="small">Editor/founder; archive structure, case indexing, computational diagram conventions, annotation standards.</span>
+          <strong>Associate’s Degree</strong> (completed by HS graduation) — interdisciplinary foundation<br>
+          <span class="small">Relevant coursework: Calculus I–II • (planned) Linear Algebra • (planned) Multivariable Calculus • (planned) Differential Equations • Writing / Social Science electives.</span><br>
+          <strong>Planned pathway:</strong> Community College → BS Architecture &amp; Environmental Design (potentially :contentReference[oaicite:0]{index=0}).
         </div>
       </li>
-      <li class="cvitem">
-        <div class="meta">Research Experience</div>
+
+      <li class="row">
+        <div class="small">Investigations</div>
         <div>
-          Socio-spatial field documentation across housing access sites, civic buildings, and public infrastructure (DC–Baltimore).<br>
-          <span class="small">Focus: thresholds, routing, visibility management, procedural scripting, repair knowledge as cultural mathematics.</span>
+          <strong>INV-01 The Waiting Room State</strong> — institutional time as spatial control (forensic plan/section → redesign).<br>
+          <strong>INV-02 Rooms Without Ownership</strong> — displacement + domestic instability as spatial system (modular thresholds).<br>
+          <strong>INV-03 The Last Floor Above Water</strong> — climate retreat + grief as architectural archive (phased fragments).
         </div>
       </li>
-      <li class="cvitem">
-        <div class="meta">Publications</div>
+
+      <li class="row">
+        <div class="small">Skills</div>
         <div>
-          “Algorithmic Access” (forthcoming) • “Ethnomathematics in the Built World” (2025) • “The Corridor is an Algorithm” (2024)
+          <strong>Architectural:</strong> sectional reasoning • spatial diagramming • circulation/threshold analysis • annotation as argument.<br>
+          <strong>Computational:</strong> QGIS (intermediate) • Rhino (beginner) • Grasshopper (beginner) • parametric iteration (conceptual).<br>
+          <strong>Representation:</strong> Illustrator (strong) • Photoshop (basic) • hand drawing/field documentation.
         </div>
       </li>
-      <li class="cvitem">
-        <div class="meta">Talks</div>
+
+      <li class="row">
+        <div class="small">Experience</div>
         <div>
-          “Algorithms of Governance” (sample lecture) • “Ethnomathematics + Architecture” (sample presentation)
+          <strong>Independent Field Documentation</strong> (ongoing) — civic buildings, institutional interiors, transit thresholds (DC–Baltimore region).<br>
+          <span class="small">Focus: waiting systems, routing, visibility management, signage scripts, “soft denial,” and spatial care withdrawal.</span>
         </div>
       </li>
-      <li class="cvitem">
-        <div class="meta">Education</div>
-        <div>Architecture / Computational Design / Social Theory (sample entry)</div>
-      </li>
-      <li class="cvitem">
-        <div class="meta">Contact</div>
+
+      <li class="row">
+        <div class="small">Writing</div>
         <div>
-          <a href="mailto:email@example.com">email@example.com</a><br>
-          <span class="small">Professional links only; keep the archive primary.</span>
+          <strong>Field Notes Series:</strong> “Waiting as Procedure” • “Corridors as Compliance” • “Domestic Thresholds Under Instability.”<br>
+          <span class="small">Hosted on this site as investigation pages (essay + products).</span>
+        </div>
+      </li>
+
+      <li class="row">
+        <div class="small">Contact</div>
+        <div>
+          <span class="small">Add email + links when ready (keep minimal; keep work primary).</span>
         </div>
       </li>
     </ul>
 
     <div class="btnrow">
-      <a class="btn" href="#/archive">← index</a>
-      <a class="btn" href="#/method">method →</a>
+      <a class="btn" href="#/home">← home</a>
+      <a class="btn" href="#/investigations">investigations →</a>
     </div>
   </div>
 </main>
 
-<!-- ================= ENTRIES ================= -->
-
-<main id="page-entry-001" class="page">
+<!-- ================= INVESTIGATIONS INDEX ================= -->
+<main id="page-investigations" class="page">
   <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">001 — Algorithmic Thresholds of Access</h1>
-    <div class="entry-meta">Washington, DC • 2026 • Housing + Governance</div>
+    <div class="kicker">Investigations</div>
 
-    <div class="two">
-      <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Document access sequence as an algorithm: queueing, ID checks, time windows, eligibility scripts, denial points.</p>
-        <p class="p muted">Record spatial operators: vestibules, counters, seating layouts, partitions, sightlines, and who controls each boundary.</p>
-      </div>
-      <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Thresholds function as governance: eligibility is spatialized through waiting, visibility, controlled movement, and procedural friction.</p>
-        <p class="p muted">The built environment operates like code—sorting bodies and distributing access unevenly while appearing “neutral.”</p>
-      </div>
-    </div>
+    <p class="p muted">
+      Three sample investigations below. Each page follows the same structure:
+      Abstract → Research Question → Investigation → Design Process → Architectural Products.
+    </p>
 
-    <div class="two">
-      <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] intake algorithm: steps, branches, and failure conditions mapped onto the plan.</p>
-        <p class="p muted">[placeholder] threshold section: counter/partition geometry + signage transcription as rule text.</p>
-      </div>
-      <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] policy excerpts; intake procedure documents; field annotation protocol.</p>
-        <p class="p muted">[placeholder] comparable: Entry 006 (waiting as eligibility).</p>
-      </div>
-    </div>
+    <ul class="list">
+      <li class="row">
+        <div class="small">INV-01</div>
+        <div>
+          <strong><a href="#/inv/01">The Waiting Room State</a></strong><br>
+          <span class="small">Bureaucratic time as architecture; redesigning the spatial algorithm of waiting.</span>
+        </div>
+      </li>
+      <li class="row">
+        <div class="small">INV-02</div>
+        <div>
+          <strong><a href="#/inv/02">Rooms Without Ownership</a></strong><br>
+          <span class="small">Domestic instability + displacement; a housing system built around rotating thresholds.</span>
+        </div>
+      </li>
+      <li class="row">
+        <div class="small">INV-03</div>
+        <div>
+          <strong><a href="#/inv/03">The Last Floor Above Water</a></strong><br>
+          <span class="small">Climate retreat and grief; architecture as archive, not promise.</span>
+        </div>
+      </li>
+    </ul>
 
     <div class="btnrow">
-      <a class="btn" href="#/archive">← index</a>
-      <a class="btn" href="#/entry/002">next →</a>
+      <a class="btn" href="#/home">← home</a>
+      <a class="btn" href="#/cv">cv →</a>
     </div>
   </div>
 </main>
 
-<main id="page-entry-002" class="page">
+<!-- ================= INVESTIGATION 01 ================= -->
+<main id="page-inv-01" class="page">
   <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">002 — Compliance Corridors (Institutional Routing)</h1>
-    <div class="entry-meta">Baltimore, MD • 2025 • Carceral Logics</div>
+    <div class="kicker">Investigation</div>
+    <h1 class="entry-title">INV-01 — The Waiting Room State</h1>
+    <div class="entry-meta">Baltimore, MD (civic services corridor) • Spring–Summer 2026 • Institutional Time / Governance</div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Track routing controls: badge points, doors, checkpoints, sightlines, waiting nodes, staff-only boundaries.</p>
-        <p class="p muted">Note behavioral scripting: narrowing, barriers, floor markings, furniture placement, and enforced pacing.</p>
+        <div class="label">Abstract</div>
+        <p class="p muted">
+          Waiting is not neutral. This investigation documents how civic-service interiors turn time into a filter: delaying access, testing endurance,
+          and distributing dignity unevenly through spatial layout, visibility, and procedural friction.
+        </p>
       </div>
       <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Corridors operate as procedural code: they sort bodies through compression, visibility, and pre-emptive compliance.</p>
-        <p class="p muted">Institutional space produces governance before conversation—architecture as an algorithm of behavior.</p>
+        <div class="label">Research Question</div>
+        <p class="p muted">
+          How does architecture enforce bureaucratic power through time, and what spatial reconfiguration reduces “soft denial” without reducing security or clarity?
+        </p>
       </div>
     </div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] corridor section: sightline cones + checkpoint placements as routing logic.</p>
-        <p class="p muted">[placeholder] photo/diagram log: signage, hardware, and boundary conditions.</p>
+        <div class="label">Investigation (essay)</div>
+        <p class="p muted">
+          Field visits were conducted across two public-facing interiors: a benefits intake lobby and a records/ID service hall.
+          The shared pattern was not the queue itself but the architecture that makes the queue unavoidable: single-point counters,
+          exposed seating, ambiguous signage, and repeated re-check moments.
+        </p>
+        <p class="p muted">
+          “Eligibility” quietly became an endurance test. The room asked people to prove patience, literacy, and bodily tolerance
+          (light, noise, lack of privacy). The building did not refuse; it delayed.
+        </p>
+        <p class="p muted">
+          The key spatial operator was visibility: staff sightlines covered the whole seating field, while visitors had no equivalent
+          clarity about their place in the system. Time was made opaque on purpose.
+        </p>
       </div>
+
       <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] building use policies; institutional procedures; comparative case index.</p>
-        <p class="p muted">[placeholder] adjacent: Entry 005 (school entry systems).</p>
+        <div class="label">Design Process</div>
+        <p class="p muted">
+          Translation steps:
+          1) Forensic drawings annotated “time instruments” (kiosk placement, re-check points, seating density, staff cones of vision).
+          2) System diagrams converting procedures into spatial logic (branches, failure loops, rework).
+          3) Architectural hypothesis: distribute waiting, add legible timelines, and create privacy gradients without isolating staff.
+        </p>
+        <p class="p muted">
+          Iterations tested three layouts: centralized hall (baseline), distributed clusters, and hybrid rings.
+          The chosen scheme uses small waiting “cells” paired to service types, each with its own information wall and acoustic buffering.
+        </p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Architectural Products</div>
+        <p class="p muted"><strong>Forensic set (existing):</strong></p>
+        <p class="p muted">• Plan + section with annotations: “time friction points,” staff visibility cones, re-check loops.</p>
+        <p class="p muted">• Diagram set: procedure flowchart mapped onto plan (where people stall, repeat, or exit).</p>
+
+        <div class="hr"></div>
+
+        <p class="p muted"><strong>Final proposition (design):</strong></p>
+        <p class="p muted">• Proposed plan (1:200) — distributed waiting cells + clear service zoning.</p>
+        <p class="p muted">• Key section (1:150) — privacy gradient (open → semi-screened → brief consultation).</p>
+        <p class="p muted">• Elevation fragment — information wall as spatial interface (requirements, timelines, translations).</p>
+        <p class="p muted">• Exploded axonometric — components: acoustic fins, seating modules, queue divider, signage band.</p>
+        <p class="p muted">• One interior perspective section — “time made legible” (light band marking service phases).</p>
+      </div>
+
+      <div class="box">
+        <div class="label">Notes / Next Tests</div>
+        <p class="p muted">
+          Next iteration will simulate peak hours using a simple movement model (manual or Grasshopper-based) to test circulation conflicts
+          and confirm that the design reduces exposure without creating hidden congestion.
+        </p>
+        <p class="p muted">
+          Measure success as: fewer re-check loops, reduced crowd density near counters, improved wayfinding confidence, increased privacy without reduced safety.
+        </p>
       </div>
     </div>
 
     <div class="btnrow">
-      <a class="btn" href="#/entry/001">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/003">next →</a>
+      <a class="btn" href="#/investigations">← investigations</a>
+      <a class="btn" href="#/inv/02">next →</a>
     </div>
   </div>
 </main>
 
-<main id="page-entry-003" class="page">
+<!-- ================= INVESTIGATION 02 ================= -->
+<main id="page-inv-02" class="page">
   <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">003 — Repair as Ethnomathematical Practice</h1>
-    <div class="entry-meta">DC–Baltimore Region • 2025 • Survival Infrastructures</div>
+    <div class="kicker">Investigation</div>
+    <h1 class="entry-title">INV-02 — Rooms Without Ownership</h1>
+    <div class="entry-meta">Prince George’s County, MD (shared-housing conditions) • Fall 2026 • Displacement / Domestic Instability</div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Collect repair traces: patches, shims, taped seams, re-used parts, handwritten instructions, improvised tools.</p>
-        <p class="p muted">Treat “maintenance knowledge” as cultural mathematics: rules of fit, measurement, tolerance, sequence, and constraint.</p>
+        <div class="label">Abstract</div>
+        <p class="p muted">
+          Displacement often appears as a statistic, but it is lived as a rearrangement of rooms: temporary leases, rotating roommates,
+          doubled families, and privacy negotiated through furniture and habit. This investigation models domestic instability as a spatial system.
+        </p>
       </div>
       <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Repair is a knowledge system under precarity: informal practices encode logics of endurance, care, and constraint.</p>
-        <p class="p muted">Ethnomathematics appears in everyday workarounds—spatial intelligence produced outside institutional recognition.</p>
+        <div class="label">Research Question</div>
+        <p class="p muted">
+          What housing typology supports dignity when permanence disappears—without treating instability as a short-term exception?
+        </p>
       </div>
     </div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] repair “algorithm” templates: step sequences + constraint maps.</p>
-        <p class="p muted">[placeholder] detail drawings: recurring fixes and their measurement logic.</p>
+        <div class="label">Investigation (essay)</div>
+        <p class="p muted">
+          The study began with “micro-boundaries”: curtains, shoe lines, kitchen rules, sound discipline, and the subtle architecture of consent.
+          In shared units, the living room becomes a contested zone: it is both social commons and overflow bedroom.
+        </p>
+        <p class="p muted">
+          Conventional apartment plans assume stable households and clear ownership of rooms. In contrast, instability produces rotating territories:
+          people claim space by schedule (time), not by deed. Domestic architecture becomes a negotiation device.
+        </p>
+        <p class="p muted">
+          The emotional center is fatigue—the constant translation of self into someone else’s rules. A dignified plan makes negotiation easier,
+          not harder.
+        </p>
       </div>
+
       <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] maintenance records; tenant guides; field interviews/notes (when available).</p>
-        <p class="p muted">[placeholder] related: Method page (ethnomathematics protocol).</p>
+        <div class="label">Design Process</div>
+        <p class="p muted">
+          Translation steps:
+          1) Diagram domestic rituals (cooking, prayer, care work, sleep, study) as overlapping networks rather than rooms.
+          2) Convert overlaps into spatial gradients: quiet-to-active, private-to-shared, fixed-to-rotating.
+          3) Prototype a “threshold kit” that lets households redraw boundaries without construction: sliding panels, storage-spines, acoustic curtains.
+        </p>
+        <p class="p muted">
+          A parametric matrix tested unit types across occupancy change (2–8 people). The chosen scheme centers a service spine
+          (kitchen/bath/utility) with two flexible “commons” that can convert to sleeping via threshold devices.
+        </p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Architectural Products</div>
+        <p class="p muted"><strong>Forensic set (existing typology):</strong></p>
+        <p class="p muted">• Typical apartment plan annotated with “conflict zones” and “negotiation points.”</p>
+        <p class="p muted">• Section study showing sound/light/privacy leakage in shared occupancy.</p>
+        <p class="p muted">• Ritual-to-space diagram set (time-based territories).</p>
+
+        <div class="hr"></div>
+
+        <p class="p muted"><strong>Final proposition (design):</strong></p>
+        <p class="p muted">• Unit plan series (Type A/B/C) — 3 occupancy scenarios each (2, 4, 6+).</p>
+        <p class="p muted">• Key section — threshold devices in use (day/night transformations).</p>
+        <p class="p muted">• Elevations (interior) — storage spine + sliding partition track.</p>
+        <p class="p muted">• Exploded axonometric — “threshold kit” components and assembly logic.</p>
+        <p class="p muted">• One perspective section — common room in “shared” and “sleep” modes.</p>
+      </div>
+
+      <div class="box">
+        <div class="label">Notes / Next Tests</div>
+        <p class="p muted">
+          Next step is a small-scale prototype (foamcore or cardboard) of the threshold kit to test ergonomics, storage capacity,
+          and privacy performance.
+        </p>
+        <p class="p muted">
+          Success metrics: fewer spatial conflicts, more predictable privacy, and smoother occupancy change without displacement within the unit.
+        </p>
       </div>
     </div>
 
     <div class="btnrow">
-      <a class="btn" href="#/entry/002">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/004">next →</a>
+      <a class="btn" href="#/inv/01">← prev</a>
+      <a class="btn" href="#/investigations">index</a>
+      <a class="btn" href="#/inv/03">next →</a>
     </div>
   </div>
 </main>
 
-<main id="page-entry-004" class="page">
+<!-- ================= INVESTIGATION 03 ================= -->
+<main id="page-inv-03" class="page">
   <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">004 — Visibility Management (Surveillance Geometry)</h1>
-    <div class="entry-meta">DC Metro • 2024 • Public Space Governance</div>
+    <div class="kicker">Investigation</div>
+    <h1 class="entry-title">INV-03 — The Last Floor Above Water</h1>
+    <div class="entry-meta">Norfolk, VA (chronic flooding band) • Spring 2027 • Climate Retreat / Grief / Archive</div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Map camera placement, lighting, reflective surfaces, and “soft barriers” (planters, benches, rails).</p>
-        <p class="p muted">Track where bodies are encouraged to pass quickly vs. linger, and what objects enforce that difference.</p>
+        <div class="label">Abstract</div>
+        <p class="p muted">
+          In places facing chronic flooding, “resilience” can become a story that delays grief.
+          This investigation proposes architecture that accepts retreat—not as failure, but as a way to preserve ritual, memory, and safety when permanence is no longer ethical.
+        </p>
       </div>
       <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Surveillance operates as spatial computation: geometry + circulation produce risk management and exclusion.</p>
-        <p class="p muted">Publicness is designed through controlled visibility—who can pause, gather, or remain is a governance outcome.</p>
+        <div class="label">Research Question</div>
+        <p class="p muted">
+          What is the architectural form of leaving—when departure is gradual, contested, and emotionally dense?
+        </p>
       </div>
     </div>
 
     <div class="two">
       <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] sightline map + camera cone diagram as visibility algorithm.</p>
-        <p class="p muted">[placeholder] object index: barriers, rails, seating constraints, and their placement logic.</p>
+        <div class="label">Investigation (essay)</div>
+        <p class="p muted">
+          The project maps not only flood lines but “care withdrawal lines”: where insurance becomes unaffordable, where services become intermittent,
+          where repairs repeat until they stop being repairs and become rituals of denial.
+        </p>
+        <p class="p muted">
+          Retreat is spatially rehearsed: families move valuables upward, sleep shifts floors, gatherings shrink to fewer rooms, porches disappear first.
+          The house becomes an archive of choices.
+        </p>
+        <p class="p muted">
+          The ethical question is not how to hold the water back forever, but how to preserve life and memory without forcing people into endless repair.
+        </p>
       </div>
+
       <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] procurement documents; signage standards; policy references where relevant.</p>
-        <p class="p muted">[placeholder] adjacent: Entry 007 (anti-use furniture).</p>
+        <div class="label">Design Process</div>
+        <p class="p muted">
+          Translation steps:
+          1) Document phased abandonment as a section timeline (ground floor → upper floor → fragment).
+          2) Extract the “last rituals” that remain: cooking, prayer, gathering, rest, care.
+          3) Design a series of elevated “last-floor” fragments connected by a light infrastructure spine (power, water, safe access).
+        </p>
+        <p class="p muted">
+          A parametric rule set tested platform heights and connectivity based on predicted flood frequency bands.
+          The chosen strategy uses modular elevated slabs with replaceable stairs/ramps and a community “memory room” per cluster.
+        </p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="box">
+        <div class="label">Architectural Products</div>
+        <p class="p muted"><strong>Forensic set (site + dwelling):</strong></p>
+        <p class="p muted">• Flood-band map + “care withdrawal” overlay (service interruptions, repair cycles).</p>
+        <p class="p muted">• Section timeline: domestic life shifting upward (phasing diagrams).</p>
+        <p class="p muted">• Detail studies: porch, stair, threshold decay/repair traces.</p>
+
+        <div class="hr"></div>
+
+        <p class="p muted"><strong>Final proposition (design):</strong></p>
+        <p class="p muted">• Master plan (small cluster) — elevated fragments + infrastructure spine.</p>
+        <p class="p muted">• Typical fragment plan — kitchen/commons/quiet alcove (ritual-based program).</p>
+        <p class="p muted">• Key section — platform + access + flood clearance + shaded undercroft.</p>
+        <p class="p muted">• Elevation — structural frame expressing “temporary permanence.”</p>
+        <p class="p muted">• Exploded axonometric — modular slab, stair kit, utility spine, memory room.</p>
+        <p class="p muted">• One sectional perspective — gathering at dusk; architecture as witness, not promise.</p>
+      </div>
+
+      <div class="box">
+        <div class="label">Notes / Next Tests</div>
+        <p class="p muted">
+          Next step is to test the infrastructure spine as a phasing strategy: what remains functional when fragments are removed,
+          and how the system supports partial occupancy without abandonment turning into danger.
+        </p>
+        <p class="p muted">
+          Success metrics: safe access during floods, reduced repair burden, preservation of social ritual, and dignified retreat pathways.
+        </p>
       </div>
     </div>
 
     <div class="btnrow">
-      <a class="btn" href="#/entry/003">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/005">next →</a>
-    </div>
-  </div>
-</main>
-
-<main id="page-entry-005" class="page">
-  <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">005 — School Entry Systems &amp; Behavioral Scripting</h1>
-    <div class="entry-meta">Prince George’s County, MD • 2024 • Institutional Thresholding</div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Observe entry sequencing as procedure: drop-off flows, security desks, ID scripts, controlled circulation.</p>
-        <p class="p muted">Document where “safety” becomes governance: partitions, locked vestibules, queue rails, visibility to staff.</p>
-      </div>
-      <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">School space can reproduce carceral logics through constant thresholding and monitored movement.</p>
-        <p class="p muted">Routing practices normalize compliance as spatial habit—architecture training bodies through repeated procedure.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] entry algorithm mapped to plan: checkpoints + flow separation.</p>
-        <p class="p muted">[placeholder] signage capture + hardware taxonomy as behavioral rule set.</p>
-      </div>
-      <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] visitor policies; safety guidelines; school district procedures where relevant.</p>
-        <p class="p muted">[placeholder] related: Entry 002 (compliance corridors).</p>
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <a class="btn" href="#/entry/004">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/006">next →</a>
-    </div>
-  </div>
-</main>
-
-<main id="page-entry-006" class="page">
-  <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">006 — Waiting as Procedure (Eligibility by Time)</h1>
-    <div class="entry-meta">Montgomery County, MD • 2023 • Administrative Friction</div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Record appointment systems: tickets, kiosks, timing, seating capacity, visibility to staff, and re-check points.</p>
-        <p class="p muted">Observe “soft denial”: long waits, unclear signage, inaccessible forms, forced exposure, repeated resubmission.</p>
-      </div>
-      <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Waiting rooms function as procedural filters: time becomes a resource barrier and a compliance test.</p>
-        <p class="p muted">Architecture governs by friction—eligibility emerges from endurance rather than explicit refusal.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] waiting room plan: seating density + staff visibility zones as time-management logic.</p>
-        <p class="p muted">[placeholder] queue diagram: ticketing, re-checks, and branching outcomes.</p>
-      </div>
-      <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] intake requirements; accessibility standards; appointment policies.</p>
-        <p class="p muted">[placeholder] related: Entry 001 (threshold algorithms).</p>
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <a class="btn" href="#/entry/005">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/007">next →</a>
-    </div>
-  </div>
-</main>
-
-<main id="page-entry-007" class="page">
-  <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">007 — Anti-Use Street Furniture (Publicness as Transit)</h1>
-    <div class="entry-meta">Downtown Corridor (DC) • 2023 • Hostile Design Systems</div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Inventory bench geometries, armrest spacing, angled seating, spikes, “no sitting” cues, and removal-by-design tactics.</p>
-        <p class="p muted">Record enforcement adjacency: cameras, patrol routes, sightlines, complaint-driven redesigns, and “design fixes” that punish rest.</p>
-      </div>
-      <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Anti-use design governs by removing rest. It converts public space into transit-only space.</p>
-        <p class="p muted">Exclusion appears as neutral geometry—comfort and access are distributed unevenly through objects.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] furniture typology sheet; annotated dimensions as governance geometry.</p>
-        <p class="p muted">[placeholder] photo index: object placement + visibility context.</p>
-      </div>
-      <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] municipal furniture specifications; public space ordinances; procurement notes where available.</p>
-        <p class="p muted">[placeholder] adjacent: Entry 004 (visibility management).</p>
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <a class="btn" href="#/entry/006">← prev</a>
-      <a class="btn" href="#/archive">index</a>
-      <a class="btn" href="#/entry/008">next →</a>
-    </div>
-  </div>
-</main>
-
-<main id="page-entry-008" class="page">
-  <div class="card">
-    <div class="kicker">Entry</div>
-    <h1 class="entry-title">008 — Counter Governance (Service as Controlled Exchange)</h1>
-    <div class="entry-meta">County Admin Building • 2022 • Civic Interfaces</div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Method Notes</div>
-        <p class="p muted">Measure counter height, glazing, transaction slots, audio clarity, and line organization.</p>
-        <p class="p muted">Note how documents move: forms, IDs, verifications, receipts, and where interruptions and delays occur.</p>
-      </div>
-      <div class="box">
-        <div class="label">Main Analysis</div>
-        <p class="p muted">Counters mediate power: they regulate proximity, voice, and the tempo of negotiation.</p>
-        <p class="p muted">“Service” is designed as controlled exchange—an interface that scripts what can be asked, heard, and granted.</p>
-      </div>
-    </div>
-
-    <div class="two">
-      <div class="box">
-        <div class="label">Diagrams / images</div>
-        <p class="p muted">[placeholder] counter section drawing; interface diagram of transaction steps and failure points.</p>
-        <p class="p muted">[placeholder] signage scripts: requirements, refusals, and procedural language as rule text.</p>
-      </div>
-      <div class="box">
-        <div class="label">References</div>
-        <p class="p muted">[placeholder] agency intake requirements; building standards; procedural documents where available.</p>
-        <p class="p muted">[placeholder] related: Entry 006 (waiting as procedure).</p>
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <a class="btn" href="#/entry/007">← prev</a>
-      <a class="btn" href="#/archive">index</a>
+      <a class="btn" href="#/inv/02">← prev</a>
+      <a class="btn" href="#/investigations">index</a>
+      <a class="btn" href="#/home">home →</a>
     </div>
   </div>
 </main>
 
 <footer>
   <div>© <span id="year"></span> deBUILD</div>
-  <div>ethnomathematics • computation • anthropology • critical theory • spatial design</div>
+  <div>architecture • computation • theory • grief • displacement • survival</div>
 </footer>
 
 </div>
@@ -910,35 +682,28 @@ footer{
   document.title = text;
   setTimeout(function () {
     titleScroller(text.substr(1) + text.substr(0, 1));
-  }, 500);
-})("deBUILD — decolonial computational archive — ");
+  }, 550);
+})("deBUILD — investigations — ");
 
 /* ===== ROUTER ===== */
 const pages = {
-  archive: document.getElementById("page-archive"),
-  method: document.getElementById("page-method"),
-  projects: document.getElementById("page-projects"),
-  writing: document.getElementById("page-writing"),
-  editor: document.getElementById("page-editor"),
-  "entry-001": document.getElementById("page-entry-001"),
-  "entry-002": document.getElementById("page-entry-002"),
-  "entry-003": document.getElementById("page-entry-003"),
-  "entry-004": document.getElementById("page-entry-004"),
-  "entry-005": document.getElementById("page-entry-005"),
-  "entry-006": document.getElementById("page-entry-006"),
-  "entry-007": document.getElementById("page-entry-007"),
-  "entry-008": document.getElementById("page-entry-008"),
+  home: document.getElementById("page-home"),
+  cv: document.getElementById("page-cv"),
+  investigations: document.getElementById("page-investigations"),
+  "inv-01": document.getElementById("page-inv-01"),
+  "inv-02": document.getElementById("page-inv-02"),
+  "inv-03": document.getElementById("page-inv-03"),
 };
 
 const navLinks = Array.from(document.querySelectorAll("nav a[data-route]"));
 
 function setActive(route){
   Object.values(pages).forEach(p=>p.classList.remove("active"));
-  (pages[route] || pages.archive).classList.add("active");
+  (pages[route] || pages.home).classList.add("active");
 
   // update nav state
   navLinks.forEach(a => a.removeAttribute("aria-current"));
-  const top = route.startsWith("entry-") ? "archive" : route;
+  const top = route.startsWith("inv-") ? "investigations" : route;
   const activeNav = navLinks.find(a => a.dataset.route === top) || navLinks[0];
   activeNav.setAttribute("aria-current","page");
 
@@ -946,9 +711,12 @@ function setActive(route){
 }
 
 function parse(){
-  const h = (location.hash || "#/archive").replace("#/","");
-  if(h.startsWith("entry/")) return "entry-"+(h.split("/")[1] || "001");
-  return h || "archive";
+  const h = (location.hash || "#/home").replace("#/","");
+  if(h.startsWith("inv/")){
+    const id = (h.split("/")[1] || "01").padStart(2,"0");
+    return "inv-"+id;
+  }
+  return h || "home";
 }
 
 window.addEventListener("hashchange", ()=>setActive(parse()));
@@ -959,4 +727,3 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 </body>
 </html>
-
