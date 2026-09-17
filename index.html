@@ -1,234 +1,673 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Your Name — website in progress</title>
-  <meta name="description" content="A simple, archival artist portfolio website." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta
+    name="description"
+    content="A simple, archival artist portfolio website."
+  >
+
+  <style>
+    :root {
+      --background: #d8d8d5;
+      --foreground: #111;
+      --rule: #8c8c88;
+      --placeholder: #c8c8c4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    /*
+      SPLIT LAYOUT
+      The portfolio scrolls on the left.
+      The image remains fixed on the right.
+    */
+
+    .portfolio {
+      width: 50%;
+      min-height: 100vh;
+      border-right: 1px solid var(--foreground);
+    }
+
+    .page {
+      width: 100%;
+      padding: 16px 15px 70px;
+    }
+
+    .image-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--placeholder);
+    }
+
+    .image-panel img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /*
+      Displayed until you replace it with a real image.
+      Delete this element after adding your <img>.
+    */
+
+    .image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      color: #555;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .image-placeholder::before,
+    .image-placeholder::after {
+      position: absolute;
+      content: "";
+      background: var(--rule);
+    }
+
+    .image-placeholder::before {
+      width: 1px;
+      height: 140%;
+      transform: rotate(45deg);
+    }
+
+    .image-placeholder::after {
+      width: 1px;
+      height: 140%;
+      transform: rotate(-45deg);
+    }
+
+    .image-placeholder span {
+      position: relative;
+      z-index: 1;
+      padding: 8px 11px;
+      background: var(--placeholder);
+      border: 1px solid var(--rule);
+    }
+
+    .image-caption {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      left: 12px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .linkbar,
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 5px 9px;
+      border: 1px solid var(--foreground);
+      color: inherit;
+      font-size: 13px;
+      line-height: 1.1;
+      text-decoration: none;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      color: var(--background);
+      background: var(--foreground);
+      outline: none;
+    }
+
+    .intro {
+      max-width: 760px;
+      padding: 58px 0 76px;
+    }
+
+    .intro p {
+      margin: 0 0 1.1em;
+      font-size: clamp(20px, 2.1vw, 29px);
+      line-height: 1.25;
+    }
+
+    .project,
+    .list-section {
+      padding: 13px 0 78px;
+      border-top: 1px solid var(--foreground);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 38px;
+    }
+
+    .project h2,
+    .list-section h2 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .project > p,
+    .list-section > p {
+      max-width: 760px;
+      margin: 0 0 1em;
+    }
+
+    .media-grid {
+      display: grid;
+      gap: 7px;
+      margin-top: 32px;
+    }
+
+    .media-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .media-grid.five {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .media-grid.seven {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    figure {
+      min-width: 0;
+      margin: 0;
+    }
+
+    figure img,
+    .compact img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--rule);
+      background: var(--placeholder);
+      object-fit: cover;
+    }
+
+    figcaption {
+      margin-top: 5px;
+      color: #444;
+      font-size: 11px;
+    }
+
+    .list-section ul {
+      max-width: 900px;
+      margin: 30px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list-section li {
+      padding: 3px 0;
+    }
+
+    .compact img {
+      aspect-ratio: 5 / 7;
+    }
+
+    .quotes li {
+      max-width: 760px;
+      margin-bottom: 15px;
+      font-size: 17px;
+    }
+
+    footer {
+      max-width: 850px;
+      padding-top: 14px;
+      border-top: 1px solid var(--foreground);
+      font-size: 12px;
+    }
+
+    footer p {
+      margin: 0 0 10px;
+    }
+
+    /*
+      MOBILE
+      The image moves above the portfolio.
+    */
+
+    @media (max-width: 800px) {
+      .portfolio {
+        width: 100%;
+        border-right: 0;
+      }
+
+      .image-panel {
+        position: relative;
+        width: 100%;
+        height: min(70vh, 620px);
+        border-bottom: 1px solid var(--foreground);
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .image-panel {
+        order: 1;
+      }
+
+      .portfolio {
+        order: 2;
+      }
+
+      .intro {
+        padding: 46px 0 60px;
+      }
+
+      .project-header {
+        display: block;
+        margin-bottom: 28px;
+      }
+
+      .project-links {
+        margin-top: 10px;
+      }
+
+      .media-grid.three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .media-grid.five,
+      .media-grid.seven {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .media-grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      .media-grid.five,
+      .media-grid.seven {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <main class="page">
-    <nav class="linkbar" aria-label="Primary">
-      <a class="button" href="#cv">CV spreadsheet ↗</a>
-      <a class="button" href="#social">instagram ↗</a>
-      <a class="button" href="mailto:you@example.com">you@example.com ↗</a>
-      <a class="button" href="#archive">Are.na ↗</a>
-    </nav>
+  <!-- RIGHT HALF: FEATURED IMAGE -->
+  <aside class="image-panel" aria-label="Featured image">
+    <!--
+      Replace the placeholder below with:
 
-    <section class="intro">
-      <p>I’m <strong>Your Name</strong>, an artist, designer, and researcher based between two cities. My work explores online culture, publishing, performance, and the social life of technology.</p>
+      <img
+        src="assets/featured-image.jpg"
+        alt="A concise description of the featured image"
+      >
+    -->
 
-      <p>Below you’ll find selected highlights and current projects. For a comprehensive list of work, talks, exhibitions, and press, view my <a href="#cv">CV spreadsheet</a>.</p>
+    <div class="image-placeholder" aria-hidden="true">
+      <span>Featured image placeholder</span>
+    </div>
 
-      <p>Otherwise, continue reading for the latest collaborations…</p>
-    </section>
+    <div class="image-caption">
+      <span>Your Name</span>
+      <span>Image credit / year</span>
+    </div>
+  </aside>
 
-    <section class="project" id="project-one">
-      <header class="project-header">
-        <h2><a href="#">PROJECT ONE (lecture performance)</a></h2>
+  <!-- LEFT HALF: SCROLLING PORTFOLIO -->
+  <div class="portfolio">
+    <main class="page">
+      <nav class="linkbar" aria-label="Primary">
+        <a class="button" href="#cv">CV spreadsheet ↗</a>
+        <a class="button" href="#social">Instagram ↗</a>
+        <a class="button" href="mailto:you@example.com">
+          you@example.com ↗
+        </a>
+        <a class="button" href="#archive">Are.na ↗</a>
+      </nav>
 
-        <div class="project-links">
-          <a class="button" href="#">project-site.example ↗</a>
-          <a class="button" href="#">performance archive ↗</a>
-          <a class="button" href="#">media kit ↗</a>
+      <section class="intro">
+        <p>
+          I’m <strong>Your Name</strong>, an artist, designer, and
+          researcher based between two cities. My work explores online
+          culture, publishing, performance, and the social life of
+          technology.
+        </p>
+
+        <p>
+          Below you’ll find selected highlights and current projects. For
+          a comprehensive list of work, talks, exhibitions, and press,
+          view my <a href="#cv">CV spreadsheet</a>.
+        </p>
+
+        <p>Otherwise, continue reading for the latest collaborations…</p>
+      </section>
+
+      <section class="project" id="project-one">
+        <header class="project-header">
+          <h2>
+            <a href="#">PROJECT ONE (lecture performance)</a>
+          </h2>
+
+          <div class="project-links">
+            <a class="button" href="#">project website ↗</a>
+            <a class="button" href="#">performance archive ↗</a>
+            <a class="button" href="#">media kit ↗</a>
+          </div>
+        </header>
+
+        <p>
+          This live project uses ordinary networked devices as a shared
+          reading surface. Audience members receive synchronized fragments
+          that become a distributed script performed together in real time.
+        </p>
+
+        <p>
+          The project has appeared at museums, schools, artist-run spaces,
+          and digital-culture festivals. Replace this paragraph with your
+          current dates, collaborators, or context.
+        </p>
+
+        <p>
+          Developed with collaborators across performance, design,
+          software, and publishing.
+        </p>
+
+        <div class="media-grid three">
+          <figure>
+            <img
+              src="assets/photo-01.svg"
+              alt="Documentation of Project One"
+            >
+            <figcaption>2026, Venue One — photo credit</figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="assets/photo-02.svg"
+              alt="Documentation of Project One"
+            >
+            <figcaption>2026, Venue Two — photo credit</figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="assets/photo-03.svg"
+              alt="Documentation of Project One"
+            >
+            <figcaption>2025, Venue Three — photo credit</figcaption>
+          </figure>
         </div>
-      </header>
+      </section>
 
-      <p>This live project uses ordinary networked devices as a shared reading surface. Audience members receive synchronized fragments that become a distributed script performed together in real time.</p>
+      <section class="project" id="project-two">
+        <header class="project-header">
+          <h2><a href="#">PROJECT ONE (book)</a></h2>
 
-      <p>The project has appeared at museums, schools, artist-run spaces, and digital-culture festivals. Replace this paragraph with your current tour dates, collaborators, or context.</p>
+          <div class="project-links">
+            <a class="button" href="#">buy the book ↗</a>
+            <a class="button" href="#">project notes ↗</a>
+            <a class="button" href="#">design talks ↗</a>
+          </div>
+        </header>
 
-      <p>Developed with collaborators across performance, design, software, and publishing.</p>
+        <p>
+          This publication translates the performance into a compact
+          printed object. Its format, typography, and sequencing are
+          designed around the physical gestures of scrolling, swiping,
+          and citation.
+        </p>
 
-      <div class="media-grid three">
-        <figure>
-          <img src="assets/photo-01.svg" alt="Placeholder performance image">
-          <figcaption>2026, Venue One — photo credit</figcaption>
-        </figure>
+        <p>
+          Designed and edited with collaborators. Add acknowledgements
+          and production credits here.
+        </p>
 
-        <figure>
-          <img src="assets/photo-02.svg" alt="Placeholder performance image">
-          <figcaption>2026, Venue Two — photo credit</figcaption>
-        </figure>
+        <div class="media-grid three">
+          <figure>
+            <img src="assets/book-01.svg" alt="Book cover">
+            <figcaption>Art direction / photography credit</figcaption>
+          </figure>
 
-        <figure>
-          <img src="assets/photo-03.svg" alt="Placeholder performance image">
-          <figcaption>2025, Venue Three — photo credit</figcaption>
-        </figure>
-      </div>
-    </section>
+          <figure>
+            <img src="assets/book-02.svg" alt="Interior book spread">
+            <figcaption>Interior spread</figcaption>
+          </figure>
 
-    <section class="project" id="project-two">
-      <header class="project-header">
-        <h2><a href="#">PROJECT ONE (book)</a></h2>
-
-        <div class="project-links">
-          <a class="button" href="#">buy the book ↗</a>
-          <a class="button" href="#">project notes ↗</a>
-          <a class="button" href="#">design talks ↗</a>
+          <figure>
+            <img src="assets/book-03.svg" alt="Book detail">
+            <figcaption>Detail</figcaption>
+          </figure>
         </div>
-      </header>
+      </section>
 
-      <p>This publication translates the performance into a compact printed object. Its format, typography, and sequencing are designed around the physical gestures of scrolling, swiping, and citation.</p>
+      <section class="project" id="project-three">
+        <header class="project-header">
+          <h2>
+            <a href="#">PROJECT TWO (lecture performance)</a>
+          </h2>
 
-      <p>Designed and edited with collaborators. Add acknowledgements and production credits here.</p>
+          <div class="project-links">
+            <a class="button" href="#">tour archive ↗</a>
+          </div>
+        </header>
 
-      <div class="media-grid three">
-        <figure>
-          <img src="assets/book-01.svg" alt="Placeholder book image">
-          <figcaption>Art direction / photography credit</figcaption>
-        </figure>
+        <p>
+          A research-driven lecture performance built from an evolving
+          archive. The project moves between oral history, visual
+          research, web culture, and live annotation.
+        </p>
 
-        <figure>
-          <img src="assets/book-02.svg" alt="Placeholder book image">
-          <figcaption>Interior spread</figcaption>
-        </figure>
+        <p>
+          Use this area for residency history, tour context,
+          documentation links, and collaborators.
+        </p>
 
-        <figure>
-          <img src="assets/book-03.svg" alt="Placeholder book image">
-          <figcaption>Detail</figcaption>
-        </figure>
-      </div>
-    </section>
+        <div class="media-grid three">
+          <figure>
+            <img src="assets/event-01.svg" alt="Project event">
+            <figcaption>2025, Museum A</figcaption>
+          </figure>
 
-    <section class="project" id="project-three">
-      <header class="project-header">
-        <h2><a href="#">PROJECT TWO (lecture performance)</a></h2>
+          <figure>
+            <img src="assets/event-02.svg" alt="Project event">
+            <figcaption>2025, Arts Center B</figcaption>
+          </figure>
 
-        <div class="project-links">
-          <a class="button" href="#">tour archive ↗</a>
+          <figure>
+            <img src="assets/event-03.svg" alt="Project event">
+            <figcaption>2024, Gallery C</figcaption>
+          </figure>
         </div>
-      </header>
+      </section>
 
-      <p>A research-driven lecture performance built from an evolving archive. The project moves between oral history, visual research, web culture, and live annotation.</p>
+      <section class="project" id="project-four">
+        <header class="project-header">
+          <h2>
+            <a href="#">PROJECT TWO (book + website)</a>
+          </h2>
 
-      <p>Use this area for residency history, tour context, documentation links, and collaborators.</p>
+          <div class="project-links">
+            <a class="button" href="#">buy the book ↗</a>
+          </div>
+        </header>
 
-      <div class="media-grid three">
-        <figure>
-          <img src="assets/event-01.svg" alt="Placeholder event image">
-          <figcaption>2025, Museum A</figcaption>
-        </figure>
+        <p>
+          An encyclopedic publication and online research index made with
+          editors, designers, developers, and contributors. The website
+          is treated as a living publication rather than a product
+          interface.
+        </p>
 
-        <figure>
-          <img src="assets/event-02.svg" alt="Placeholder event image">
-          <figcaption>2025, Arts Center B</figcaption>
-        </figure>
+        <p>
+          Use this paragraph for publisher, commissioning body, design,
+          development, grants, and editorial credits.
+        </p>
 
-        <figure>
-          <img src="assets/event-03.svg" alt="Placeholder event image">
-          <figcaption>2024, Gallery C</figcaption>
-        </figure>
-      </div>
-    </section>
+        <div class="media-grid three">
+          <figure>
+            <img src="assets/archive-01.svg" alt="Book documentation">
+            <figcaption>Book documentation</figcaption>
+          </figure>
 
-    <section class="project" id="project-four">
-      <header class="project-header">
-        <h2><a href="#">PROJECT TWO (book + website)</a></h2>
+          <figure>
+            <img src="assets/archive-02.svg" alt="Website documentation">
+            <figcaption>Website documentation</figcaption>
+          </figure>
 
-        <div class="project-links">
-          <a class="button" href="#">buy the book ↗</a>
+          <figure>
+            <img src="assets/archive-03.svg" alt="Public program">
+            <figcaption>Public program</figcaption>
+          </figure>
         </div>
-      </header>
+      </section>
 
-      <p>An encyclopedic publication and online research index made with editors, designers, developers, and contributors. The website is treated as a living publication rather than a product interface.</p>
+      <section class="list-section" id="writing">
+        <h2>SELECTED WRITING</h2>
 
-      <p>Use this paragraph for publisher, commissioning body, design, development, grants, and editorial credits.</p>
+        <p>
+          For all texts, view the “Writing” tab of my
+          <a href="#cv">CV spreadsheet</a>.
+        </p>
 
-      <div class="media-grid three">
-        <figure>
-          <img src="assets/archive-01.svg" alt="Placeholder archive image">
-          <figcaption>Book documentation</figcaption>
-        </figure>
+        <ul>
+          <li>upcoming, Publication A, “Essay on networks and attention”</li>
+          <li>
+            Journal B,
+            <a href="#">“The Interface as Social Space”</a>
+          </li>
+          <li>Museum C, conversation with Artist One</li>
+          <li>
+            Magazine D,
+            <a href="#">“Notes on Digital Memory”</a>
+          </li>
+          <li>Publisher E, contribution to an edited volume</li>
+          <li>Platform F, interview with Artist Two</li>
+        </ul>
 
-        <figure>
-          <img src="assets/archive-02.svg" alt="Placeholder archive image">
-          <figcaption>Website documentation</figcaption>
-        </figure>
+        <div class="media-grid five compact">
+          <img src="assets/thumb-01.svg" alt="Publication cover">
+          <img src="assets/thumb-02.svg" alt="Publication cover">
+          <img src="assets/thumb-03.svg" alt="Publication cover">
+          <img src="assets/thumb-04.svg" alt="Publication cover">
+          <img src="assets/thumb-05.svg" alt="Publication cover">
+        </div>
+      </section>
 
-        <figure>
-          <img src="assets/archive-03.svg" alt="Placeholder archive image">
-          <figcaption>Public program</figcaption>
-        </figure>
-      </div>
-    </section>
+      <section class="list-section" id="press">
+        <h2>SELECTED PRESS</h2>
 
-    <section class="list-section" id="writing">
-      <h2>SELECTED WRITING</h2>
+        <p>
+          All features can be found in the “Press” tab of my
+          <a href="#cv">CV spreadsheet</a>.
+        </p>
 
-      <p>For all texts, view the “Writing” tab of my <a href="#cv">CV spreadsheet</a>.</p>
+        <ul>
+          <li><a href="#">Publication One</a> by Writer A</li>
+          <li><a href="#">Publication Two</a> by Writer B</li>
+          <li><a href="#">Publication Three</a> by Writer C</li>
+          <li><a href="#">Publication Four</a> by Writer D</li>
+          <li><a href="#">Publication Five</a> by Writer E</li>
+          <li><a href="#">Podcast Six</a>, conversation</li>
+        </ul>
+      </section>
 
-      <ul>
-        <li>upcoming, Publication A, “Essay on networks and attention”</li>
-        <li>Journal B, <a href="#">“The Interface as Social Space”</a></li>
-        <li>Museum C, conversation with Artist One</li>
-        <li>Magazine D, <a href="#">“Notes on Digital Memory”</a></li>
-        <li>Publisher E, contribution to an edited volume</li>
-        <li>Platform F, interview with Artist Two</li>
-      </ul>
+      <section class="list-section" id="praise">
+        <h2>SELECTED PRAISE</h2>
 
-      <div class="media-grid five compact">
-        <img src="assets/thumb-01.svg" alt="Publication placeholder">
-        <img src="assets/thumb-02.svg" alt="Publication placeholder">
-        <img src="assets/thumb-03.svg" alt="Publication placeholder">
-        <img src="assets/thumb-04.svg" alt="Publication placeholder">
-        <img src="assets/thumb-05.svg" alt="Publication placeholder">
-      </div>
-    </section>
+        <ul class="quotes">
+          <li>
+            “A generous model for thinking publicly through archives and
+            networks.” — Publication One
+          </li>
+          <li>
+            “The work moves fluidly between research, performance, and
+            publishing.” — Publication Two
+          </li>
+          <li>
+            “A precise and playful approach to the social history of
+            technology.” — Publication Three
+          </li>
+        </ul>
+      </section>
 
-    <section class="list-section" id="press">
-      <h2>SELECTED PRESS</h2>
+      <section class="list-section" id="teaching">
+        <h2>TEACHING</h2>
 
-      <p>All features can be found in the “Press” tab of my <a href="#cv">CV spreadsheet</a>.</p>
+        <p>
+          I teach courses and workshops on design, publishing, network
+          culture, archives, and experimental websites. View my
+          <a href="#">teaching portal</a> for syllabi and workshop
+          materials.
+        </p>
+      </section>
 
-      <ul>
-        <li><a href="#">Publication One</a> by Writer A</li>
-        <li><a href="#">Publication Two</a> by Writer B</li>
-        <li><a href="#">Publication Three</a> by Writer C</li>
-        <li><a href="#">Publication Four</a> by Writer D</li>
-        <li><a href="#">Publication Five</a> by Writer E</li>
-        <li><a href="#">Podcast Six</a>, conversation</li>
-      </ul>
+      <footer id="archive">
+        <p>
+          This website was last updated on 17 September 2026.
+          <a href="archive.html">View the previous update</a>.
+        </p>
 
-      <div class="media-grid seven compact">
-        <img src="assets/press-01.svg" alt="Press placeholder">
-        <img src="assets/press-02.svg" alt="Press placeholder">
-        <img src="assets/press-03.svg" alt="Press placeholder">
-        <img src="assets/press-04.svg" alt="Press placeholder">
-        <img src="assets/press-05.svg" alt="Press placeholder">
-        <img src="assets/press-06.svg" alt="Press placeholder">
-        <img src="assets/press-07.svg" alt="Press placeholder">
-      </div>
-    </section>
-
-    <section class="list-section" id="praise">
-      <h2>SELECTED PRAISE</h2>
-
-      <ul class="quotes">
-        <li>“A generous model for thinking publicly through archives and networks.” — Publication One</li>
-        <li>“The work moves fluidly between research, performance, and publishing.” — Publication Two</li>
-        <li>“A precise and playful approach to the social history of technology.” — Publication Three</li>
-      </ul>
-    </section>
-
-    <section class="list-section" id="teaching">
-      <h2>TEACHING</h2>
-
-      <p>I teach courses and workshops on design, publishing, network culture, archives, and experimental websites. View my <a href="#">teaching portal</a> for syllabi and workshop materials.</p>
-    </section>
-
-    <footer id="archive">
-      <p>
-        This website was last updated on 16 September 2026.
-        <a href="archive.html">View the previous update</a>.
-      </p>
-
-      <p>
-        This website is intentionally simple and designed for easy maintenance.
-        Replace this sentence with your own licensing and attribution language.
-      </p>
-    </footer>
-  </main>
+        <p>
+          This website is intentionally simple and designed for easy
+          maintenance.
+        </p>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
