@@ -4,18 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Your Name — website in progress</title>
+  <title>Mohamed Benmansour — Research & Design</title>
   <meta
     name="description"
-    content="A simple, archival artist portfolio website."
+    content="Academic portfolio of designer and researcher Mohamed Benmansour."
   >
 
   <style>
     :root {
-      --background: #d8d8d5;
+      --background: #d9d9d6;
       --foreground: #111;
-      --rule: #8c8c88;
-      --placeholder: #c8c8c4;
+      --muted: #555753;
+      --line: #8f918c;
+      --surface: #cececa;
     }
 
     * {
@@ -41,31 +42,21 @@
       text-underline-offset: 2px;
     }
 
-    /*
-      SPLIT LAYOUT
-      The portfolio scrolls on the left.
-      The image remains fixed on the right.
-    */
+    /* Two equal halves */
 
-    .portfolio {
+    .text-panel {
       width: 50%;
       min-height: 100vh;
       border-right: 1px solid var(--foreground);
     }
 
-    .page {
-      width: 100%;
-      padding: 16px 15px 70px;
-    }
-
     .image-panel {
       position: fixed;
-      top: 0;
-      right: 0;
+      inset: 0 0 0 auto;
       width: 50%;
       height: 100vh;
       overflow: hidden;
-      background: var(--placeholder);
+      background: #c8c8c4;
     }
 
     .image-panel img {
@@ -74,11 +65,11 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+      filter: grayscale(100%);
     }
 
     /*
-      Displayed until you replace it with a real image.
-      Delete this element after adding your <img>.
+      Remove this placeholder after adding your image.
     */
 
     .image-placeholder {
@@ -86,9 +77,8 @@
       inset: 0;
       display: grid;
       place-items: center;
-      padding: 30px;
-      color: #555;
-      text-align: center;
+      overflow: hidden;
+      color: var(--muted);
       font-size: 12px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -98,41 +88,44 @@
     .image-placeholder::after {
       position: absolute;
       content: "";
-      background: var(--rule);
+      width: 1px;
+      height: 150%;
+      background: var(--line);
     }
 
     .image-placeholder::before {
-      width: 1px;
-      height: 140%;
       transform: rotate(45deg);
     }
 
     .image-placeholder::after {
-      width: 1px;
-      height: 140%;
       transform: rotate(-45deg);
     }
 
     .image-placeholder span {
       position: relative;
       z-index: 1;
-      padding: 8px 11px;
-      background: var(--placeholder);
-      border: 1px solid var(--rule);
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: #c8c8c4;
     }
 
     .image-caption {
       position: absolute;
-      right: 12px;
+      right: 14px;
       bottom: 12px;
-      left: 12px;
+      left: 14px;
       z-index: 2;
       display: flex;
       justify-content: space-between;
       gap: 20px;
       font-size: 11px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
+    }
+
+    .page {
+      width: 100%;
+      padding: 15px 16px 70px;
     }
 
     .linkbar,
@@ -161,12 +154,12 @@
 
     .intro {
       max-width: 760px;
-      padding: 58px 0 76px;
+      padding: 58px 0 75px;
     }
 
     .intro p {
       margin: 0 0 1.1em;
-      font-size: clamp(20px, 2.1vw, 29px);
+      font-size: clamp(20px, 2vw, 29px);
       line-height: 1.25;
     }
 
@@ -197,22 +190,16 @@
       margin: 0 0 1em;
     }
 
+    .project-meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .media-grid {
       display: grid;
-      gap: 7px;
-      margin-top: 32px;
-    }
-
-    .media-grid.three {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .media-grid.five {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-
-    .media-grid.seven {
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 7px;
+      margin-top: 30px;
     }
 
     figure {
@@ -220,41 +207,71 @@
       margin: 0;
     }
 
-    figure img,
-    .compact img {
+    figure img {
       display: block;
       width: 100%;
       aspect-ratio: 4 / 3;
-      border: 1px solid var(--rule);
-      background: var(--placeholder);
+      border: 1px solid var(--line);
+      background: var(--surface);
       object-fit: cover;
+      filter: grayscale(100%);
     }
 
     figcaption {
       margin-top: 5px;
-      color: #444;
+      color: var(--muted);
       font-size: 11px;
     }
 
     .list-section ul {
-      max-width: 900px;
-      margin: 30px 0;
+      max-width: 850px;
+      margin: 30px 0 0;
       padding: 0;
       list-style: none;
     }
 
     .list-section li {
-      padding: 3px 0;
+      padding: 4px 0;
     }
 
-    .compact img {
-      aspect-ratio: 5 / 7;
+    .cv {
+      margin-top: 30px;
     }
 
-    .quotes li {
-      max-width: 760px;
-      margin-bottom: 15px;
-      font-size: 17px;
+    .cv-row {
+      display: grid;
+      grid-template-columns: 125px 1fr;
+      gap: 18px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .cv-row:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cv-date {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cv-row p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .status {
+      margin-top: 35px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status::before {
+      margin-right: 6px;
+      content: "●";
+      font-size: 10px;
     }
 
     footer {
@@ -265,42 +282,33 @@
     }
 
     footer p {
-      margin: 0 0 10px;
+      margin: 0 0 9px;
     }
 
-    /*
-      MOBILE
-      The image moves above the portfolio.
-    */
+    /* Tablet and mobile */
 
-    @media (max-width: 800px) {
-      .portfolio {
-        width: 100%;
-        border-right: 0;
-      }
-
-      .image-panel {
-        position: relative;
-        width: 100%;
-        height: min(70vh, 620px);
-        border-bottom: 1px solid var(--foreground);
-      }
-
+    @media (max-width: 850px) {
       body {
         display: flex;
         flex-direction: column;
       }
 
       .image-panel {
+        position: relative;
         order: 1;
+        width: 100%;
+        height: min(70vh, 650px);
+        border-bottom: 1px solid var(--foreground);
       }
 
-      .portfolio {
+      .text-panel {
         order: 2;
+        width: 100%;
+        border-right: 0;
       }
 
       .intro {
-        padding: 46px 0 60px;
+        padding: 45px 0 60px;
       }
 
       .project-header {
@@ -311,30 +319,21 @@
       .project-links {
         margin-top: 10px;
       }
-
-      .media-grid.three {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .media-grid.five,
-      .media-grid.seven {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 560px) {
       .page {
         padding-right: 10px;
         padding-left: 10px;
       }
 
-      .media-grid.three {
+      .media-grid {
         grid-template-columns: 1fr;
       }
 
-      .media-grid.five,
-      .media-grid.seven {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .cv-row {
+        grid-template-columns: 1fr;
+        gap: 3px;
       }
     }
 
@@ -347,324 +346,378 @@
 </head>
 
 <body>
-  <!-- RIGHT HALF: FEATURED IMAGE -->
-  <aside class="image-panel" aria-label="Featured image">
-    <!--
-      Replace the placeholder below with:
-
-      <img
-        src="assets/featured-image.jpg"
-        alt="A concise description of the featured image"
-      >
+  <!-- Fixed image half -->
+  <aside class="image-panel" aria-label="Featured research image">
+    <!-- Replace the placeholder with:
+    <img
+      src="assets/featured-image.jpg"
+      alt="Description of the featured research image"
+    >
     -->
 
     <div class="image-placeholder" aria-hidden="true">
-      <span>Featured image placeholder</span>
+      <span>Featured image</span>
     </div>
 
     <div class="image-caption">
-      <span>Your Name</span>
+      <span>Selected research documentation</span>
       <span>Image credit / year</span>
     </div>
   </aside>
 
-  <!-- LEFT HALF: SCROLLING PORTFOLIO -->
-  <div class="portfolio">
+  <!-- Scrolling professor-style portfolio -->
+  <div class="text-panel">
     <main class="page">
       <nav class="linkbar" aria-label="Primary">
-        <a class="button" href="#cv">CV spreadsheet ↗</a>
-        <a class="button" href="#social">Instagram ↗</a>
-        <a class="button" href="mailto:you@example.com">
-          you@example.com ↗
-        </a>
-        <a class="button" href="#archive">Are.na ↗</a>
+        <a class="button" href="#projects">projects ↗</a>
+        <a class="button" href="#writing">papers ↗</a>
+        <a class="button" href="#cv">CV ↗</a>
+        <a class="button" href="mailto:hello@example.com">email ↗</a>
       </nav>
 
       <section class="intro">
         <p>
-          I’m <strong>Your Name</strong>, an artist, designer, and
-          researcher based between two cities. My work explores online
-          culture, publishing, performance, and the social life of
-          technology.
+          I’m <strong>Mohamed Benmansour</strong>, a student, designer,
+          and researcher working across architecture, computation, and
+          social inquiry.
         </p>
 
         <p>
-          Below you’ll find selected highlights and current projects. For
-          a comprehensive list of work, talks, exhibitions, and press,
-          view my <a href="#cv">CV spreadsheet</a>.
+          My research examines how governance, cultural knowledge, and
+          technical systems become spatial rules. My work combines
+          fieldwork, writing, mapping, archival research, and
+          computational design.
         </p>
 
-        <p>Otherwise, continue reading for the latest collaborations…</p>
+        <p>
+          Below are selected projects and papers. For a comprehensive
+          record of research, talks, education, and experience, see my
+          <a href="#cv">CV</a>.
+        </p>
       </section>
 
-      <section class="project" id="project-one">
+      <section class="project" id="projects">
         <header class="project-header">
           <h2>
-            <a href="#">PROJECT ONE (lecture performance)</a>
+            <a href="#">
+              ALGORITHMIC THRESHOLDS OF ACCESS (research series)
+            </a>
           </h2>
 
           <div class="project-links">
-            <a class="button" href="#">project website ↗</a>
-            <a class="button" href="#">performance archive ↗</a>
-            <a class="button" href="#">media kit ↗</a>
+            <a class="button" href="#writing">paper ↗</a>
+            <a class="button" href="mailto:hello@example.com">
+              request dossier ↗
+            </a>
           </div>
         </header>
 
         <p>
-          This live project uses ordinary networked devices as a shared
-          reading surface. Audience members receive synchronized fragments
-          that become a distributed script performed together in real time.
+          This ongoing project traces how eligibility, waiting, and
+          intake procedures become spatial systems. Field notes document
+          queues, counters, forms, time windows, partitions, and points
+          where access can fail.
         </p>
 
         <p>
-          The project has appeared at museums, schools, artist-run spaces,
-          and digital-culture festivals. Replace this paragraph with your
-          current dates, collaborators, or context.
+          Rather than treating these environments as neutral, the
+          research reads the built world as procedural code: a system
+          that sorts bodies and distributes access unevenly.
         </p>
 
-        <p>
-          Developed with collaborators across performance, design,
-          software, and publishing.
+        <p class="project-meta">
+          Washington, DC · 2025–ongoing · field research, mapping,
+          writing
         </p>
 
-        <div class="media-grid three">
+        <div class="media-grid">
           <figure>
             <img
-              src="assets/photo-01.svg"
-              alt="Documentation of Project One"
+              src="assets/access-01.jpg"
+              alt="Plan documenting an institutional access sequence"
             >
-            <figcaption>2026, Venue One — photo credit</figcaption>
+            <figcaption>Access sequence map, 2025</figcaption>
           </figure>
 
           <figure>
             <img
-              src="assets/photo-02.svg"
-              alt="Documentation of Project One"
+              src="assets/access-02.jpg"
+              alt="Field documentation of an institutional threshold"
             >
-            <figcaption>2026, Venue Two — photo credit</figcaption>
+            <figcaption>Threshold documentation, 2025</figcaption>
           </figure>
 
           <figure>
             <img
-              src="assets/photo-03.svg"
-              alt="Documentation of Project One"
+              src="assets/access-03.jpg"
+              alt="Diagram of an administrative procedure"
             >
-            <figcaption>2025, Venue Three — photo credit</figcaption>
+            <figcaption>Procedural model, 2025</figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="project" id="project-two">
-        <header class="project-header">
-          <h2><a href="#">PROJECT ONE (book)</a></h2>
-
-          <div class="project-links">
-            <a class="button" href="#">buy the book ↗</a>
-            <a class="button" href="#">project notes ↗</a>
-            <a class="button" href="#">design talks ↗</a>
-          </div>
-        </header>
-
-        <p>
-          This publication translates the performance into a compact
-          printed object. Its format, typography, and sequencing are
-          designed around the physical gestures of scrolling, swiping,
-          and citation.
-        </p>
-
-        <p>
-          Designed and edited with collaborators. Add acknowledgements
-          and production credits here.
-        </p>
-
-        <div class="media-grid three">
-          <figure>
-            <img src="assets/book-01.svg" alt="Book cover">
-            <figcaption>Art direction / photography credit</figcaption>
-          </figure>
-
-          <figure>
-            <img src="assets/book-02.svg" alt="Interior book spread">
-            <figcaption>Interior spread</figcaption>
-          </figure>
-
-          <figure>
-            <img src="assets/book-03.svg" alt="Book detail">
-            <figcaption>Detail</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="project" id="project-three">
+      <section class="project">
         <header class="project-header">
           <h2>
-            <a href="#">PROJECT TWO (lecture performance)</a>
+            <a href="#">
+              THE CORRIDOR IS AN ALGORITHM (comparative field study)
+            </a>
           </h2>
 
           <div class="project-links">
-            <a class="button" href="#">tour archive ↗</a>
+            <a class="button" href="#writing">related paper ↗</a>
+            <a class="button" href="mailto:hello@example.com">
+              project notes ↗
+            </a>
           </div>
         </header>
 
         <p>
-          A research-driven lecture performance built from an evolving
-          archive. The project moves between oral history, visual
-          research, web culture, and live annotation.
+          A comparative study of institutional interiors focused on
+          routing, sightlines, checkpoints, waiting nodes, staff-only
+          boundaries, and the spatial habits that precede direct
+          instruction.
         </p>
 
         <p>
-          Use this area for residency history, tour context,
-          documentation links, and collaborators.
+          The project combines annotated plans, photographic
+          documentation, and writing to understand circulation as a form
+          of governance.
         </p>
 
-        <div class="media-grid three">
+        <p class="project-meta">
+          Baltimore, Maryland · 2024–2025 · spatial analysis and field
+          documentation
+        </p>
+
+        <div class="media-grid">
           <figure>
-            <img src="assets/event-01.svg" alt="Project event">
-            <figcaption>2025, Museum A</figcaption>
+            <img
+              src="assets/corridor-01.jpg"
+              alt="Diagram of institutional circulation"
+            >
+            <figcaption>Circulation study</figcaption>
           </figure>
 
           <figure>
-            <img src="assets/event-02.svg" alt="Project event">
-            <figcaption>2025, Arts Center B</figcaption>
+            <img
+              src="assets/corridor-02.jpg"
+              alt="Study of institutional sightlines"
+            >
+            <figcaption>Visibility study</figcaption>
           </figure>
 
           <figure>
-            <img src="assets/event-03.svg" alt="Project event">
-            <figcaption>2024, Gallery C</figcaption>
+            <img
+              src="assets/corridor-03.jpg"
+              alt="Documentation of institutional boundaries"
+            >
+            <figcaption>Boundary index</figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="project" id="project-four">
+      <section class="project">
         <header class="project-header">
           <h2>
-            <a href="#">PROJECT TWO (book + website)</a>
+            <a href="#">
+              ETHNOMATHEMATICS OF REPAIR (archive and methods project)
+            </a>
           </h2>
 
           <div class="project-links">
-            <a class="button" href="#">buy the book ↗</a>
+            <a class="button" href="#writing">methods paper ↗</a>
+            <a class="button" href="mailto:hello@example.com">
+              archive notes ↗
+            </a>
           </div>
         </header>
 
         <p>
-          An encyclopedic publication and online research index made with
-          editors, designers, developers, and contributors. The website
-          is treated as a living publication rather than a product
-          interface.
+          An archive of informal repair practices that reads
+          measurement, fit, tolerance, sequence, and improvisation as
+          situated mathematical knowledge.
         </p>
 
         <p>
-          Use this paragraph for publisher, commissioning body, design,
-          development, grants, and editorial credits.
+          The work asks how expertise produced through necessity and
+          care can be documented without flattening it into institutional
+          categories.
         </p>
 
-        <div class="media-grid three">
-          <figure>
-            <img src="assets/archive-01.svg" alt="Book documentation">
-            <figcaption>Book documentation</figcaption>
-          </figure>
+        <p class="project-meta">
+          DC–Baltimore region · 2024–ongoing · archive, protocol, and
+          interviews
+        </p>
+      </section>
 
-          <figure>
-            <img src="assets/archive-02.svg" alt="Website documentation">
-            <figcaption>Website documentation</figcaption>
-          </figure>
+      <section class="project">
+        <header class="project-header">
+          <h2>
+            <a href="#">
+              deBUILD (research archive and publishing system)
+            </a>
+          </h2>
 
-          <figure>
-            <img src="assets/archive-03.svg" alt="Public program">
-            <figcaption>Public program</figcaption>
-          </figure>
-        </div>
+          <div class="project-links">
+            <a class="button" href="#">project index ↗</a>
+          </div>
+        </header>
+
+        <p>
+          A computational archive for comparable socio-spatial
+          casework. Each entry joins observation, analysis, diagrams,
+          images, and references in a stable structure.
+        </p>
+
+        <p>
+          The website is treated as research infrastructure rather than
+          a promotional surface: a place where methods remain visible
+          and knowledge can accumulate over time.
+        </p>
+
+        <p class="project-meta">
+          Digital · 2023–ongoing · editorial system, web design, and
+          research
+        </p>
       </section>
 
       <section class="list-section" id="writing">
         <h2>SELECTED WRITING</h2>
 
         <p>
-          For all texts, view the “Writing” tab of my
-          <a href="#cv">CV spreadsheet</a>.
+          Abstracts, drafts, and citation details are available upon
+          request.
         </p>
 
         <ul>
-          <li>upcoming, Publication A, “Essay on networks and attention”</li>
           <li>
-            Journal B,
-            <a href="#">“The Interface as Social Space”</a>
+            forthcoming, “Algorithmic Access: How Eligibility Becomes
+            Architecture”
           </li>
-          <li>Museum C, conversation with Artist One</li>
           <li>
-            Magazine D,
-            <a href="#">“Notes on Digital Memory”</a>
+            2025, “Ethnomathematics in the Built World”
           </li>
-          <li>Publisher E, contribution to an edited volume</li>
-          <li>Platform F, interview with Artist Two</li>
+          <li>
+            2024, “The Corridor Is an Algorithm”
+          </li>
+          <li>
+            2024, “Toward Comparable Decolonial Casework”
+          </li>
         </ul>
+      </section>
 
-        <div class="media-grid five compact">
-          <img src="assets/thumb-01.svg" alt="Publication cover">
-          <img src="assets/thumb-02.svg" alt="Publication cover">
-          <img src="assets/thumb-03.svg" alt="Publication cover">
-          <img src="assets/thumb-04.svg" alt="Publication cover">
-          <img src="assets/thumb-05.svg" alt="Publication cover">
+      <section class="list-section" id="cv">
+        <h2>SELECTED EXPERIENCE</h2>
+
+        <p>
+          A condensed curriculum vitae. A complete CV with affiliations,
+          talks, education, and references is available upon request.
+        </p>
+
+        <div class="cv">
+          <div class="cv-row">
+            <div class="cv-date">2023–present</div>
+
+            <div>
+              <strong>Founder and editor, deBUILD</strong>
+              <p>
+                Archive structure, case indexing, computational diagrams,
+                and editorial standards.
+              </p>
+            </div>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-date">2024–present</div>
+
+            <div>
+              <strong>Independent spatial researcher</strong>
+              <p>
+                Housing access, civic interiors, institutional routing,
+                and public infrastructure.
+              </p>
+            </div>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-date">2025</div>
+
+            <div>
+              <strong>Algorithms of Governance</strong>
+              <p>
+                Lecture on architecture as procedural and computational
+                space.
+              </p>
+            </div>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-date">2024</div>
+
+            <div>
+              <strong>Ethnomathematics and Architecture</strong>
+              <p>
+                Presentation on plural spatial reasoning and informal
+                systems of knowledge.
+              </p>
+            </div>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-date">Current</div>
+
+            <div>
+              <strong>
+                Architecture, computational design, and social theory
+              </strong>
+              <p>Interdisciplinary, practice-led study and research.</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="list-section" id="press">
-        <h2>SELECTED PRESS</h2>
-
-        <p>
-          All features can be found in the “Press” tab of my
-          <a href="#cv">CV spreadsheet</a>.
-        </p>
+      <section class="list-section">
+        <h2>RESEARCH INTERESTS</h2>
 
         <ul>
-          <li><a href="#">Publication One</a> by Writer A</li>
-          <li><a href="#">Publication Two</a> by Writer B</li>
-          <li><a href="#">Publication Three</a> by Writer C</li>
-          <li><a href="#">Publication Four</a> by Writer D</li>
-          <li><a href="#">Publication Five</a> by Writer E</li>
-          <li><a href="#">Podcast Six</a>, conversation</li>
+          <li>computational architecture and procedural space</li>
+          <li>ethnomathematics and informal knowledge systems</li>
+          <li>institutional thresholds and administrative friction</li>
+          <li>decolonial methods for spatial documentation</li>
+          <li>archives, publishing, and research infrastructure</li>
         </ul>
       </section>
 
-      <section class="list-section" id="praise">
-        <h2>SELECTED PRAISE</h2>
-
-        <ul class="quotes">
-          <li>
-            “A generous model for thinking publicly through archives and
-            networks.” — Publication One
-          </li>
-          <li>
-            “The work moves fluidly between research, performance, and
-            publishing.” — Publication Two
-          </li>
-          <li>
-            “A precise and playful approach to the social history of
-            technology.” — Publication Three
-          </li>
-        </ul>
-      </section>
-
-      <section class="list-section" id="teaching">
-        <h2>TEACHING</h2>
+      <section class="list-section" id="contact">
+        <h2>CONTACT</h2>
 
         <p>
-          I teach courses and workshops on design, publishing, network
-          culture, archives, and experimental websites. View my
-          <a href="#">teaching portal</a> for syllabi and workshop
-          materials.
+          I’m open to research collaborations, workshops, writing, and
+          conversations around adjacent work.
         </p>
+
+        <div class="linkbar">
+          <a class="button" href="mailto:hello@example.com">
+            hello@example.com ↗
+          </a>
+          <a class="button" href="#">LinkedIn ↗</a>
+          <a class="button" href="#">Are.na ↗</a>
+          <a class="button" href="#cv">CV ↗</a>
+        </div>
+
+        <p class="status">Available for selected collaborations</p>
       </section>
 
-      <footer id="archive">
+      <footer>
         <p>
           This website was last updated on 17 September 2026.
-          <a href="archive.html">View the previous update</a>.
         </p>
 
         <p>
-          This website is intentionally simple and designed for easy
-          maintenance.
+          Text and research © 2026 Mohamed Benmansour. Images remain
+          credited to their respective authors.
         </p>
       </footer>
     </main>
