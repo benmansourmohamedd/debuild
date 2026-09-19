@@ -1,1356 +1,630 @@
-<!doctype html>
+from pathlib import Path
+import zipfile, textwrap, os, json
+
+root = Path("/mnt/data/editorial-index-site")
+root.mkdir(exist_ok=True)
+
+index_html = """<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Mohamed Benmansour — Designer & Researcher</title>
-
-<style>
-
-/* =========================================================
-   ROOT
-========================================================= */
-
-:root{
-  --bg:#eeeeec;
-  --paper:#f7f7f4;
-  --white:#ffffff;
-  --text:#202020;
-  --muted:#6f706c;
-  --faint:#999a95;
-  --rule:#d5d5d0;
-  --rule-dark:#b9bab5;
-
-  --serif:
-    "Iowan Old Style",
-    "Palatino Linotype",
-    Palatino,
-    "Times New Roman",
-    serif;
-
-  --sans:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Helvetica Neue",
-    Helvetica,
-    Arial,
-    sans-serif;
-
-  --mono:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
-
-  --max:1450px;
-  --banner:265px;
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--sans);
-  font-size:15px;
-  line-height:1.6;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-a:hover{
-  text-decoration:underline;
-  text-underline-offset:3px;
-}
-
-
-/* =========================================================
-   SITE
-========================================================= */
-
-.site{
-  max-width:var(--max);
-  min-height:100vh;
-  margin:0 auto;
-  background:var(--paper);
-
-  display:grid;
-  grid-template-columns:minmax(0,1fr) var(--banner);
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-========================================================= */
-
-.content{
-  min-width:0;
-  padding:42px 58px 70px;
-}
-
-
-/* =========================================================
-   RIGHT IMAGE BANNER
-========================================================= */
-
-.image-banner{
-  position:relative;
-  min-height:100vh;
-  border-left:1px solid var(--rule);
-  background:#ddd;
-}
-
-.image-banner img{
-  position:sticky;
-  top:0;
-
-  display:block;
-  width:100%;
-  height:100vh;
-
-  object-fit:cover;
-  object-position:center;
-  filter:grayscale(100%);
-}
-
-.image-caption{
-  position:absolute;
-  z-index:2;
-  bottom:18px;
-  left:18px;
-  right:18px;
-
-  color:white;
-
-  font-family:var(--mono);
-  font-size:10px;
-  line-height:1.5;
-  letter-spacing:.05em;
-  text-transform:uppercase;
-
-  text-shadow:0 1px 8px rgba(0,0,0,.45);
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:30px;
-
-  padding-bottom:24px;
-  border-bottom:1px solid var(--rule-dark);
-}
-
-.identity{
-  min-width:0;
-}
-
-.name{
-  margin:0;
-
-  font-family:var(--serif);
-  font-size:31px;
-  line-height:1;
-  font-weight:400;
-  letter-spacing:-.025em;
-}
-
-.role{
-  margin-top:9px;
-
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-
-nav{
-  display:flex;
-  align-items:flex-start;
-  gap:18px;
-
-  font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-}
-
-nav a{
-  color:var(--muted);
-}
-
-nav a:hover{
-  color:var(--text);
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.intro{
-  padding:70px 0 72px;
-  border-bottom:1px solid var(--rule);
-}
-
-.intro-label{
-  margin-bottom:22px;
-
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.intro h1{
-  max-width:900px;
-  margin:0 0 28px;
-
-  font-family:var(--serif);
-  font-size:clamp(34px,4.1vw,61px);
-  line-height:1.08;
-  font-weight:400;
-  letter-spacing:-.035em;
-}
-
-.intro h1 em{
-  font-weight:400;
-}
-
-.intro-grid{
-  display:grid;
-  grid-template-columns:1.4fr .8fr;
-  gap:70px;
-
-  max-width:970px;
-}
-
-.bio{
-  margin:0;
-
-  font-family:var(--serif);
-  font-size:18px;
-  line-height:1.65;
-}
-
-.fields{
-  padding-top:5px;
-
-  font-family:var(--mono);
-  font-size:11px;
-  line-height:1.9;
-  color:var(--muted);
-}
-
-.fields strong{
-  display:block;
-  margin-bottom:8px;
-
-  color:var(--text);
-  font-weight:500;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-
-/* =========================================================
-   GENERAL SECTIONS
-========================================================= */
-
-.section{
-  padding:55px 0;
-  border-bottom:1px solid var(--rule);
-}
-
-.section-heading{
-  display:grid;
-  grid-template-columns:170px 1fr;
-  gap:24px;
-
-  margin-bottom:35px;
-}
-
-.section-number{
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--faint);
-}
-
-.section-title{
-  margin:0;
-
-  font-family:var(--serif);
-  font-size:26px;
-  font-weight:400;
-  line-height:1.2;
-}
-
-
-/* =========================================================
-   RESEARCH
-========================================================= */
-
-.research-intro{
-  max-width:850px;
-  margin:0 0 38px 194px;
-
-  font-family:var(--serif);
-  font-size:18px;
-  line-height:1.7;
-}
-
-.research-grid{
-  margin-left:194px;
-
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-
-  border-top:1px solid var(--rule);
-}
-
-.research-item{
-  padding:24px 28px 28px 0;
-  border-bottom:1px solid var(--rule);
-}
-
-.research-item:nth-child(odd){
-  padding-right:35px;
-  border-right:1px solid var(--rule);
-}
-
-.research-item:nth-child(even){
-  padding-left:35px;
-}
-
-.research-item h3{
-  margin:0 0 10px;
-
-  font-family:var(--serif);
-  font-size:19px;
-  font-weight:400;
-}
-
-.research-item p{
-  margin:0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.7;
-}
-
-
-/* =========================================================
-   INDEX / PROJECT LISTS
-========================================================= */
-
-.index{
-  margin-left:194px;
-  border-top:1px solid var(--rule-dark);
-}
-
-.index-row{
-  display:grid;
-  grid-template-columns:75px minmax(0,1fr) 155px;
-
-  gap:20px;
-  padding:17px 0;
-
-  border-bottom:1px solid var(--rule);
-}
-
-.index-row:hover{
-  background:rgba(0,0,0,.018);
-}
-
-.year{
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--muted);
-  padding-top:4px;
-}
-
-.item-title{
-  margin-bottom:4px;
-
-  font-family:var(--serif);
-  font-size:17px;
-  line-height:1.35;
-}
-
-.item-description{
-  max-width:650px;
-
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.item-type{
-  text-align:right;
-
-  font-family:var(--mono);
-  font-size:10px;
-  line-height:1.6;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-
-/* =========================================================
-   EXPERIENCE / CV
-========================================================= */
-
-.cv{
-  margin-left:194px;
-}
-
-.cv-group{
-  display:grid;
-  grid-template-columns:145px 1fr;
-  gap:25px;
-
-  padding:22px 0;
-  border-top:1px solid var(--rule);
-}
-
-.cv-category{
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.07em;
-}
-
-.cv-entry{
-  margin-bottom:20px;
-}
-
-.cv-entry:last-child{
-  margin-bottom:0;
-}
-
-.cv-entry strong{
-  display:block;
-
-  font-family:var(--serif);
-  font-size:16px;
-  font-weight:400;
-}
-
-.cv-meta{
-  margin-top:2px;
-
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--muted);
-}
-
-.cv-description{
-  max-width:650px;
-  margin-top:6px;
-
-  font-size:12px;
-  color:var(--muted);
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact-grid{
-  margin-left:194px;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:45px;
-}
-
-.contact-large{
-  font-family:var(--serif);
-  font-size:23px;
-  line-height:1.45;
-}
-
-.contact-list{
-  font-family:var(--mono);
-  font-size:11px;
-  line-height:2;
-}
-
-.contact-list a{
-  border-bottom:1px solid var(--rule-dark);
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-  padding-top:30px;
-
-  display:flex;
-  justify-content:space-between;
-  gap:30px;
-
-  font-family:var(--mono);
-  font-size:9px;
-  color:var(--faint);
-  text-transform:uppercase;
-  letter-spacing:.06em;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:1050px){
-
-  :root{
-    --banner:210px;
-  }
-
-  .content{
-    padding:35px 36px 60px;
-  }
-
-  .section-heading{
-    grid-template-columns:110px 1fr;
-  }
-
-  .research-intro,
-  .research-grid,
-  .index,
-  .cv,
-  .contact-grid{
-    margin-left:134px;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:760px){
-
-  .site{
-    display:block;
-  }
-
-  .content{
-    padding:25px 22px 50px;
-  }
-
-  .image-banner{
-    min-height:420px;
-    height:55vh;
-
-    border-left:0;
-    border-top:1px solid var(--rule);
-  }
-
-  .image-banner img{
-    position:relative;
-    height:100%;
-  }
-
-  header{
-    display:block;
-  }
-
-  nav{
-    margin-top:22px;
-    flex-wrap:wrap;
-  }
-
-  .intro{
-    padding:50px 0;
-  }
-
-  .intro-grid{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .section-heading{
-    grid-template-columns:55px 1fr;
-  }
-
-  .research-intro,
-  .research-grid,
-  .index,
-  .cv,
-  .contact-grid{
-    margin-left:0;
-  }
-
-  .research-grid{
-    grid-template-columns:1fr;
-  }
-
-  .research-item:nth-child(odd){
-    border-right:0;
-    padding-right:0;
-  }
-
-  .research-item:nth-child(even){
-    padding-left:0;
-  }
-
-  .index-row{
-    grid-template-columns:55px 1fr;
-  }
-
-  .item-type{
-    grid-column:2;
-    text-align:left;
-  }
-
-  .cv-group{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .contact-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
-
-/* =========================================================
-   SELECTION
-========================================================= */
-
-::selection{
-  background:#d4d4cf;
-  color:#111;
-}
-
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="An editorial portfolio and research index." />
+  <title>YOUR NAME — Index</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
-
 <body>
+  <header class="site-header">
+    <a class="site-title" href="#top">YOUR NAME</a>
+    <nav aria-label="Primary">
+      <button class="nav-button active" data-view="all">Index</button>
+      <button class="nav-button" data-view="work">Work</button>
+      <button class="nav-button" data-view="notes">Notes</button>
+      <button class="nav-button" data-view="about">About</button>
+    </nav>
+    <button id="shuffle" class="utility-button" type="button">Shuffle</button>
+  </header>
 
-<div class="site">
-
-<!-- =======================================================
-     LEFT / MAIN
-======================================================== -->
-
-<div class="content">
-
-<header>
-
-  <div class="identity">
-    <h1 class="name">Mohamed Benmansour</h1>
-    <div class="role">
-      Designer · Researcher · Architecture Student
-    </div>
-  </div>
-
-  <nav>
-    <a href="#research">Research</a>
-    <a href="#work">Work</a>
-    <a href="#writing">Writing</a>
-    <a href="#cv">CV</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-</header>
-
-
-<!-- =======================================================
-     INTRO
-======================================================== -->
-
-<section class="intro">
-
-  <div class="intro-label">
-    Computational + Socio-Spatial Research
-  </div>
-
-  <h1>
-    Architecture at the intersection of
-    <em>computation, ethnomathematics, anthropology, and society.</em>
-  </h1>
-
-  <div class="intro-grid">
-
-    <p class="bio">
-      Mohamed Benmansour is a student, designer, and researcher
-      working across computation, algorithms, ethnomathematics,
-      anthropology, sociology, and architecture. His work investigates
-      architecture as both a computational and social system,
-      examining how mathematical structures, cultural knowledge,
-      governance, and lived experience become encoded into space.
-      His research approaches these intersections through a
-      decolonial lens.
-    </p>
-
-    <div class="fields">
-      <strong>Fields of inquiry</strong>
-
-      Computation<br>
-      Algorithms<br>
-      Ethnomathematics<br>
-      Anthropology<br>
-      Sociology<br>
-      Architecture<br>
-      Decolonial Spatial Research
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     RESEARCH
-======================================================== -->
-
-<section class="section" id="research">
-
-  <div class="section-heading">
-    <div class="section-number">01</div>
-    <h2 class="section-title">Research</h2>
-  </div>
-
-  <p class="research-intro">
-    Benmansour approaches architecture as a socio-technical system
-    in which computational logic, mathematical knowledge, cultural
-    practice, institutional power, and lived experience continuously
-    produce one another.
-  </p>
-
-  <div class="research-grid">
-
-    <div class="research-item">
-      <h3>Computation + Algorithms</h3>
-      <p>
-        Computational visualization, modeling, simulation,
-        algorithmic systems, generative processes, and spatial
-        computation as both design methods and analytical instruments.
+  <main id="top">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Designer / Researcher / Artist</p>
+        <h1>A portfolio that behaves like an index.</h1>
+      </div>
+      <p class="intro-copy">
+        Selected work, notes, references, and ongoing research. Built with plain HTML,
+        CSS, and JavaScript so the site stays portable, editable, and easy to host.
       </p>
-    </div>
+    </section>
 
-    <div class="research-item">
-      <h3>Ethnomathematics</h3>
-      <p>
-        Cultural mathematical systems, spatial reasoning, pattern,
-        measurement, informal knowledge, and mathematical
-        epistemologies situated outside supposedly universal models.
-      </p>
-    </div>
-
-    <div class="research-item">
-      <h3>Anthropology + Sociology</h3>
-      <p>
-        Lived environments, cultural practices, social organization,
-        institutions, governance, and relationships between people,
-        knowledge, and built space.
-      </p>
-    </div>
-
-    <div class="research-item">
-      <h3>Architecture</h3>
-      <p>
-        Architecture as both research object and medium: the spatial
-        condition through which mathematical, computational,
-        political, and cultural systems become material.
-      </p>
-    </div>
-
-    <div class="research-item">
-      <h3>Decolonial Inquiry</h3>
-      <p>
-        Examination of which systems of architectural and mathematical
-        knowledge become institutionalized, which are marginalized,
-        and how alternative epistemologies can inform spatial practice.
-      </p>
-    </div>
-
-    <div class="research-item">
-      <h3>Socio-Spatial Systems</h3>
-      <p>
-        Housing, institutional environments, carceral infrastructures,
-        informal environments, survival infrastructures, governance,
-        access, and spatial manifestations of power.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     SELECTED WORK
-======================================================== -->
-
-<section class="section" id="work">
-
-  <div class="section-heading">
-    <div class="section-number">02</div>
-    <h2 class="section-title">Selected Work</h2>
-  </div>
-
-  <div class="index">
-
-    <a class="index-row" href="#">
-      <div class="year">2026</div>
-
-      <div>
-        <div class="item-title">Project Title</div>
-        <div class="item-description">
-          Short description of the project, research question,
-          methodology, or architectural investigation.
-        </div>
+    <section class="controls" aria-label="Index controls">
+      <label>
+        <span class="sr-only">Search projects</span>
+        <input id="search" type="search" placeholder="search titles, tags, years…" autocomplete="off" />
+      </label>
+      <div class="view-switch" aria-label="Display mode">
+        <button id="gridView" class="active" type="button">Grid</button>
+        <button id="listView" type="button">List</button>
       </div>
+    </section>
 
-      <div class="item-type">
-        Computational<br>Architecture
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2026</div>
-
-      <div>
-        <div class="item-title">Project Title</div>
-        <div class="item-description">
-          An interdisciplinary project connecting spatial analysis,
-          computation, and social research.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Research<br>Design
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2025</div>
-
-      <div>
-        <div class="item-title">Project Title</div>
-        <div class="item-description">
-          Architectural investigation using mathematical,
-          computational, and anthropological methodologies.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Architecture<br>Research
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2025</div>
-
-      <div>
-        <div class="item-title">Project Title</div>
-        <div class="item-description">
-          Study of cultural knowledge, spatial systems, and
-          alternative modes of mathematical reasoning.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Ethnomathematics
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2024</div>
-
-      <div>
-        <div class="item-title">Project Title</div>
-        <div class="item-description">
-          Spatial research examining institutional systems,
-          governance, and the organization of everyday environments.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Spatial<br>Research
-      </div>
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     WRITING
-======================================================== -->
-
-<section class="section" id="writing">
-
-  <div class="section-heading">
-    <div class="section-number">03</div>
-    <h2 class="section-title">Writing + Papers</h2>
-  </div>
-
-  <div class="index">
-
-    <a class="index-row" href="#">
-      <div class="year">2026</div>
-
-      <div>
-        <div class="item-title">
-          Paper / Essay Title
-        </div>
-
-        <div class="item-description">
-          Publication, conference, independent research,
-          or academic paper description.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Research Paper
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2025</div>
-
-      <div>
-        <div class="item-title">
-          Paper / Essay Title
-        </div>
-
-        <div class="item-description">
-          Writing on computation, architecture,
-          ethnomathematics, or socio-spatial systems.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Essay
-      </div>
-    </a>
-
-
-    <a class="index-row" href="#">
-      <div class="year">2025</div>
-
-      <div>
-        <div class="item-title">
-          Paper / Essay Title
-        </div>
-
-        <div class="item-description">
-          Research examining architecture through anthropological,
-          sociological, and decolonial frameworks.
-        </div>
-      </div>
-
-      <div class="item-type">
-        Academic Writing
-      </div>
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     CV
-======================================================== -->
-
-<section class="section" id="cv">
-
-  <div class="section-heading">
-    <div class="section-number">04</div>
-    <h2 class="section-title">Curriculum Vitae</h2>
-  </div>
-
-  <div class="cv">
-
-
-    <!-- EDUCATION -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Education
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>Degree / Program in Architecture</strong>
-
-          <div class="cv-meta">
-            University Name · 20XX—Present
+    <section id="index" class="project-grid" aria-live="polite">
+      <article class="project" data-type="work" data-search="archive interface identity 2026 web">
+        <a href="#project-archive" class="project-link">
+          <div class="thumb thumb-a" aria-hidden="true"><span>01</span></div>
+          <div class="project-meta">
+            <h2>Archive Interface</h2>
+            <p>Web / Identity</p>
+            <time>2026</time>
           </div>
+        </a>
+      </article>
 
-          <div class="cv-description">
-            Concentrations, studios, research interests,
-            honors, or relevant academic information.
+      <article class="project" data-type="work" data-search="field notes publication editorial 2025 print">
+        <a href="#project-field-notes" class="project-link">
+          <div class="thumb thumb-b" aria-hidden="true"><span>02</span></div>
+          <div class="project-meta">
+            <h2>Field Notes</h2>
+            <p>Editorial / Print</p>
+            <time>2025</time>
           </div>
+        </a>
+      </article>
+
+      <article class="project" data-type="notes" data-search="links reference collection research 2026 notes">
+        <a href="#note-links" class="project-link">
+          <div class="thumb thumb-c" aria-hidden="true"><span>03</span></div>
+          <div class="project-meta">
+            <h2>Links I Keep Returning To</h2>
+            <p>Research / Notes</p>
+            <time>2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="project" data-type="work" data-search="counter archive exhibition installation 2024">
+        <a href="#project-counter-archive" class="project-link">
+          <div class="thumb thumb-d" aria-hidden="true"><span>04</span></div>
+          <div class="project-meta">
+            <h2>Counter-Archive</h2>
+            <p>Exhibition / Installation</p>
+            <time>2024</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="project" data-type="notes" data-search="websites aging durable web notes 2025">
+        <a href="#note-aging" class="project-link">
+          <div class="thumb thumb-e" aria-hidden="true"><span>05</span></div>
+          <div class="project-meta">
+            <h2>How Should a Website Age?</h2>
+            <p>Essay / Notes</p>
+            <time>2025</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="project" data-type="work" data-search="visual system catalog typography 2025 identity">
+        <a href="#project-catalog" class="project-link">
+          <div class="thumb thumb-f" aria-hidden="true"><span>06</span></div>
+          <div class="project-meta">
+            <h2>Catalog of Small Signals</h2>
+            <p>Identity / Type</p>
+            <time>2025</time>
+          </div>
+        </a>
+      </article>
+    </section>
+
+    <p id="emptyState" class="empty-state" hidden>No entries match that search.</p>
+
+    <section class="details" aria-label="Project details">
+      <article id="project-archive" class="detail">
+        <p class="detail-kicker">01 / Work</p>
+        <h2>Archive Interface</h2>
+        <p class="detail-lede">A searchable interface for a growing body of visual research.</p>
+        <div class="detail-columns">
+          <p>Replace this text with a concise project description: what you made, for whom, why it mattered, and what your role was.</p>
+          <dl>
+            <div><dt>Role</dt><dd>Design + Development</dd></div>
+            <div><dt>Year</dt><dd>2026</dd></div>
+            <div><dt>Tools</dt><dd>HTML, CSS, JavaScript</dd></div>
+          </dl>
         </div>
+      </article>
 
-      </div>
+      <article id="project-field-notes" class="detail">
+        <p class="detail-kicker">02 / Work</p>
+        <h2>Field Notes</h2>
+        <p class="detail-lede">A publication system for fragments, captions, images, and citations.</p>
+      </article>
 
-    </div>
+      <article id="note-links" class="detail">
+        <p class="detail-kicker">03 / Notes</p>
+        <h2>Links I Keep Returning To</h2>
+        <p class="detail-lede">Use note entries for references, reading lists, research fragments, or unfinished ideas.</p>
+      </article>
 
+      <article id="project-counter-archive" class="detail">
+        <p class="detail-kicker">04 / Work</p>
+        <h2>Counter-Archive</h2>
+        <p class="detail-lede">An installation about indexing, omission, and the politics of categorization.</p>
+      </article>
 
-    <!-- RESEARCH -->
+      <article id="note-aging" class="detail">
+        <p class="detail-kicker">05 / Notes</p>
+        <h2>How Should a Website Age?</h2>
+        <p class="detail-lede">A short text about building sites with fewer dependencies and more durable conventions.</p>
+      </article>
 
-    <div class="cv-group">
+      <article id="project-catalog" class="detail">
+        <p class="detail-kicker">06 / Work</p>
+        <h2>Catalog of Small Signals</h2>
+        <p class="detail-lede">A visual identity built as a flexible catalog rather than a fixed brand system.</p>
+      </article>
+    </section>
 
-      <div class="cv-category">
-        Research
-      </div>
-
+    <section id="about" class="about-panel" hidden>
       <div>
-
-        <div class="cv-entry">
-          <strong>Research Position / Laboratory</strong>
-
-          <div class="cv-meta">
-            Institution · 2026
-          </div>
-
-          <div class="cv-description">
-            Computational, architectural, mathematical,
-            anthropological, or socio-spatial research.
-          </div>
-        </div>
-
-        <div class="cv-entry">
-          <strong>Research Position / Project</strong>
-
-          <div class="cv-meta">
-            Institution · 2025
-          </div>
-
-          <div class="cv-description">
-            Description of research responsibilities,
-            methods, and areas of investigation.
-          </div>
-        </div>
-
+        <p class="eyebrow">About</p>
+        <h2>YOUR NAME is a designer / researcher based in YOUR CITY.</h2>
       </div>
-
-    </div>
-
-
-    <!-- EXPERIENCE -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Experience
-      </div>
-
       <div>
-
-        <div class="cv-entry">
-          <strong>Design / Research Position</strong>
-
-          <div class="cv-meta">
-            Organization · 2026
-          </div>
-
-          <div class="cv-description">
-            Role, research contribution, design work,
-            computational methods, or responsibilities.
-          </div>
-        </div>
-
-        <div class="cv-entry">
-          <strong>Design / Research Position</strong>
-
-          <div class="cv-meta">
-            Organization · 2025
-          </div>
-        </div>
-
+        <p>Add a short bio here. Keep it direct. You can also add a CV, email, Instagram, Are.na, GitHub, or anything else you actually use.</p>
+        <p><a href="mailto:you@example.com">you@example.com ↗</a></p>
       </div>
-
-    </div>
-
-
-    <!-- PUBLICATIONS -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Publications
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>“Publication or Paper Title”</strong>
-
-          <div class="cv-meta">
-            Journal / Institution / Publication · 2026
-          </div>
-        </div>
-
-        <div class="cv-entry">
-          <strong>“Publication or Paper Title”</strong>
-
-          <div class="cv-meta">
-            Publication · 2025
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- PRESENTATIONS -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Talks
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>Lecture / Presentation Title</strong>
-
-          <div class="cv-meta">
-            Institution / Conference · 2026
-          </div>
-        </div>
-
-        <div class="cv-entry">
-          <strong>Lecture / Presentation Title</strong>
-
-          <div class="cv-meta">
-            Institution · 2025
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- AWARDS -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Awards
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>Award / Fellowship / Recognition</strong>
-
-          <div class="cv-meta">
-            Organization · 2026
-          </div>
-        </div>
-
-        <div class="cv-entry">
-          <strong>Award / Scholarship</strong>
-
-          <div class="cv-meta">
-            Organization · 2025
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- METHODS -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Methods
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>
-            Computational Design · Algorithmic Modeling ·
-            Computational Visualization · Spatial Analysis ·
-            Diagramming · Archival Research · Field Documentation
-          </strong>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- INTERESTS -->
-
-    <div class="cv-group">
-
-      <div class="cv-category">
-        Research Areas
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-          <strong>
-            Computational Architecture · Algorithms ·
-            Ethnomathematics · Anthropology · Sociology ·
-            Mathematical Spatial Systems · Decolonial Design ·
-            Housing · Governance · Institutional Space ·
-            Informal Infrastructure
-          </strong>
-        </div>
-
-      </div>
-
-    </div>
-
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     CONTACT
-======================================================== -->
-
-<section class="section" id="contact">
-
-  <div class="section-heading">
-    <div class="section-number">05</div>
-    <h2 class="section-title">Contact</h2>
-  </div>
-
-  <div class="contact-grid">
-
-    <div class="contact-large">
-      Research, design, academic collaboration,
-      writing, and interdisciplinary work.
-    </div>
-
-    <div class="contact-list">
-
-      <a href="mailto:email@example.com">
-        email@example.com
-      </a>
-      <br>
-
-      <a href="#">
-        LinkedIn
-      </a>
-      <br>
-
-      <a href="#">
-        Google Scholar
-      </a>
-      <br>
-
-      <a href="#">
-        ORCID
-      </a>
-      <br>
-
-      <a href="#">
-        GitHub
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     FOOTER
-======================================================== -->
-
-<footer>
-
-  <div>
-    © <span id="year"></span> Mohamed Benmansour
-  </div>
-
-  <div>
-    Designer · Researcher · Architecture Student
-  </div>
-
-</footer>
-
-</div>
-
-
-<!-- =======================================================
-     RIGHT VERTICAL IMAGE
-======================================================== -->
-
-<aside class="image-banner">
-
-  <!-- Replace portrait.jpg with your image -->
-  <img
-    src="portrait.jpg"
-    alt="Mohamed Benmansour"
-  >
-
-  <div class="image-caption">
-    Mohamed Benmansour<br>
-    Designer / Researcher
-  </div>
-
-</aside>
-
-</div>
-
-
-<script>
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-</script>
-
+    </section>
+  </main>
+
+  <aside class="trail" aria-label="Browsing trail">
+    <span>Trail:</span>
+    <ol id="trailList"></ol>
+    <button id="clearTrail" type="button">clear</button>
+  </aside>
+
+  <footer>
+    <p>© <span id="year"></span> YOUR NAME</p>
+    <p>Built with HTML / CSS / JS. No framework.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
+"""
+
+styles_css = """\
+:root {
+  --bg: #f3f1ea;
+  --fg: #111;
+  --line: #111;
+  --accent: #b7ff00;
+  --pad: clamp(12px, 1.6vw, 24px);
+  --gap: clamp(10px, 1.2vw, 18px);
+  --sans: Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--gap);
+  padding: 10px var(--pad);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-title {
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-button, .utility-button, .view-switch button, .trail button {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 3px 6px;
+}
+
+.nav-button:hover, .nav-button.active,
+.utility-button:hover, .view-switch button:hover, .view-switch button.active {
+  border-color: var(--line);
+  background: var(--accent);
+}
+
+.utility-button { justify-self: end; }
+
+main { padding: 0 var(--pad) 120px; }
+
+.intro {
+  min-height: 42vh;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap);
+  align-items: end;
+  padding: 5vh 0 var(--pad);
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+
+h1 {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(42px, 7vw, 112px);
+  line-height: .86;
+  letter-spacing: -.065em;
+  font-weight: 700;
+}
+
+.intro-copy {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 20px);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap);
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+#search {
+  width: min(560px, 100%);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  padding: 5px 0;
+  outline: none;
+}
+
+#search:focus { background: var(--accent); }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  padding-top: var(--gap);
+}
+
+.project[hidden] { display: none !important; }
+
+.project-link {
+  display: block;
+  text-decoration: none;
+}
+
+.thumb {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  position: relative;
+  transition: transform .18s ease;
+}
+
+.project-link:hover .thumb { transform: translateY(-4px); }
+
+.thumb span {
+  position: absolute;
+  inset: 8px auto auto 8px;
+  font-size: clamp(26px, 4vw, 64px);
+  letter-spacing: -.06em;
+}
+
+.thumb-a { background: linear-gradient(135deg, #b7ff00 0 50%, #111 50%); color: #111; }
+.thumb-b { background: repeating-linear-gradient(90deg, #f3f1ea 0 18px, #111 18px 19px); }
+.thumb-c { background: radial-gradient(circle at 72% 36%, #b7ff00 0 10%, transparent 10.3%), #111; color: #f3f1ea; }
+.thumb-d { background: linear-gradient(45deg, transparent 48%, #111 48% 52%, transparent 52%), #b7ff00; }
+.thumb-e { background: linear-gradient(#111 0 1px, transparent 1px 100%), linear-gradient(90deg, #111 0 1px, transparent 1px 100%), #f3f1ea; background-size: 22px 22px; }
+.thumb-f { background: #111; color: #b7ff00; }
+
+.project-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  padding-top: 6px;
+  border-top: 1px solid transparent;
+}
+
+.project-meta h2 {
+  grid-column: 1 / -1;
+  margin: 0 0 1px;
+  font-size: 16px;
+}
+
+.project-meta p, .project-meta time { margin: 0; font-size: 12px; }
+
+.project-grid.list {
+  display: block;
+  padding-top: 0;
+}
+
+.project-grid.list .project-link {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-grid.list .thumb { display: none; }
+.project-grid.list .project-meta { grid-template-columns: 2fr 1fr auto; align-items: baseline; padding: 0; }
+.project-grid.list .project-meta h2 { grid-column: auto; margin: 0; }
+.project-grid.list .project-meta p { font-size: 14px; }
+
+.empty-state { padding: 24px 0; }
+
+.details {
+  margin-top: 12vh;
+  border-top: 1px solid var(--line);
+}
+
+.detail {
+  min-height: 76vh;
+  padding: var(--pad) 0 10vh;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 56px;
+}
+
+.detail-kicker { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; }
+.detail h2, .about-panel h2 {
+  margin: 0;
+  font-size: clamp(44px, 8vw, 118px);
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+.detail-lede {
+  max-width: 20ch;
+  font-size: clamp(24px, 3vw, 46px);
+  letter-spacing: -.035em;
+}
+.detail-columns, .about-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap);
+  margin-top: 8vh;
+}
+.detail-columns > p { max-width: 42rem; font-size: 19px; }
+dl { margin: 0; }
+dl div { display: grid; grid-template-columns: 90px 1fr; border-top: 1px solid var(--line); padding: 4px 0; }
+dt, dd { margin: 0; }
+
+.about-panel {
+  min-height: 70vh;
+  padding: 8vh 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-panel > div:last-child { max-width: 36rem; font-size: 19px; }
+
+.trail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px var(--pad);
+  background: var(--accent);
+  border-top: 1px solid var(--line);
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.trail ol {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.trail li::after { content: " →"; }
+.trail li:last-child::after { content: ""; }
+.trail button { margin-left: auto; }
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+  padding: 12px var(--pad) 48px;
+  border-top: 1px solid var(--line);
+}
+
+footer p { margin: 0; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
+
+@media (max-width: 850px) {
+  .site-header { grid-template-columns: 1fr auto; }
+  nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
+  .intro, .detail-columns, .about-panel { grid-template-columns: 1fr; }
+  .intro { min-height: 52vh; }
+  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .project-grid { grid-template-columns: 1fr; }
+  .controls { grid-template-columns: 1fr; }
+  .view-switch { display: none; }
+  footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+"""
+
+script_js = """\
+const projects = [...document.querySelectorAll(".project")];
+const navButtons = [...document.querySelectorAll(".nav-button")];
+const search = document.querySelector("#search");
+const index = document.querySelector("#index");
+const emptyState = document.querySelector("#emptyState");
+const about = document.querySelector("#about");
+const details = document.querySelector(".details");
+const intro = document.querySelector(".intro");
+
+let activeType = "all";
+
+function filterProjects() {
+  const q = search.value.trim().toLowerCase();
+  let count = 0;
+
+  projects.forEach((project) => {
+    const matchesType = activeType === "all" || project.dataset.type === activeType;
+    const matchesSearch = project.dataset.search.toLowerCase().includes(q);
+    const show = matchesType && matchesSearch;
+    project.hidden = !show;
+    if (show) count++;
+  });
+
+  emptyState.hidden = count !== 0;
+}
+
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    navButtons.forEach((b) => b.classList.remove("active"));
+    button.classList.add("active");
+
+    const view = button.dataset.view;
+
+    if (view === "about") {
+      about.hidden = false;
+      index.hidden = true;
+      document.querySelector(".controls").hidden = true;
+      details.hidden = true;
+      intro.hidden = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    about.hidden = true;
+    index.hidden = false;
+    document.querySelector(".controls").hidden = false;
+    details.hidden = false;
+    intro.hidden = false;
+    activeType = view === "all" ? "all" : view;
+    filterProjects();
+  });
+});
+
+search.addEventListener("input", filterProjects);
+
+document.querySelector("#gridView").addEventListener("click", (e) => {
+  index.classList.remove("list");
+  document.querySelector("#listView").classList.remove("active");
+  e.currentTarget.classList.add("active");
+});
+
+document.querySelector("#listView").addEventListener("click", (e) => {
+  index.classList.add("list");
+  document.querySelector("#gridView").classList.remove("active");
+  e.currentTarget.classList.add("active");
+});
+
+document.querySelector("#shuffle").addEventListener("click", () => {
+  [...projects]
+    .sort(() => Math.random() - 0.5)
+    .forEach((project) => index.appendChild(project));
+});
+
+const trailList = document.querySelector("#trailList");
+let trail = JSON.parse(sessionStorage.getItem("trail") || "[]");
+
+function renderTrail() {
+  trailList.innerHTML = "";
+  trail.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    trailList.appendChild(li);
+  });
+}
+
+document.querySelectorAll(".project-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const title = link.querySelector("h2").textContent;
+    trail = trail.filter((item) => item !== title);
+    trail.push(title);
+    trail = trail.slice(-7);
+    sessionStorage.setItem("trail", JSON.stringify(trail));
+    renderTrail();
+  });
+});
+
+document.querySelector("#clearTrail").addEventListener("click", () => {
+  trail = [];
+  sessionStorage.removeItem("trail");
+  renderTrail();
+});
+
+document.querySelector("#year").textContent = new Date().getFullYear();
+renderTrail();
+"""
+
+readme = """# Editorial Index Portfolio
+
+A no-framework portfolio starter inspired by editorial portfolio grids and durable, index-like web design.
+
+## Files
+
+- `index.html` — content and structure
+- `styles.css` — all visual styling
+- `script.js` — filtering, grid/list switch, shuffle, and browsing trail
+
+## Customize
+
+1. Replace every `YOUR NAME`, `YOUR CITY`, and email placeholder.
+2. Edit project cards inside `<section id="index">`.
+3. Edit the matching long-form project sections inside `<section class="details">`.
+4. Replace the abstract `.thumb-*` CSS backgrounds with your own images if you want:
+   ```html
+   <div class="thumb">
+     <img src="assets/my-project.jpg" alt="Description of project image">
+   </div>
