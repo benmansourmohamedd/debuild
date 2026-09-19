@@ -30,6 +30,7 @@
 
     body {
       overflow: hidden;
+
       background: var(--background);
       color: var(--text);
 
@@ -48,10 +49,15 @@
       color: inherit;
     }
 
+    button:focus-visible,
+    a:focus-visible {
+      outline: 1px solid #333;
+      outline-offset: -2px;
+    }
+
+
     /* =====================================
        WHOLE PAGE
-
-       50% / 25% / 25%
     ===================================== */
 
     .site {
@@ -65,31 +71,41 @@
 
     /* =====================================
        LEFT 50%
-       STATIC PROJECT PAGE
     ===================================== */
 
-    .main {
+    .left-column {
       height: 100vh;
-      overflow: hidden;
 
-      border-right: 2px solid var(--line);
+      border-right:
+        2px solid var(--line);
     }
 
-    .main-inner {
+
+    /* =====================================
+       LANDING CV
+    ===================================== */
+
+    .cv-view {
       height: 100%;
+      overflow-y: auto;
 
       padding:
         12px
         14px
-        18px;
+        100px;
+
+      scrollbar-width: thin;
+      scrollbar-color:
+        #bdbdbd
+        transparent;
     }
 
 
-    /* top */
-
-    .header {
+    .cv-header {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr;
 
       gap: 20px;
 
@@ -98,6 +114,7 @@
       border-bottom:
         2px solid var(--line);
     }
+
 
     .name {
       margin: 0;
@@ -108,23 +125,132 @@
       font-weight: 600;
     }
 
+
     .header-info {
+      color: var(--muted);
+
       font-size: 11px;
+    }
+
+
+    .cv-intro {
+      max-width: 420px;
+
+      margin-top: 55px;
+      margin-bottom: 90px;
+
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+
+    /* CV SECTION */
+
+    .cv-section {
+      margin-bottom: 55px;
+
+      border-top:
+        2px solid var(--line);
+    }
+
+
+    .cv-section-title {
+      margin: 0;
+
+      padding:
+        7px
+        0
+        18px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: normal;
+
+      text-transform: lowercase;
+    }
+
+
+    .cv-row {
+      display: grid;
+
+      grid-template-columns:
+        75px
+        1fr
+        auto;
+
+      gap: 12px;
+
+      padding:
+        6px
+        0;
+
+      border-top:
+        1px solid var(--line);
+
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+
+    .cv-year {
       color: var(--muted);
     }
 
 
-    /* active project */
+    .cv-place {
+      color: var(--muted);
+
+      text-align: right;
+    }
+
+
+    .cv-row:last-child {
+      border-bottom:
+        1px solid var(--line);
+    }
+
+
+
+    /* =====================================
+       PROJECT VIEW
+       hidden initially
+    ===================================== */
 
     .project-view {
+      display: none;
+
+      height: 100%;
+
+      padding:
+        12px
+        14px
+        18px;
+
+      overflow: hidden;
+    }
+
+
+    .project-view.active {
       display: flex;
       flex-direction: column;
-
-      height:
-        calc(100% - 42px);
-
-      padding-top: 12px;
     }
+
+
+    .project-header {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 20px;
+
+      padding-bottom: 10px;
+
+      border-bottom:
+        2px solid var(--line);
+    }
+
 
     .project-top {
       display: grid;
@@ -138,11 +264,15 @@
 
       align-items: baseline;
 
-      padding-bottom: 10px;
+      padding:
+        12px
+        0
+        10px;
 
       border-bottom:
         2px solid var(--line);
     }
+
 
     .project-number,
     .project-year {
@@ -150,6 +280,7 @@
 
       font-size: 10px;
     }
+
 
     .project-title {
       margin: 0;
@@ -160,8 +291,6 @@
       font-weight: 500;
     }
 
-
-    /* project content */
 
     .project-content {
       display: grid;
@@ -175,6 +304,7 @@
       padding-top: 26px;
     }
 
+
     .project-labels {
       color: var(--muted);
 
@@ -182,9 +312,11 @@
       line-height: 1.45;
     }
 
+
     .project-description {
       max-width: 440px;
     }
+
 
     .project-description p {
       margin:
@@ -197,14 +329,13 @@
     }
 
 
-    /* metadata */
-
     .metadata {
       margin-top: auto;
 
       border-top:
         2px solid var(--line);
     }
+
 
     .metadata-row {
       display: grid;
@@ -223,23 +354,105 @@
       font-size: 10px;
     }
 
+
     .metadata-label {
       color: var(--muted);
     }
 
 
+
     /* =====================================
        THIRD COLUMN
-       SCROLLABLE INDEX
     ===================================== */
 
-    .index {
+    .middle-column {
+      position: relative;
+
       height: 100vh;
 
-      overflow-y: auto;
+      overflow: hidden;
 
       border-right:
         2px solid var(--line);
+
+      background: #f2f2f2;
+    }
+
+
+    /* LANDING IMAGE */
+
+    .entry-image {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      padding: 0;
+
+      background: none;
+      border: 0;
+
+      cursor: pointer;
+    }
+
+
+    .entry-image img {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+
+    .entry-label {
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      display: flex;
+      justify-content: space-between;
+
+      padding:
+        7px
+        9px;
+
+      background:
+        rgba(255,255,255,0.94);
+
+      border-top:
+        2px solid var(--line);
+
+      color: var(--text);
+
+      font-size: 10px;
+    }
+
+
+    .entry-image:hover .entry-label {
+      background: #ededed;
+    }
+
+
+
+    /* =====================================
+       PROJECT INDEX
+       replaces landing image
+    ===================================== */
+
+    .index {
+      display: none;
+
+      height: 100%;
+
+      overflow-y: auto;
+
+      background: #fff;
 
       scrollbar-width: thin;
       scrollbar-color:
@@ -247,12 +460,21 @@
         transparent;
     }
 
+
+    .index.active {
+      display: block;
+    }
+
+
     .index-head {
       position: sticky;
+
       top: 0;
+
       z-index: 5;
 
       display: grid;
+
       grid-template-columns:
         1fr auto;
 
@@ -268,9 +490,27 @@
       font-size: 10px;
     }
 
-    .index-head span:last-child {
+
+    .cv-button {
+      padding: 0;
+
+      background: transparent;
+      border: 0;
+
+      cursor: pointer;
+
       color: var(--muted);
+
+      font-size: 10px;
     }
+
+
+    .cv-button:hover {
+      color: var(--text);
+
+      text-decoration: underline;
+    }
+
 
     .index-list {
       margin: 0;
@@ -279,10 +519,12 @@
       list-style: none;
     }
 
+
     .index-item {
       border-bottom:
         1px solid var(--line);
     }
+
 
     .index-button {
       width: 100%;
@@ -307,13 +549,16 @@
       cursor: pointer;
     }
 
+
     .index-button:hover {
       background: var(--hover);
     }
 
+
     .index-button.active {
       background: #e9e9e9;
     }
+
 
     .index-number {
       color: var(--muted);
@@ -321,10 +566,12 @@
       font-size: 9px;
     }
 
+
     .index-title {
       font-size: 11px;
       line-height: 1.25;
     }
+
 
     .index-meta {
       display: block;
@@ -338,28 +585,27 @@
     }
 
 
-    /* bottom info */
-
     .index-info {
       padding:
         18px
         10px
         80px;
 
+      color: var(--muted);
+
       font-size: 10px;
       line-height: 1.4;
-
-      color: var(--muted);
     }
+
 
     .index-info a {
       color: var(--text);
     }
 
 
+
     /* =====================================
        RIGHT 25%
-       IMAGE
     ===================================== */
 
     .image-column {
@@ -372,6 +618,7 @@
       background: #f2f2f2;
     }
 
+
     .image-column img {
       display: block;
 
@@ -380,6 +627,7 @@
 
       object-fit: cover;
     }
+
 
     .caption {
       position: absolute;
@@ -404,6 +652,7 @@
     }
 
 
+
     /* =====================================
        MOBILE
     ===================================== */
@@ -414,6 +663,7 @@
         overflow: auto;
       }
 
+
       .site {
         display: block;
 
@@ -421,67 +671,82 @@
         height: auto;
       }
 
-      .main,
-      .index,
+
+      .left-column,
+      .middle-column,
       .image-column {
         width: 100%;
         height: auto;
 
-        overflow: visible;
-
         border-right: 0;
-      }
 
-      .main {
         border-bottom:
           2px solid var(--line);
       }
 
-      .index {
-        border-bottom:
-          2px solid var(--line);
-      }
 
-      .index-head {
-        position: static;
-      }
-
-      .project-view {
+      .cv-view {
         height: auto;
+
+        overflow: visible;
+      }
+
+
+      .middle-column {
+        height: 70vh;
+      }
+
+
+      .index.active {
+        height: auto;
+      }
+
+
+      .project-view.active {
         min-height: 500px;
       }
+
 
       .project-content {
         grid-template-columns: 1fr;
       }
 
+
       .project-labels {
         display: none;
       }
+
 
       .image-column {
         height: 70vh;
       }
 
     }
+
   </style>
 </head>
 
 <body>
+
 
 <div class="site">
 
 
   <!-- ===================================
        LEFT 50%
-       STATIC CHANGING PAGE
   ==================================== -->
 
-  <main class="main">
+  <div class="left-column">
 
-    <div class="main-inner">
 
-      <header class="header">
+    <!-- LANDING / CV -->
+
+    <main
+      class="cv-view"
+      id="cvView"
+    >
+
+      <header class="cv-header">
 
         <h1 class="name">
           YOUR NAME
@@ -495,324 +760,684 @@
       </header>
 
 
-      <section class="project-view">
+      <div class="cv-intro">
 
-        <div class="project-top">
+        I work across design, research, publishing,
+        images, archives, and digital systems.
 
-          <span
-            class="project-number"
-            id="projectNumber"
-          >
-            01
+        <br><br>
+
+        My practice considers how information is
+        organized, circulated, preserved, and encountered.
+
+      </div>
+
+
+
+      <!-- EDUCATION -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          education
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2024
           </span>
 
-          <h2
-            class="project-title"
-            id="projectTitle"
-          >
-            Archive Interface
-          </h2>
+          <span>
+            MFA, Your Program<br>
+            Your University
+          </span>
 
-          <span
-            class="project-year"
-            id="projectYear"
-          >
-            2026
+          <span class="cv-place">
+            City
           </span>
 
         </div>
 
 
-        <div class="project-content">
+        <div class="cv-row">
 
-          <div
-            class="project-labels"
-            id="projectLabels"
-          >
-            project<br>
-            selected work<br>
-            digital archive
-          </div>
+          <span class="cv-year">
+            2020
+          </span>
 
+          <span>
+            BA, Your Program<br>
+            Your University
+          </span>
 
-          <div
-            class="project-description"
-            id="projectDescription"
-          >
-
-            <p>
-              A digital archive investigating how
-              information is organized, encountered,
-              remembered, and circulated.
-            </p>
-
-            <p>
-              Replace this description with your actual
-              project text. This section changes whenever
-              someone selects a project from the index.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="metadata"
-          id="projectMetadata"
-        >
-
-          <div class="metadata-row">
-            <span class="metadata-label">
-              type
-            </span>
-
-            <span>
-              website / archive
-            </span>
-          </div>
-
-          <div class="metadata-row">
-            <span class="metadata-label">
-              role
-            </span>
-
-            <span>
-              design / research
-            </span>
-          </div>
-
-          <div class="metadata-row">
-            <span class="metadata-label">
-              year
-            </span>
-
-            <span>
-              2026
-            </span>
-          </div>
+          <span class="cv-place">
+            City
+          </span>
 
         </div>
 
       </section>
 
-    </div>
 
-  </main>
+
+      <!-- EXPERIENCE -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          experience
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2025–
+          </span>
+
+          <span>
+            Designer / Researcher<br>
+            Independent practice
+          </span>
+
+          <span class="cv-place">
+            Washington, D.C.
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2023–25
+          </span>
+
+          <span>
+            Research Assistant<br>
+            Institution / Studio
+          </span>
+
+          <span class="cv-place">
+            City
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2022–23
+          </span>
+
+          <span>
+            Designer<br>
+            Studio Name
+          </span>
+
+          <span class="cv-place">
+            City
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- TEACHING -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          teaching
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2026
+          </span>
+
+          <span>
+            Course / Workshop Title<br>
+            Institution
+          </span>
+
+          <span class="cv-place">
+            City
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2025
+          </span>
+
+          <span>
+            Visiting Critic<br>
+            Institution
+          </span>
+
+          <span class="cv-place">
+            City
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- EXHIBITIONS -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          exhibitions / presentations
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2026
+          </span>
+
+          <span>
+            Exhibition or Lecture Title
+          </span>
+
+          <span class="cv-place">
+            Institution
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2025
+          </span>
+
+          <span>
+            Exhibition or Lecture Title
+          </span>
+
+          <span class="cv-place">
+            Institution
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2024
+          </span>
+
+          <span>
+            Exhibition or Lecture Title
+          </span>
+
+          <span class="cv-place">
+            Institution
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- WRITING -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          writing / publications
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2026
+          </span>
+
+          <span>
+            “Title of Essay or Publication”
+          </span>
+
+          <span class="cv-place">
+            Publisher
+          </span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            2025
+          </span>
+
+          <span>
+            “Another Piece of Writing”
+          </span>
+
+          <span class="cv-place">
+            Journal
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- CONTACT -->
+
+      <section class="cv-section">
+
+        <h2 class="cv-section-title">
+          contact
+        </h2>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            email
+          </span>
+
+          <span>
+            <a href="mailto:you@email.com">
+              you@email.com
+            </a>
+          </span>
+
+          <span></span>
+
+        </div>
+
+
+        <div class="cv-row">
+
+          <span class="cv-year">
+            instagram
+          </span>
+
+          <span>
+            <a href="#">
+              @yourhandle
+            </a>
+          </span>
+
+          <span></span>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+
+    <!-- PROJECT PAGE -->
+
+    <main
+      class="project-view"
+      id="projectView"
+    >
+
+      <header class="project-header">
+
+        <h1 class="name">
+          YOUR NAME
+        </h1>
+
+        <div class="header-info">
+          Designer / researcher<br>
+          Washington, D.C.
+        </div>
+
+      </header>
+
+
+      <div class="project-top">
+
+        <span
+          class="project-number"
+          id="projectNumber"
+        >
+          01
+        </span>
+
+
+        <h2
+          class="project-title"
+          id="projectTitle"
+        >
+          Archive Interface
+        </h2>
+
+
+        <span
+          class="project-year"
+          id="projectYear"
+        >
+          2026
+        </span>
+
+      </div>
+
+
+
+      <div class="project-content">
+
+        <div
+          class="project-labels"
+          id="projectLabels"
+        >
+          project<br>
+          selected work<br>
+          digital archive
+        </div>
+
+
+        <div
+          class="project-description"
+          id="projectDescription"
+        >
+
+          <p>
+            A digital archive investigating how
+            information is organized, encountered,
+            remembered, and circulated.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div
+        class="metadata"
+        id="projectMetadata"
+      >
+      </div>
+
+
+    </main>
+
+  </div>
 
 
 
   <!-- ===================================
-       THIRD 25%
-       SCROLLABLE INDEX
+       THIRD COLUMN
   ==================================== -->
 
-  <aside class="index">
+  <aside class="middle-column">
 
 
-    <div class="index-head">
+    <!-- LANDING IMAGE / ENTER PROJECTS -->
 
-      <span>
-        index
-      </span>
+    <button
+      class="entry-image"
+      id="entryImage"
+      type="button"
+      aria-label="Open project index"
+    >
 
-      <span>
-        selected work
-      </span>
+      <img
+        src="index-cover.jpg"
+        alt="Open selected projects"
+      >
 
-    </div>
+      <div class="entry-label">
 
+        <span>
+          selected projects
+        </span>
 
-    <ol class="index-list">
+        <span>
+          enter →
+        </span>
 
+      </div>
 
-      <li class="index-item">
-
-        <button
-          class="index-button active"
-          data-project="0"
-        >
-
-          <span class="index-number">
-            01
-          </span>
-
-          <span class="index-title">
-
-            Archive Interface
-
-            <span class="index-meta">
-              2026, website / research
-            </span>
-
-          </span>
-
-        </button>
-
-      </li>
+    </button>
 
 
 
-      <li class="index-item">
+    <!-- PROJECT INDEX -->
+
+    <div
+      class="index"
+      id="projectIndex"
+    >
+
+      <div class="index-head">
+
+        <span>
+          index
+        </span>
 
         <button
-          class="index-button"
-          data-project="1"
+          class="cv-button"
+          id="cvButton"
+          type="button"
         >
-
-          <span class="index-number">
-            02
-          </span>
-
-          <span class="index-title">
-
-            Field Notes
-
-            <span class="index-meta">
-              2025, publication
-            </span>
-
-          </span>
-
+          cv
         </button>
 
-      </li>
+      </div>
 
 
 
-      <li class="index-item">
+      <ol class="index-list">
 
-        <button
-          class="index-button"
-          data-project="2"
-        >
 
-          <span class="index-number">
-            03
-          </span>
+        <li class="index-item">
 
-          <span class="index-title">
+          <button
+            class="index-button active"
+            data-project="0"
+            type="button"
+          >
 
-            Counter Archive
-
-            <span class="index-meta">
-              2025, research / exhibition
+            <span class="index-number">
+              01
             </span>
 
-          </span>
+            <span class="index-title">
 
-        </button>
+              Archive Interface
 
-      </li>
+              <span class="index-meta">
+                2026, website / research
+              </span>
 
-
-
-      <li class="index-item">
-
-        <button
-          class="index-button"
-          data-project="3"
-        >
-
-          <span class="index-number">
-            04
-          </span>
-
-          <span class="index-title">
-
-            Index of Small Things
-
-            <span class="index-meta">
-              2024–, collection
             </span>
 
-          </span>
+          </button>
 
-        </button>
-
-      </li>
+        </li>
 
 
 
-      <li class="index-item">
+        <li class="index-item">
 
-        <button
-          class="index-button"
-          data-project="4"
-        >
+          <button
+            class="index-button"
+            data-project="1"
+            type="button"
+          >
 
-          <span class="index-number">
-            05
-          </span>
-
-          <span class="index-title">
-
-            Notes on Looking
-
-            <span class="index-meta">
-              2024, essay / notes
+            <span class="index-number">
+              02
             </span>
 
-          </span>
+            <span class="index-title">
 
-        </button>
+              Field Notes
 
-      </li>
+              <span class="index-meta">
+                2025, publication
+              </span>
 
-
-
-      <li class="index-item">
-
-        <button
-          class="index-button"
-          data-project="5"
-        >
-
-          <span class="index-number">
-            06
-          </span>
-
-          <span class="index-title">
-
-            Public Signals
-
-            <span class="index-meta">
-              2023, identity / research
             </span>
 
-          </span>
+          </button>
 
-        </button>
-
-      </li>
-
-
-    </ol>
+        </li>
 
 
 
-    <div class="index-info">
+        <li class="index-item">
 
-      YOUR NAME<br><br>
+          <button
+            class="index-button"
+            data-project="2"
+            type="button"
+          >
 
-      Designer / researcher<br>
-      Washington, D.C.<br><br>
+            <span class="index-number">
+              03
+            </span>
 
-      <a href="mailto:you@email.com">
-        you@email.com
-      </a>
+            <span class="index-title">
 
-      <br>
+              Counter Archive
 
-      <a href="#">
-        instagram
-      </a>
+              <span class="index-meta">
+                2025, research / exhibition
+              </span>
 
-      <br>
+            </span>
 
-      <a href="#">
-        cv
-      </a>
+          </button>
+
+        </li>
+
+
+
+        <li class="index-item">
+
+          <button
+            class="index-button"
+            data-project="3"
+            type="button"
+          >
+
+            <span class="index-number">
+              04
+            </span>
+
+            <span class="index-title">
+
+              Index of Small Things
+
+              <span class="index-meta">
+                2024–, collection
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+
+
+        <li class="index-item">
+
+          <button
+            class="index-button"
+            data-project="4"
+            type="button"
+          >
+
+            <span class="index-number">
+              05
+            </span>
+
+            <span class="index-title">
+
+              Notes on Looking
+
+              <span class="index-meta">
+                2024, essay / notes
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+
+
+        <li class="index-item">
+
+          <button
+            class="index-button"
+            data-project="5"
+            type="button"
+          >
+
+            <span class="index-number">
+              06
+            </span>
+
+            <span class="index-title">
+
+              Public Signals
+
+              <span class="index-meta">
+                2023, identity / research
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+      </ol>
+
+
+
+      <div class="index-info">
+
+        YOUR NAME<br><br>
+
+        Designer / researcher<br>
+        Washington, D.C.<br><br>
+
+        <a href="mailto:you@email.com">
+          you@email.com
+        </a>
+
+        <br>
+
+        <a href="#">
+          instagram
+        </a>
+
+      </div>
 
     </div>
 
@@ -821,8 +1446,7 @@
 
 
   <!-- ===================================
-       RIGHT 25%
-       IMAGE
+       RIGHT IMAGE
   ==================================== -->
 
   <aside class="image-column">
@@ -830,41 +1454,32 @@
     <img
       id="projectImage"
       src="portrait.jpg"
-      alt="Selected project image"
+      alt="Selected image"
     >
 
     <div
       class="caption"
       id="imageCaption"
     >
-      Archive Interface / 2026
+      YOUR NAME / portrait
     </div>
 
   </aside>
 
+
 </div>
+
 
 
 <script>
 
   /*
-    ==================================================
-    EDIT YOUR PROJECTS HERE
-    ==================================================
+  ==========================================
+  PROJECT INFORMATION
 
-    Each object = one item in the index.
-
-    You can change:
-    title
-    year
-    labels
-    description
-    type
-    role
-    image
-    caption
+  Edit your projects here.
+  ==========================================
   */
-
 
   const projects = [
 
@@ -900,7 +1515,7 @@
         "design / research",
 
       image:
-        "portrait.jpg",
+        "archive-interface.jpg",
 
       caption:
         "Archive Interface / 2026"
@@ -929,9 +1544,8 @@
         </p>
 
         <p>
-          Field Notes treats publishing as a way of
-          organizing unfinished research rather than
-          presenting a final conclusion.
+          Field Notes treats publishing as a way
+          of organizing unfinished research.
         </p>
         `,
 
@@ -968,12 +1582,6 @@
           A project about systems of classification,
           omission, memory, and alternative forms
           of organization.
-        </p>
-
-        <p>
-          The work asks what gets preserved,
-          what disappears, and who determines
-          the structure of an archive.
         </p>
         `,
 
@@ -1013,8 +1621,7 @@
         </p>
 
         <p>
-          The index is deliberately incomplete
-          and changes over time.
+          The index changes continuously over time.
         </p>
         `,
 
@@ -1051,11 +1658,6 @@
           A short text on images, attention,
           repetition, and the practice of looking.
         </p>
-
-        <p>
-          Part essay, part notebook, part
-          collection of references.
-        </p>
         `,
 
       type:
@@ -1088,14 +1690,9 @@
       description:
         `
         <p>
-          A visual study of small public signals:
-          notices, labels, signs, instructions,
-          stickers, warnings, and temporary marks.
-        </p>
-
-        <p>
-          The project considers how anonymous
-          graphic systems shape everyday space.
+          A visual study of notices, labels,
+          signs, instructions, stickers,
+          warnings, and temporary public marks.
         </p>
         `,
 
@@ -1116,9 +1713,25 @@
 
 
 
-  /* =====================================
+  /* ======================================
      ELEMENTS
-  ===================================== */
+  ====================================== */
+
+  const cvView =
+    document.getElementById("cvView");
+
+  const projectView =
+    document.getElementById("projectView");
+
+  const entryImage =
+    document.getElementById("entryImage");
+
+  const projectIndex =
+    document.getElementById("projectIndex");
+
+  const cvButton =
+    document.getElementById("cvButton");
+
 
   const projectNumber =
     document.getElementById("projectNumber");
@@ -1149,9 +1762,9 @@
 
 
 
-  /* =====================================
+  /* ======================================
      LOAD PROJECT
-  ===================================== */
+  ====================================== */
 
   function loadProject(index) {
 
@@ -1241,9 +1854,88 @@
 
 
 
-  /* =====================================
-     INDEX CLICKS
-  ===================================== */
+  /* ======================================
+     ENTER PROJECTS
+  ====================================== */
+
+  function enterProjects() {
+
+    cvView.style.display =
+      "none";
+
+    projectView.classList.add(
+      "active"
+    );
+
+
+    entryImage.style.display =
+      "none";
+
+    projectIndex.classList.add(
+      "active"
+    );
+
+
+    loadProject(0);
+
+  }
+
+
+
+  /* ======================================
+     RETURN TO CV
+  ====================================== */
+
+  function showCV() {
+
+    projectView.classList.remove(
+      "active"
+    );
+
+    cvView.style.display =
+      "block";
+
+
+    projectIndex.classList.remove(
+      "active"
+    );
+
+    entryImage.style.display =
+      "block";
+
+
+    projectImage.src =
+      "portrait.jpg";
+
+    projectImage.alt =
+      "Portrait";
+
+    imageCaption.textContent =
+      "YOUR NAME / portrait";
+
+
+    cvView.scrollTop =
+      0;
+
+  }
+
+
+
+  /* ======================================
+     EVENTS
+  ====================================== */
+
+  entryImage.addEventListener(
+    "click",
+    enterProjects
+  );
+
+
+  cvButton.addEventListener(
+    "click",
+    showCV
+  );
+
 
   indexButtons.forEach(button => {
 
