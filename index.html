@@ -1,2876 +1,1436 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mohamed Benmansour</title>
+
+<style>
+
+:root{
+  --bg:#ededeb;
+  --text:#171717;
+  --muted:#73736f;
+  --rule:#bdbdb7;
+
+  --serif:
+    "Times New Roman",
+    Times,
+    serif;
+
+  --sans:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --mono:
+    "Courier New",
+    Courier,
+    monospace;
+
+  --image-width:235px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--serif);
+  font-size:15px;
+  line-height:1.45;
+}
+
+a{
+  color:inherit;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+
+a:hover{
+  text-decoration-style:dotted;
+}
+
+
+/* =========================================================
+   OVERALL PAGE
+========================================================= */
+
+.site{
+  min-height:100vh;
+
+  display:grid;
+  grid-template-columns:minmax(0,1fr) var(--image-width);
+}
+
+.page{
+  min-width:0;
+  padding:28px 42px 90px 38px;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.image-column{
+  position:relative;
+  border-left:1px solid var(--rule);
+}
+
+.image-column img{
+  position:sticky;
+  top:0;
+
+  display:block;
+  width:100%;
+  height:100vh;
+
+  object-fit:cover;
+  object-position:center;
+  filter:grayscale(100%);
+}
+
+.image-note{
+  position:absolute;
+  bottom:17px;
+  left:14px;
+
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+
+  font-family:var(--mono);
+  font-size:9px;
+  color:#fff;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+
+  text-shadow:0 1px 5px rgba(0,0,0,.4);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:30px;
+
+  margin-bottom:72px;
+}
+
+.wordmark{
+  font-family:var(--sans);
+  font-size:13px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+
+  font-family:var(--mono);
+  font-size:10px;
+  text-transform:lowercase;
+}
+
+nav a{
+  text-decoration:none;
+}
+
+nav a:hover{
+  text-decoration:underline;
+}
+
+
+/* =========================================================
+   INTRO COMPOSITION
+========================================================= */
+
+.intro{
+  min-height:680px;
+  position:relative;
+}
+
+.intro-name{
+  margin:0;
+
+  font-family:var(--sans);
+  font-size:clamp(38px,5vw,72px);
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:-.055em;
+}
+
+.intro-layout{
+  margin-top:42px;
+
+  display:grid;
+  grid-template-columns:
+    minmax(140px,.65fr)
+    minmax(200px,.9fr)
+    minmax(240px,1.15fr);
+
+  gap:30px;
+}
+
+.identity{
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.65;
+}
+
+.identity-label{
+  color:var(--muted);
+  margin-bottom:3px;
+}
+
+.researching{
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.65;
+}
+
+.researching-label{
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+.research-list{
+  margin-left:22px;
+}
+
+.statement{
+  padding-top:77px;
+
+  font-family:var(--serif);
+  font-size:25px;
+  line-height:1.08;
+}
+
+.statement em{
+  font-style:italic;
+}
+
+.intro-rule{
+  margin-top:60px;
+  border-top:1px solid var(--text);
+  width:100%;
+}
+
+.intro-bio{
+  width:57%;
+  min-width:460px;
+
+  margin-top:30px;
+  margin-left:auto;
+  padding-right:7%;
+
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.55;
+}
+
+
+/* =========================================================
+   GENERIC SECTIONS
+========================================================= */
+
+section.content-section{
+  padding:58px 0 68px;
+  border-top:1px solid var(--rule);
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:25px;
+
+  margin-bottom:38px;
+}
+
+.section-title{
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:normal;
+  text-transform:lowercase;
+}
+
+.section-note{
+  max-width:550px;
+
+  font-size:14px;
+  line-height:1.55;
+}
+
+
+/* =========================================================
+   WORK
+========================================================= */
+
+.work-list{
+  margin-left:185px;
+}
+
+.work{
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr) 125px;
+  gap:18px;
+
+  padding:14px 0 17px;
+
+  border-top:1px solid var(--rule);
+}
+
+.work:last-child{
+  border-bottom:1px solid var(--rule);
+}
+
+.work-year{
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+  padding-top:3px;
+}
+
+.work-title{
+  font-size:17px;
+  line-height:1.25;
+}
+
+.work-title a{
+  text-decoration:none;
+}
+
+.work-title a:hover{
+  text-decoration:underline;
+}
+
+.work-description{
+  margin-top:4px;
+
+  max-width:590px;
+  color:var(--muted);
+
+  font-size:12px;
+  line-height:1.5;
+}
+
+.work-type{
+  text-align:right;
+
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+  line-height:1.45;
+}
+
+
+/* =========================================================
+   RESEARCH
+========================================================= */
+
+.research-body{
+  margin-left:185px;
+  max-width:760px;
+}
+
+.research-large{
+  margin:0 0 35px;
+
+  font-size:25px;
+  line-height:1.3;
+}
+
+.research-columns{
+  columns:2;
+  column-gap:55px;
+
+  font-size:13px;
+  line-height:1.65;
+}
+
+.research-columns p{
+  margin:0 0 20px;
+  break-inside:avoid;
+}
+
+.research-columns strong{
+  font-family:var(--mono);
+  font-size:9px;
+  font-weight:normal;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+
+
+/* =========================================================
+   WRITING
+========================================================= */
+
+.writing-list{
+  margin-left:185px;
+}
+
+.writing-item{
+  display:grid;
+  grid-template-columns:62px 1fr;
+  gap:18px;
+
+  padding:14px 0;
+
+  border-top:1px solid var(--rule);
+}
+
+.writing-item:last-child{
+  border-bottom:1px solid var(--rule);
+}
+
+.writing-year{
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+}
 
-  <title>Mohamed Benmansour</title>
+.writing-title{
+  font-size:16px;
+}
 
-  <style>
-    :root {
-      --background: #ffffff;
-      --text: #333333;
-      --muted: #777777;
-      --line: #b8b8b8;
-      --hover: #f3f3f3;
+.writing-meta{
+  margin-top:3px;
 
-      --font: Arial, Helvetica, sans-serif;
-    }
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+}
 
-    * {
-      box-sizing: border-box;
-    }
 
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-    }
+/* =========================================================
+   CV
+========================================================= */
 
-    body {
-      overflow: hidden;
+.cv{
+  margin-left:185px;
+}
 
-      background: var(--background);
-      color: var(--text);
+.cv-group{
+  display:grid;
+  grid-template-columns:125px 1fr;
+  gap:25px;
 
-      font-family: var(--font);
-      font-size: 12px;
-      line-height: 1.25;
-    }
+  padding:18px 0;
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  border-top:1px solid var(--rule);
+}
 
-    button {
-      font: inherit;
-      color: inherit;
-    }
+.cv-label{
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+  text-transform:lowercase;
+}
+
+.cv-entry{
+  margin-bottom:17px;
+}
 
-    button:focus-visible,
-    a:focus-visible {
-      outline: 1px solid #333;
-      outline-offset: -2px;
-    }
+.cv-entry:last-child{
+  margin-bottom:0;
+}
 
+.cv-entry-title{
+  font-size:14px;
+}
 
-    /* =====================================
-       WHOLE PAGE
-    ===================================== */
+.cv-meta{
+  margin-top:2px;
 
-    .site {
-      display: grid;
-      grid-template-columns: 50% 25% 25%;
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+}
 
-      width: 100vw;
-      height: 100vh;
-    }
 
+/* =========================================================
+   CONTACT
+========================================================= */
 
-    /* =====================================
-       LEFT 50%
-    ===================================== */
+.contact{
+  margin-left:185px;
 
-    .left-column {
-      height: 100vh;
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:70px;
+}
 
-      border-right:
-        2px solid var(--line);
-    }
+.contact-statement{
+  max-width:480px;
+
+  font-size:23px;
+  line-height:1.25;
+}
+
+.contact-links{
+  font-family:var(--mono);
+  font-size:10px;
+  line-height:2;
+}
 
 
-    /* =====================================
-       LANDING CV
-    ===================================== */
+/* =========================================================
+   FOOTER
+========================================================= */
 
-    .cv-view {
-      height: 100%;
-      overflow-y: auto;
-
-      padding:
-        12px
-        14px
-        100px;
-
-      scrollbar-width: thin;
-      scrollbar-color:
-        #bdbdbd
-        transparent;
-    }
-
-
-    .cv-header {
-      display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      gap: 20px;
-
-      padding-bottom: 10px;
-
-      border-bottom:
-        2px solid var(--line);
-    }
-
-
-    .name {
-      margin: 0;
-
-      font-size: 12px;
-      line-height: 1.2;
-
-      font-weight: 600;
-    }
-
-
-    .header-info {
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-
-    .cv-intro {
-      max-width: 420px;
-
-      margin-top: 55px;
-      margin-bottom: 90px;
-
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-
-    /* CV SECTION */
-
-    .cv-section {
-      margin-bottom: 55px;
-
-      border-top:
-        2px solid var(--line);
-    }
-
-
-    .cv-section-title {
-      margin: 0;
-
-      padding:
-        7px
-        0
-        18px;
-
-      color: var(--muted);
-
-      font-size: 10px;
-      font-weight: normal;
-
-      text-transform: lowercase;
-    }
-
-
-    .cv-row {
-      display: grid;
-
-      grid-template-columns:
-        75px
-        1fr
-        auto;
-
-      gap: 12px;
-
-      padding:
-        6px
-        0;
-
-      border-top:
-        1px solid var(--line);
-
-      font-size: 11px;
-      line-height: 1.3;
-    }
-
-
-    .cv-year {
-      color: var(--muted);
-    }
-
-
-    .cv-place {
-      color: var(--muted);
-
-      text-align: right;
-    }
-
-
-    .cv-row:last-child {
-      border-bottom:
-        1px solid var(--line);
-    }
-
-
-
-    /* =====================================
-       PROJECT VIEW
-       hidden initially
-    ===================================== */
-
-    .project-view {
-      display: none;
-
-      height: 100%;
-
-      padding:
-        12px
-        14px
-        18px;
-
-      overflow: hidden;
-    }
-
-
-    .project-view.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-
-    .project-header {
-      display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      gap: 20px;
-
-      padding-bottom: 10px;
-
-      border-bottom:
-        2px solid var(--line);
-    }
-
-
-    .project-top {
-      display: grid;
-
-      grid-template-columns:
-        35px
-        1fr
-        auto;
-
-      gap: 8px;
-
-      align-items: baseline;
-
-      padding:
-        12px
-        0
-        10px;
-
-      border-bottom:
-        2px solid var(--line);
-    }
-
-
-    .project-number,
-    .project-year {
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-
-    .project-title {
-      margin: 0;
-
-      font-size: 13px;
-      line-height: 1.2;
-
-      font-weight: 500;
-    }
-
-
-    .project-content {
-      display: grid;
-
-      grid-template-columns:
-        120px
-        minmax(0, 1fr);
-
-      gap: 24px;
-
-      padding-top: 26px;
-    }
-
-
-    .project-labels {
-      color: var(--muted);
-
-      font-size: 10px;
-      line-height: 1.45;
-    }
-
-
-    .project-description {
-      max-width: 440px;
-    }
-
-
-    .project-description p {
-      margin:
-        0
-        0
-        14px;
-
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-
-    .metadata {
-      margin-top: auto;
-
-      border-top:
-        2px solid var(--line);
-    }
-
-
-    .metadata-row {
-      display: grid;
-
-      grid-template-columns:
-        110px
-        1fr;
-
-      padding:
-        5px
-        0;
-
-      border-bottom:
-        1px solid var(--line);
-
-      font-size: 10px;
-    }
-
-
-    .metadata-label {
-      color: var(--muted);
-    }
-
-
-
-    /* =====================================
-       THIRD COLUMN
-    ===================================== */
-
-    .middle-column {
-      position: relative;
-
-      height: 100vh;
-
-      overflow: hidden;
-
-      border-right:
-        2px solid var(--line);
-
-      background: #f2f2f2;
-    }
-
-
-    /* LANDING IMAGE */
-
-    .entry-image {
-      position: absolute;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      padding: 0;
-
-      background: none;
-      border: 0;
-
-      cursor: pointer;
-    }
-
-
-    .entry-image img {
-      display: block;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-    }
-
-
-    .entry-label {
-      position: absolute;
-
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      display: flex;
-      justify-content: space-between;
-
-      padding:
-        7px
-        9px;
-
-      background:
-        rgba(255,255,255,0.94);
-
-      border-top:
-        2px solid var(--line);
-
-      color: var(--text);
-
-      font-size: 10px;
-    }
-
-
-    .entry-image:hover .entry-label {
-      background: #ededed;
-    }
-
-
-
-    /* =====================================
-       PROJECT INDEX
-       replaces landing image
-    ===================================== */
-
-    .index {
-      display: none;
-
-      height: 100%;
-
-      overflow-y: auto;
-
-      background: #fff;
-
-      scrollbar-width: thin;
-      scrollbar-color:
-        #bdbdbd
-        transparent;
-    }
-
-
-    .index.active {
-      display: block;
-    }
-
-
-    .index-head {
-      position: sticky;
-
-      top: 0;
-
-      z-index: 5;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr auto;
-
-      padding:
-        12px
-        10px;
-
-      background: #ffffff;
-
-      border-bottom:
-        2px solid var(--line);
-
-      font-size: 10px;
-    }
-
-
-    .cv-button {
-      padding: 0;
-
-      background: transparent;
-      border: 0;
-
-      cursor: pointer;
-
-      color: var(--muted);
-
-      font-size: 10px;
-    }
-
-
-    .cv-button:hover {
-      color: var(--text);
-
-      text-decoration: underline;
-    }
-
-
-    .index-list {
-      margin: 0;
-      padding: 0;
-
-      list-style: none;
-    }
-
-
-    .index-item {
-      border-bottom:
-        1px solid var(--line);
-    }
-
-
-    .index-button {
-      width: 100%;
-
-      display: grid;
-
-      grid-template-columns:
-        28px
-        1fr;
-
-      gap: 4px;
-
-      padding:
-        8px
-        10px;
-
-      text-align: left;
-
-      background: transparent;
-      border: 0;
-
-      cursor: pointer;
-    }
-
-
-    .index-button:hover {
-      background: var(--hover);
-    }
-
-
-    .index-button.active {
-      background: #e9e9e9;
-    }
-
-
-    .index-number {
-      color: var(--muted);
-
-      font-size: 9px;
-    }
-
-
-    .index-title {
-      font-size: 11px;
-      line-height: 1.25;
-    }
-
-
-    .index-meta {
-      display: block;
-
-      margin-top: 2px;
-
-      color: var(--muted);
-
-      font-size: 9px;
-      line-height: 1.25;
-    }
-
-
-    .index-info {
-      padding:
-        18px
-        10px
-        80px;
-
-      font-size: 10px;
-      line-height: 1.4;
-
-      color: var(--muted);
-    }
-
-
-    .index-info a {
-      color: var(--text);
-    }
-
-
-
-    /* =====================================
-       RIGHT 25%
-    ===================================== */
-
-    .image-column {
-      position: relative;
-
-      height: 100vh;
-
-      overflow: hidden;
-
-      background: #f2f2f2;
-    }
-
-
-    .image-column img {
-      display: block;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-    }
-
-
-    .caption {
-      position: absolute;
-
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      padding:
-        6px
-        8px;
-
-      background:
-        rgba(255,255,255,0.94);
-
-      border-top:
-        2px solid var(--line);
-
-      color: var(--muted);
-
-      font-size: 9px;
-    }
-
-
-
-    /* =====================================
-       MOBILE
-    ===================================== */
-
-    @media (max-width: 750px) {
-
-      body {
-        overflow: auto;
-      }
-
-
-      .site {
-        display: block;
-
-        width: 100%;
-        height: auto;
-      }
-
-
-      .left-column,
-      .middle-column,
-      .image-column {
-        width: 100%;
-        height: auto;
-
-        border-right: 0;
-
-        border-bottom:
-          2px solid var(--line);
-      }
-
-
-      .cv-view {
-        height: auto;
-
-        overflow: visible;
-      }
-
-
-      .middle-column {
-        height: 70vh;
-      }
-
-
-      .index.active {
-        height: auto;
-      }
-
-
-      .project-view.active {
-        min-height: 500px;
-      }
-
-
-      .project-content {
-        grid-template-columns: 1fr;
-      }
-
-
-      .project-labels {
-        display: none;
-      }
-
-
-      .image-column {
-        height: 70vh;
-      }
-
-    }
-
-  </style>
+footer{
+  margin-top:50px;
+  padding-top:18px;
+
+  border-top:1px solid var(--rule);
+
+  display:flex;
+  justify-content:space-between;
+
+  font-family:var(--mono);
+  font-size:8px;
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+  :root{
+    --image-width:190px;
+  }
+
+  .page{
+    padding-left:28px;
+    padding-right:28px;
+  }
+
+  .intro-layout{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .statement{
+    grid-column:2;
+    padding-top:20px;
+  }
+
+  .work-list,
+  .research-body,
+  .writing-list,
+  .cv,
+  .contact{
+    margin-left:100px;
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .site{
+    display:block;
+  }
+
+  .page{
+    padding:22px 20px 60px;
+  }
+
+  .image-column{
+    height:65vh;
+    border-left:0;
+    border-top:1px solid var(--rule);
+  }
+
+  .image-column img{
+    position:relative;
+    height:100%;
+  }
+
+  header{
+    display:block;
+    margin-bottom:55px;
+  }
+
+  nav{
+    margin-top:18px;
+  }
+
+  .intro{
+    min-height:auto;
+    padding-bottom:70px;
+  }
+
+  .intro-layout{
+    display:block;
+  }
+
+  .researching{
+    margin-top:35px;
+  }
+
+  .statement{
+    margin-top:55px;
+    padding-top:0;
+    max-width:260px;
+  }
+
+  .intro-bio{
+    width:100%;
+    min-width:0;
+    padding:0;
+  }
+
+  .section-head{
+    grid-template-columns:70px 1fr;
+  }
+
+  .work-list,
+  .research-body,
+  .writing-list,
+  .cv,
+  .contact{
+    margin-left:0;
+  }
+
+  .work{
+    grid-template-columns:48px 1fr;
+  }
+
+  .work-type{
+    grid-column:2;
+    text-align:left;
+  }
+
+  .research-columns{
+    columns:1;
+  }
+
+  .cv-group{
+    grid-template-columns:90px 1fr;
+  }
+
+  .contact{
+    grid-template-columns:1fr;
+  }
+
+}
+
+::selection{
+  background:#cacac5;
+}
+
+</style>
 </head>
+
 
 <body>
 
-
 <div class="site">
 
-
-  <!-- ===================================
-       LEFT 50%
-  ==================================== -->
-
-  <div class="left-column">
+<div class="page">
 
 
-    <!-- LANDING / CV -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    <main
-      class="cv-view"
-      id="cvView"
-    >
+<header>
 
-      <header class="cv-header">
+  <div class="wordmark">
+    Mohamed Benmansour
+  </div>
 
-        <h1 class="name">
-          MOHAMED BENMANSOUR
-        </h1>
+  <nav>
+    <a href="#work">work</a>
+    <a href="#research">research</a>
+    <a href="#writing">writing</a>
+    <a href="#cv">cv</a>
+    <a href="#contact">contact</a>
+  </nav>
 
-        <div class="header-info">
-          Architecture / social infrastructure<br>
-          computation / policy / research
-        </div>
-
-      </header>
+</header>
 
 
-      <div class="cv-intro">
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
-                     an architecture student and designer–researcher interested in the systems that shape how people inhabit cities. my work moves between spatial research, public infrastructure, environmental systems, cultural programming, computation, and civic design.
-    
+<main class="intro">
 
+  <h1 class="intro-name">
+    Mohamed Benmansour
+  </h1>
+
+
+  <div class="intro-layout">
+
+    <div class="identity">
+
+      <div class="identity-label">
+        designer, researcher,
       </div>
 
+      architecture student.
 
+    </div>
 
-      <!-- CURRENT -->
 
-      <section class="cv-section">
+    <div class="researching">
 
-        <h2 class="cv-section-title">
-          current
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026–
-          </span>
-
-          <span>
-            Make &amp; Design Ambassador<br>
-            Autodesk
-          </span>
-
-          <span class="cv-place">
-            Maryland
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026–
-          </span>
-
-          <span>
-            Urban Research Contributor<br>
-            Urban Praxis Studio
-          </span>
-
-          <span class="cv-place">
-            Toronto
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026–
-          </span>
-
-          <span>
-            Research Intern / Teen Lead<br>
-            KID Museum
-          </span>
-
-          <span class="cv-place">
-            Bethesda, MD
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026–
-          </span>
-
-          <span>
-            Working Group Member<br>
-            U.S. Green Building Council
-          </span>
-
-          <span class="cv-place">
-            Washington, D.C.
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- RESEARCH / PUBLIC SPACE -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          research / public space
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2025–
-          </span>
-
-          <span>
-            Founder / Executive Director<br>
-            Third Place Movement
-          </span>
-
-          <span class="cv-place">
-            Maryland
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2025–26
-          </span>
-
-          <span>
-            Infrastructure Policy Director<br>
-            Montgomery County Public Schools
-          </span>
-
-          <span class="cv-place">
-            Montgomery County
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026
-          </span>
-
-          <span>
-            Mathematics Curriculum Advisor<br>
-            Montgomery County Public Schools
-          </span>
-
-          <span class="cv-place">
-            Montgomery County
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2026–
-          </span>
-
-          <span>
-            Intern<br>
-            Reed Society for the Sacred Arts
-          </span>
-
-          <span class="cv-place">
-            Washington, D.C.
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- COMMUNITY / ENVIRONMENT -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          community / environment
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2025–26
-          </span>
-
-          <span>
-            Environmental Education Director<br>
-            Eco MoCo
-          </span>
-
-          <span class="cv-place">
-            Montgomery County
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2025–
-          </span>
-
-          <span>
-            Co-Founder<br>
-            mlih cafe
-          </span>
-
-          <span class="cv-place">
-            Maryland
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- EDUCATION -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          education
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2024–26
-          </span>
-
-          <span>
-            Associate's Degree, General Integrated Studies<br>
-            Montgomery College
-          </span>
-
-          <span class="cv-place">
-            Maryland
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            2022–26
-          </span>
-
-          <span>
-            High School Diploma<br>
-            Northwest High School
-          </span>
-
-          <span class="cv-place">
-            Maryland
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- RESEARCH INTERESTS -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          research interests
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            01
-          </span>
-
-          <span>
-            Social infrastructure and third places
-          </span>
-
-          <span class="cv-place">
-            architecture / society
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            02
-          </span>
-
-          <span>
-            Spatial audits and infrastructure policy
-          </span>
-
-          <span class="cv-place">
-            architecture / policy
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            03
-          </span>
-
-          <span>
-            Decolonial sociology and critical literature systems
-          </span>
-
-          <span class="cv-place">
-            knowledge / space
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            04
-          </span>
-
-          <span>
-            Pre-colonial planning and vernacular engineering
-          </span>
-
-          <span class="cv-place">
-            history / architecture
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            05
-          </span>
-
-          <span>
-            Ethnomathematics and computational design
-          </span>
-
-          <span class="cv-place">
-            mathematics / computation
-          </span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            06
-          </span>
-
-          <span>
-            Technology policy and environmental infrastructure
-          </span>
-
-          <span class="cv-place">
-            technology / territory
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- RECOGNITION -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          recognition / speaking
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            selected
-          </span>
-
-          <span>
-            TEDx Montgomery College Speaker<br>
-            Opening Presenter, Cherry Blossom Conference<br>
-            National First-Generation Recognition Award<br>
-            AP Scholar with Distinction<br>
-            Humanitarian Award Recipient
-          </span>
-
-          <span class="cv-place">
-            Maryland / D.C.
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- CONTACT -->
-
-      <section class="cv-section">
-
-        <h2 class="cv-section-title">
-          contact
-        </h2>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            email
-          </span>
-
-          <span>
-            <a href="mailto:mobenmansour27@gmail.com">
-              mobenmansour27@gmail.com
-            </a>
-          </span>
-
-          <span></span>
-
-        </div>
-
-
-        <div class="cv-row">
-
-          <span class="cv-year">
-            linkedin
-          </span>
-
-          <span>
-            <a href="https://www.linkedin.com/in/mohamedbenmansour">
-              mohamedbenmansour
-            </a>
-          </span>
-
-          <span></span>
-
-        </div>
-
-      </section>
-
-    </main>
-
-
-
-    <!-- PROJECT PAGE -->
-
-    <main
-      class="project-view"
-      id="projectView"
-    >
-
-      <header class="project-header">
-
-        <h1 class="name">
-          MOHAMED BENMANSOUR
-        </h1>
-
-        <div class="header-info">
-          Architecture / social infrastructure<br>
-          computation / policy / research
-        </div>
-
-      </header>
-
-
-      <div class="project-top">
-
-        <span
-          class="project-number"
-          id="projectNumber"
-        >
-          01
-        </span>
-
-
-        <h2
-          class="project-title"
-          id="projectTitle"
-        >
-          Spatial Audit Atlas
-        </h2>
-
-
-        <span
-          class="project-year"
-          id="projectYear"
-        >
-          2027
-        </span>
-
+      <div class="researching-label">
+        currently researching
       </div>
 
-
-
-      <div class="project-content">
-
-        <div
-          class="project-labels"
-          id="projectLabels"
-        >
-          sample project<br>
-          spatial audit<br>
-          public infrastructure
-        </div>
-
-
-        <div
-          class="project-description"
-          id="projectDescription"
-        >
-
-          <p>
-            A district-scale research platform comparing
-            how students experience public-school facilities.
-          </p>
-
-        </div>
-
+      <div class="research-list">
+        public space<br>
+        infrastructure<br>
+        environmental systems<br>
+        computation<br>
+        ethnography
       </div>
 
+    </div>
 
 
-      <div
-        class="metadata"
-        id="projectMetadata"
-      >
-      </div>
-
-
-    </main>
+    <div class="statement">
+      Design as a way<br>
+      of <em>looking.</em>
+    </div>
 
   </div>
 
 
-
-  <!-- ===================================
-       THIRD COLUMN
-  ==================================== -->
-
-  <aside class="middle-column">
+  <div class="intro-rule"></div>
 
 
-    <!-- LANDING IMAGE / ENTER PROJECTS -->
+  <div class="intro-bio">
 
-    <button
-      class="entry-image"
-      id="entryImage"
-      type="button"
-      aria-label="Open project index"
-    >
+    An architecture student and designer–researcher interested
+    in the systems that shape how people inhabit cities.
 
-      <img
-        src="index-cover.jpg"
-        alt="Open selected projects"
-      >
+    My work moves between spatial research, public infrastructure,
+    environmental systems, cultural programming, computation,
+    and civic design.
 
-      <div class="entry-label">
+  </div>
 
-        <span>
-          selected projects
-        </span>
+</main>
 
-        <span>
-          enter →
-        </span>
+
+<!-- =====================================================
+     WORK
+===================================================== -->
+
+<section class="content-section" id="work">
+
+  <div class="section-head">
+
+    <div class="section-title">
+      selected work
+    </div>
+
+    <div class="section-note">
+      Design projects, independent investigations,
+      computational work, spatial research, and collaborative practice.
+    </div>
+
+  </div>
+
+
+  <div class="work-list">
+
+
+    <article class="work">
+
+      <div class="work-year">
+        2026
+      </div>
+
+      <div>
+
+        <div class="work-title">
+          <a href="#">Project Title</a>
+        </div>
+
+        <div class="work-description">
+          A short description of the project, its central question,
+          context, and method of investigation.
+        </div>
 
       </div>
 
-    </button>
+      <div class="work-type">
+        architecture<br>
+        research
+      </div>
+
+    </article>
 
 
+    <article class="work">
 
-    <!-- PROJECT INDEX -->
+      <div class="work-year">
+        2026
+      </div>
 
-    <div
-      class="index"
-      id="projectIndex"
-    >
+      <div>
 
-      <div class="index-head">
+        <div class="work-title">
+          <a href="#">Project Title</a>
+        </div>
 
-        <span>
-          index
-        </span>
-
-        <button
-          class="cv-button"
-          id="cvButton"
-          type="button"
-        >
-          cv
-        </button>
+        <div class="work-description">
+          Computational and spatial research investigating relationships
+          between systems, environments, and everyday occupation.
+        </div>
 
       </div>
 
+      <div class="work-type">
+        computation<br>
+        design
+      </div>
 
+    </article>
 
-      <ol class="index-list">
 
+    <article class="work">
 
-        <li class="index-item">
-          <button class="index-button active" data-project="0" type="button">
+      <div class="work-year">
+        2025
+      </div>
 
-            <span class="index-number">
-              01
-            </span>
+      <div>
 
-            <span class="index-title">
+        <div class="work-title">
+          <a href="#">Project Title</a>
+        </div>
 
-              Spatial Audit Atlas
+        <div class="work-description">
+          Research into public infrastructure, civic systems,
+          and the social organization of space.
+        </div>
 
-              <span class="index-meta">
-                2027, civic infrastructure / data — sample
-              </span>
+      </div>
 
-            </span>
+      <div class="work-type">
+        public space<br>
+        infrastructure
+      </div>
 
-          </button>
-        </li>
+    </article>
 
 
+    <article class="work">
 
-        <li class="index-item">
-          <button class="index-button" data-project="1" type="button">
+      <div class="work-year">
+        2025
+      </div>
 
-            <span class="index-number">
-              02
-            </span>
+      <div>
 
-            <span class="index-title">
+        <div class="work-title">
+          <a href="#">Project Title</a>
+        </div>
 
-              Third Place Census
+        <div class="work-description">
+          Environmental investigation connecting architectural
+          observation, representation, and systems analysis.
+        </div>
 
-              <span class="index-meta">
-                2027, public space / social infrastructure — sample
-              </span>
+      </div>
 
-            </span>
+      <div class="work-type">
+        environment<br>
+        research
+      </div>
 
-          </button>
-        </li>
+    </article>
 
 
+    <article class="work">
 
-        <li class="index-item">
-          <button class="index-button" data-project="2" type="button">
+      <div class="work-year">
+        2024
+      </div>
 
-            <span class="index-number">
-              03
-            </span>
+      <div>
 
-            <span class="index-title">
+        <div class="work-title">
+          <a href="#">Project Title</a>
+        </div>
 
-              School as Social Infrastructure
+        <div class="work-description">
+          Cultural and spatial investigation developed through
+          field observation, mapping, and architectural representation.
+        </div>
 
-              <span class="index-meta">
-                2028, civic architecture / policy — sample
-              </span>
+      </div>
 
-            </span>
+      <div class="work-type">
+        ethnography<br>
+        mapping
+      </div>
 
-          </button>
-        </li>
+    </article>
 
 
+  </div>
 
-        <li class="index-item">
-          <button class="index-button" data-project="3" type="button">
+</section>
 
-            <span class="index-number">
-              04
-            </span>
 
-            <span class="index-title">
+<!-- =====================================================
+     RESEARCH
+===================================================== -->
 
-              Counter-Mapping the Planned City
+<section class="content-section" id="research">
 
-              <span class="index-meta">
-                2028, planning / GIS — sample
-              </span>
+  <div class="section-head">
 
-            </span>
+    <div class="section-title">
+      research
+    </div>
 
-          </button>
-        </li>
+    <div class="section-note">
+      Ongoing questions, methods, and fields of inquiry.
+    </div>
 
+  </div>
 
 
-        <li class="index-item">
-          <button class="index-button" data-project="4" type="button">
+  <div class="research-body">
 
-            <span class="index-number">
-              05
-            </span>
+    <p class="research-large">
+      I am interested in architecture not only as an object
+      of design, but as a way of reading relationships between
+      people, systems, knowledge, and space.
+    </p>
 
-            <span class="index-title">
 
-              Maintenance Index
+    <div class="research-columns">
 
-              <span class="index-meta">
-                2028, buildings / public data — sample
-              </span>
+      <p>
+        <strong>Computation</strong><br>
+        Algorithms, computational visualization, modeling,
+        simulation, generative systems, and spatial computation
+        as methods of design and inquiry.
+      </p>
 
-            </span>
+      <p>
+        <strong>Ethnomathematics</strong><br>
+        Cultural systems of measurement, pattern, spatial reasoning,
+        construction, and mathematical knowledge.
+      </p>
 
-          </button>
-        </li>
+      <p>
+        <strong>Anthropology + Ethnography</strong><br>
+        Everyday occupation, cultural practice, lived environments,
+        informal knowledge, and relationships between people and place.
+      </p>
 
+      <p>
+        <strong>Sociology</strong><br>
+        Institutions, governance, social organization, infrastructure,
+        and the systems through which cities distribute resources,
+        access, and power.
+      </p>
 
+      <p>
+        <strong>Environmental Systems</strong><br>
+        Climate, material systems, infrastructure, ecology,
+        environmental performance, and relationships between
+        architecture and larger physical networks.
+      </p>
 
-        <li class="index-item">
-          <button class="index-button" data-project="5" type="button">
+      <p>
+        <strong>Decolonial Inquiry</strong><br>
+        Questioning which forms of architectural and mathematical
+        knowledge are treated as universal, and which cultural
+        knowledge systems remain outside formal institutions.
+      </p>
 
-            <span class="index-number">
-              06
-            </span>
+    </div>
 
-            <span class="index-title">
+  </div>
 
-              Ethnomathematics of the Courtyard
+</section>
 
-              <span class="index-meta">
-                2028, vernacular geometry / computation — sample
-              </span>
 
-            </span>
+<!-- =====================================================
+     WRITING
+===================================================== -->
 
-          </button>
-        </li>
+<section class="content-section" id="writing">
 
+  <div class="section-head">
 
+    <div class="section-title">
+      writing
+    </div>
 
-        <li class="index-item">
-          <button class="index-button" data-project="6" type="button">
+    <div class="section-note">
+      Papers, essays, research notes, publications,
+      and works in progress.
+    </div>
 
-            <span class="index-number">
-              07
-            </span>
+  </div>
 
-            <span class="index-title">
 
-              Heat, Shade, Wait
+  <div class="writing-list">
 
-              <span class="index-meta">
-                2029, transit / climate — sample
-              </span>
+    <div class="writing-item">
 
-            </span>
+      <div class="writing-year">
+        2026
+      </div>
 
-          </button>
-        </li>
+      <div>
 
+        <div class="writing-title">
+          <a href="#">
+            Paper / Essay Title
+          </a>
+        </div>
 
-
-        <li class="index-item">
-          <button class="index-button" data-project="7" type="button">
-
-            <span class="index-number">
-              08
-            </span>
-
-            <span class="index-title">
-
-              Civic Access Graph
-
-              <span class="index-meta">
-                2029, network science / public services — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="8" type="button">
-
-            <span class="index-number">
-              09
-            </span>
-
-            <span class="index-title">
-
-              Public Comment Machine
-
-              <span class="index-meta">
-                2029, civic technology / planning — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="9" type="button">
-
-            <span class="index-number">
-              10
-            </span>
-
-            <span class="index-title">
-
-              Embodied Zoning
-
-              <span class="index-meta">
-                2029, zoning / simulation — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="10" type="button">
-
-            <span class="index-number">
-              11
-            </span>
-
-            <span class="index-title">
-
-              The Informal Threshold
-
-              <span class="index-meta">
-                2030, social morphology / field research — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="11" type="button">
-
-            <span class="index-number">
-              12
-            </span>
-
-            <span class="index-title">
-
-              AI Material Footprint
-
-              <span class="index-meta">
-                2030, computation / energy / territory — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="12" type="button">
-
-            <span class="index-number">
-              13
-            </span>
-
-            <span class="index-title">
-
-              Mosque / Market / Street
-
-              <span class="index-meta">
-                2030, sacred space / urban systems — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="13" type="button">
-
-            <span class="index-number">
-              14
-            </span>
-
-            <span class="index-title">
-
-              Care Radius
-
-              <span class="index-meta">
-                2030, care infrastructure / access — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="14" type="button">
-
-            <span class="index-number">
-              15
-            </span>
-
-            <span class="index-title">
-
-              Code / Custom / Climate
-
-              <span class="index-meta">
-                2031, regulation / vernacular systems — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="15" type="button">
-
-            <span class="index-number">
-              16
-            </span>
-
-            <span class="index-title">
-
-              Neighborhood Operating System
-
-              <span class="index-meta">
-                2031, simulation / civic systems — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="16" type="button">
-
-            <span class="index-number">
-              17
-            </span>
-
-            <span class="index-title">
-
-              Unbuilding the Dataset
-
-              <span class="index-meta">
-                2031, AI / bias / architecture — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-
-        <li class="index-item">
-          <button class="index-button" data-project="17" type="button">
-
-            <span class="index-number">
-              18
-            </span>
-
-            <span class="index-title">
-
-              Socially Measured Building
-
-              <span class="index-meta">
-                2032, post-occupancy / social metrics — sample
-              </span>
-
-            </span>
-
-          </button>
-        </li>
-
-
-      </ol>
-
-
-
-      <div class="index-info">
-
-        MOHAMED BENMANSOUR<br><br>
-
-        Architecture / social infrastructure<br>
-        computation / policy / research<br><br>
-
-        <a href="mailto:mobenmansour27@gmail.com">
-          email
-        </a>
-
-        <br>
-
-        <a href="https://www.linkedin.com/in/mohamedbenmansour">
-          linkedin
-        </a>
-
-        <br><br>
-
-        sample = speculative future project
+        <div class="writing-meta">
+          research paper · institution / publication
+        </div>
 
       </div>
 
     </div>
 
-  </aside>
 
+    <div class="writing-item">
 
+      <div class="writing-year">
+        2025
+      </div>
 
-  <!-- ===================================
-       RIGHT IMAGE
-  ==================================== -->
+      <div>
 
-  <aside class="image-column">
+        <div class="writing-title">
+          <a href="#">
+            Paper / Essay Title
+          </a>
+        </div>
 
-    <img
-      id="projectImage"
-      src="portrait.jpg"
-      alt="Selected image"
-    >
+        <div class="writing-meta">
+          essay · architecture / computation
+        </div>
 
-    <div
-      class="caption"
-      id="imageCaption"
-    >
-      Mohamed Benmansour / portrait
+      </div>
+
     </div>
 
-  </aside>
+
+    <div class="writing-item">
+
+      <div class="writing-year">
+        2025
+      </div>
+
+      <div>
+
+        <div class="writing-title">
+          <a href="#">
+            Paper / Essay Title
+          </a>
+        </div>
+
+        <div class="writing-meta">
+          research · ethnography / spatial systems
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="writing-item">
+
+      <div class="writing-year">
+        2024
+      </div>
+
+      <div>
+
+        <div class="writing-title">
+          <a href="#">
+            Paper / Essay Title
+          </a>
+        </div>
+
+        <div class="writing-meta">
+          field notes · environmental systems
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CV
+===================================================== -->
+
+<section class="content-section" id="cv">
+
+  <div class="section-head">
+
+    <div class="section-title">
+      cv
+    </div>
+
+    <div class="section-note">
+      Selected education, research, practice,
+      publications, exhibitions, awards, and related experience.
+      <a href="#">Full CV ↗</a>
+    </div>
+
+  </div>
+
+
+  <div class="cv">
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        education
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-title">
+            Architecture
+          </div>
+
+          <div class="cv-meta">
+            University Name · 20XX—present
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        research
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Research Position / Laboratory / Project
+          </div>
+
+          <div class="cv-meta">
+            Institution · 2026
+          </div>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Research Position / Project
+          </div>
+
+          <div class="cv-meta">
+            Institution · 2025
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        practice
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Design / Research Position
+          </div>
+
+          <div class="cv-meta">
+            Office / Organization · 2026
+          </div>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Design / Research Position
+          </div>
+
+          <div class="cv-meta">
+            Office / Organization · 2025
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        publications
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            “Paper or Publication Title”
+          </div>
+
+          <div class="cv-meta">
+            publication / institution · 2026
+          </div>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            “Paper or Publication Title”
+          </div>
+
+          <div class="cv-meta">
+            publication · 2025
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        awards
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Award / Fellowship / Scholarship
+          </div>
+
+          <div class="cv-meta">
+            organization · 2026
+          </div>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Award / Recognition
+          </div>
+
+          <div class="cv-meta">
+            organization · 2025
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cv-group">
+
+      <div class="cv-label">
+        selected methods
+      </div>
+
+      <div>
+
+        <div class="cv-entry">
+
+          <div class="cv-entry-title">
+            Computational design · spatial analysis ·
+            architectural representation · field documentation ·
+            mapping · ethnographic research · archival research
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section class="content-section" id="contact">
+
+  <div class="section-head">
+
+    <div class="section-title">
+      contact
+    </div>
+
+    <div class="section-note">
+      correspondence / collaboration / research
+    </div>
+
+  </div>
+
+
+  <div class="contact">
+
+    <div class="contact-statement">
+      Interested in conversations across architecture,
+      computation, public systems, culture, and research.
+    </div>
+
+
+    <div class="contact-links">
+
+      <a href="mailto:email@example.com">
+        email@example.com
+      </a>
+      <br>
+
+      <a href="#">
+        instagram ↗
+      </a>
+      <br>
+
+      <a href="#">
+        linkedin ↗
+      </a>
+      <br>
+
+      <a href="#">
+        github ↗
+      </a>
+      <br>
+
+      <a href="#">
+        google scholar ↗
+      </a>
+      <br>
+
+      <a href="#">
+        orcid ↗
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  <span>
+    © <span id="year"></span> Mohamed Benmansour
+  </span>
+
+  <span>
+    design / research / architecture
+  </span>
+
+</footer>
 
 
 </div>
 
 
+<!-- =====================================================
+     VERTICAL IMAGE
+===================================================== -->
+
+<aside class="image-column">
+
+  <img
+    src="portrait.jpg"
+    alt="Mohamed Benmansour"
+  >
+
+  <div class="image-note">
+    Mohamed Benmansour
+  </div>
+
+</aside>
+
+
+</div>
+
 
 <script>
 
-  /*
-  ==========================================
-  PROJECT INFORMATION
-
-  These are speculative SAMPLE projects.
-  Replace them with real projects over time.
-  ==========================================
-  */
-
-  const projects = [
-
-    {
-      number:
-        "01",
-
-      title:
-        "Spatial Audit Atlas",
-
-      year:
-        "2027",
-
-      labels:
-        "sample project<br>spatial audit<br>public infrastructure",
-
-      description:
-        `
-        <p>
-          A district-scale platform for comparing how students
-          experience school facilities: circulation,
-          accessibility, thermal comfort, gathering space,
-          maintenance, and perceived safety.
-        </p>
-
-        <p>
-          Field observations, survey data, policy documents,
-          and floor-plan annotations are combined into a
-          public-facing research atlas.
-        </p>
-        `,
-
-      type:
-        "research platform / spatial analysis",
-
-      role:
-        "research / GIS / visualization",
-
-      image:
-        "spatial-audit-atlas.jpg",
-
-      caption:
-        "Spatial Audit Atlas / sample / 2027"
-    },
-
-
-    {
-      number:
-        "02",
-
-      title:
-        "Third Place Census",
-
-      year:
-        "2027",
-
-      labels:
-        "sample project<br>third places<br>social infrastructure",
-
-      description:
-        `
-        <p>
-          A longitudinal study of informal gathering spaces
-          across suburban Maryland: libraries, cafés,
-          malls, plazas, school grounds, transit edges,
-          religious institutions, and public interiors.
-        </p>
-
-        <p>
-          The study maps affordability, age access,
-          social mixing, surveillance, duration of stay,
-          and the ability to remain without purchasing anything.
-        </p>
-        `,
-
-      type:
-        "urban research / mapping",
-
-      role:
-        "field research / GIS / visualization",
-
-      image:
-        "third-place-census.jpg",
-
-      caption:
-        "Third Place Census / sample / 2027"
-    },
-
-
-    {
-      number:
-        "03",
-
-      title:
-        "School as Social Infrastructure",
-
-      year:
-        "2028",
-
-      labels:
-        "sample project<br>schools<br>civic architecture",
-
-      description:
-        `
-        <p>
-          A design-research proposal treating public schools
-          as neighborhood infrastructure beyond instructional hours.
-        </p>
-
-        <p>
-          Libraries, gyms, kitchens, fabrication labs,
-          courtyards, and meeting rooms are modeled
-          as shared civic resources.
-        </p>
-        `,
-
-      type:
-        "architectural research / civic prototype",
-
-      role:
-        "design / policy research / scenario modeling",
-
-      image:
-        "school-social-infrastructure.jpg",
-
-      caption:
-        "School as Social Infrastructure / sample / 2028"
-    },
-
-
-    {
-      number:
-        "04",
-
-      title:
-        "Counter-Mapping the Planned City",
-
-      year:
-        "2028",
-
-      labels:
-        "sample project<br>counter-mapping<br>planning",
-
-      description:
-        `
-        <p>
-          A computational counter-map comparing the intended
-          logic of planned communities with everyday spatial
-          practices absent from official master plans.
-        </p>
-
-        <p>
-          Archival drawings, zoning records, interviews,
-          and movement traces are layered to identify
-          where planning assumptions diverge from lived experience.
-        </p>
-        `,
-
-      type:
-        "critical cartography / planning research",
-
-      role:
-        "GIS / archives / network analysis",
-
-      image:
-        "counter-mapping-planned-city.jpg",
-
-      caption:
-        "Counter-Mapping the Planned City / sample / 2028"
-    },
-
-
-    {
-      number:
-        "05",
-
-      title:
-        "Maintenance Index",
-
-      year:
-        "2028",
-
-      labels:
-        "sample project<br>maintenance<br>building systems",
-
-      description:
-        `
-        <p>
-          A building-research interface treating maintenance
-          as architectural evidence rather than an operational afterthought.
-        </p>
-
-        <p>
-          Work orders, material lifespans, environmental conditions,
-          replacement cycles, and occupant complaints are translated
-          into a spatial index of deferred maintenance.
-        </p>
-        `,
-
-      type:
-        "building research / data interface",
-
-      role:
-        "data analysis / visualization",
-
-      image:
-        "maintenance-index.jpg",
-
-      caption:
-        "Maintenance Index / sample / 2028"
-    },
-
-
-    {
-      number:
-        "06",
-
-      title:
-        "Ethnomathematics of the Courtyard",
-
-      year:
-        "2028",
-
-      labels:
-        "sample project<br>ethnomathematics<br>vernacular systems",
-
-      description:
-        `
-        <p>
-          A comparative study of courtyard geometries
-          in North African vernacular architecture,
-          examining proportion, climate response,
-          privacy, circulation, and social organization.
-        </p>
-
-        <p>
-          Parametric reconstructions test how mathematical
-          relationships can encode environmental and social knowledge.
-        </p>
-        `,
-
-      type:
-        "computational history / architectural analysis",
-
-      role:
-        "parametric modeling / archival research",
-
-      image:
-        "ethnomathematics-courtyard.jpg",
-
-      caption:
-        "Ethnomathematics of the Courtyard / sample / 2028"
-    },
-
-
-    {
-      number:
-        "07",
-
-      title:
-        "Heat, Shade, Wait",
-
-      year:
-        "2029",
-
-      labels:
-        "sample project<br>thermal comfort<br>transit infrastructure",
-
-      description:
-        `
-        <p>
-          A microclimate study of bus stops and transfer points
-          combining thermal measurements, shade duration,
-          seating, disability access, service frequency,
-          and average wait time.
-        </p>
-
-        <p>
-          The project identifies where small architectural
-          interventions could produce the greatest social
-          and thermal benefit.
-        </p>
-        `,
-
-      type:
-        "climate justice / transit research",
-
-      role:
-        "sensor research / shadow analysis",
-
-      image:
-        "heat-shade-wait.jpg",
-
-      caption:
-        "Heat, Shade, Wait / sample / 2029"
-    },
-
-
-    {
-      number:
-        "08",
-
-      title:
-        "Civic Access Graph",
-
-      year:
-        "2029",
-
-      labels:
-        "sample project<br>network analysis<br>civic access",
-
-      description:
-        `
-        <p>
-          A network model treating libraries, schools,
-          parks, transit, recreation centers, clinics,
-          and food access as a connected civic system.
-        </p>
-
-        <p>
-          Accessibility is modeled through travel time,
-          opening hours, cost, transfer burden,
-          eligibility, and age restrictions.
-        </p>
-        `,
-
-      type:
-        "network analysis / civic infrastructure",
-
-      role:
-        "graph theory / GIS / policy coding",
-
-      image:
-        "civic-access-graph.jpg",
-
-      caption:
-        "Civic Access Graph / sample / 2029"
-    },
-
-
-    {
-      number:
-        "09",
-
-      title:
-        "Public Comment Machine",
-
-      year:
-        "2029",
-
-      labels:
-        "sample project<br>civic technology<br>planning participation",
-
-      description:
-        `
-        <p>
-          A public-interest interface for reading
-          planning testimony, hearing transcripts,
-          public comments, and development submissions.
-        </p>
-
-        <p>
-          The system clusters recurring spatial concerns
-          while preserving residents' original language.
-        </p>
-        `,
-
-      type:
-        "civic technology / discourse analysis",
-
-      role:
-        "NLP / qualitative coding / interface design",
-
-      image:
-        "public-comment-machine.jpg",
-
-      caption:
-        "Public Comment Machine / sample / 2029"
-    },
-
-
-    {
-      number:
-        "10",
-
-      title:
-        "Embodied Zoning",
-
-      year:
-        "2029",
-
-      labels:
-        "sample project<br>zoning<br>simulation",
-
-      description:
-        `
-        <p>
-          A project translating zoning regulations
-          into everyday spatial consequences:
-          walking distance, childcare logistics,
-          food access, gathering possibilities,
-          and time spent in transit.
-        </p>
-
-        <p>
-          Instead of visualizing zoning only as parcels,
-          the project models the daily routines those rules shape.
-        </p>
-        `,
-
-      type:
-        "policy simulation / urban research",
-
-      role:
-        "agent-based modeling / zoning analysis",
-
-      image:
-        "embodied-zoning.jpg",
-
-      caption:
-        "Embodied Zoning / sample / 2029"
-    },
-
-
-    {
-      number:
-        "11",
-
-      title:
-        "The Informal Threshold",
-
-      year:
-        "2030",
-
-      labels:
-        "sample project<br>thresholds<br>social morphology",
-
-      description:
-        `
-        <p>
-          A comparative field study of stoops,
-          porches, vestibules, courtyards,
-          storefront edges, garage fronts,
-          and other spaces between public and private life.
-        </p>
-
-        <p>
-          Drawings and behavioral observation examine
-          how small architectural thresholds support
-          social contact, commerce, privacy, and informal care.
-        </p>
-        `,
-
-      type:
-        "architectural ethnography / morphology",
-
-      role:
-        "field drawing / observation / analysis",
-
-      image:
-        "informal-threshold.jpg",
-
-      caption:
-        "The Informal Threshold / sample / 2030"
-    },
-
-
-    {
-      number:
-        "12",
-
-      title:
-        "AI Material Footprint",
-
-      year:
-        "2030",
-
-      labels:
-        "sample project<br>AI infrastructure<br>environment",
-
-      description:
-        `
-        <p>
-          An architectural research project tracing
-          the material geography of AI:
-          data centers, water use, electrical systems,
-          cooling infrastructure, land acquisition,
-          and regional development.
-        </p>
-
-        <p>
-          The project connects computational services
-          to their physical landscapes.
-        </p>
-        `,
-
-      type:
-        "technology infrastructure / environmental research",
-
-      role:
-        "territorial mapping / energy data / policy research",
-
-      image:
-        "ai-material-footprint.jpg",
-
-      caption:
-        "AI Material Footprint / sample / 2030"
-    },
-
-
-    {
-      number:
-        "13",
-
-      title:
-        "Mosque / Market / Street",
-
-      year:
-        "2030",
-
-      labels:
-        "sample project<br>sacred architecture<br>urban morphology",
-
-      description:
-        `
-        <p>
-          A comparative morphological study of relationships
-          between sacred space, markets, pedestrian circulation,
-          water, shade, and public gathering.
-        </p>
-
-        <p>
-          Historical urban plans and contemporary spatial analysis
-          are combined to study how civic life forms
-          around architectural institutions.
-        </p>
-        `,
-
-      type:
-        "urban history / spatial morphology",
-
-      role:
-        "comparative mapping / archival research",
-
-      image:
-        "mosque-market-street.jpg",
-
-      caption:
-        "Mosque / Market / Street / sample / 2030"
-    },
-
-
-    {
-      number:
-        "14",
-
-      title:
-        "Care Radius",
-
-      year:
-        "2030",
-
-      labels:
-        "sample project<br>care networks<br>accessibility",
-
-      description:
-        `
-        <p>
-          A mapping project focused on the spatial routines
-          of caregiving: schools, clinics, groceries,
-          recreation, elder care, pharmacies, and transit.
-        </p>
-
-        <p>
-          The model compares simple geographic proximity
-          with chained trips and time constraints
-          that structure everyday care work.
-        </p>
-        `,
-
-      type:
-        "social infrastructure / accessibility research",
-
-      role:
-        "time geography / GIS / interviews",
-
-      image:
-        "care-radius.jpg",
-
-      caption:
-        "Care Radius / sample / 2030"
-    },
-
-
-    {
-      number:
-        "15",
-
-      title:
-        "Code / Custom / Climate",
-
-      year:
-        "2031",
-
-      labels:
-        "sample project<br>building regulation<br>vernacular knowledge",
-
-      description:
-        `
-        <p>
-          A comparative study of building codes
-          and vernacular environmental strategies.
-        </p>
-
-        <p>
-          The project asks where contemporary regulation
-          enables, suppresses, or fails to recognize
-          locally evolved construction knowledge.
-        </p>
-        `,
-
-      type:
-        "building policy / computational analysis",
-
-      role:
-        "code parsing / case studies / simulation",
-
-      image:
-        "code-custom-climate.jpg",
-
-      caption:
-        "Code / Custom / Climate / sample / 2031"
-    },
-
-
-    {
-      number:
-        "16",
-
-      title:
-        "Neighborhood Operating System",
-
-      year:
-        "2031",
-
-      labels:
-        "sample project<br>urban systems<br>civic simulation",
-
-      description:
-        `
-        <p>
-          A neighborhood-scale simulation linking housing,
-          schools, public space, transit, heat,
-          food access, maintenance, and demographic change.
-        </p>
-
-        <p>
-          Rather than optimizing for a single metric,
-          the model tests tradeoffs among competing
-          social and spatial objectives.
-        </p>
-        `,
-
-      type:
-        "urban simulation / systems design",
-
-      role:
-        "agent-based modeling / systems mapping",
-
-      image:
-        "neighborhood-operating-system.jpg",
-
-      caption:
-        "Neighborhood Operating System / sample / 2031"
-    },
-
-
-    {
-      number:
-        "17",
-
-      title:
-        "Unbuilding the Dataset",
-
-      year:
-        "2031",
-
-      labels:
-        "sample project<br>datasets<br>critical computation",
-
-      description:
-        `
-        <p>
-          A critical study of architectural datasets
-          used in machine learning: image corpora,
-          floor plans, real-estate records,
-          performance data, and urban sensing systems.
-        </p>
-
-        <p>
-          The project investigates what kinds of buildings,
-          communities, informal practices, and non-Western
-          spatial knowledge are absent or mislabeled.
-        </p>
-        `,
-
-      type:
-        "critical computation / dataset research",
-
-      role:
-        "dataset audit / taxonomy analysis / visualization",
-
-      image:
-        "unbuilding-dataset.jpg",
-
-      caption:
-        "Unbuilding the Dataset / sample / 2031"
-    },
-
-
-    {
-      number:
-        "18",
-
-      title:
-        "Socially Measured Building",
-
-      year:
-        "2032",
-
-      labels:
-        "sample project<br>post-occupancy<br>social performance",
-
-      description:
-        `
-        <p>
-          A post-occupancy research protocol expanding
-          building performance beyond energy and comfort
-          to include encounter, belonging, accessibility,
-          adaptability, informal use, and social mixing.
-        </p>
-
-        <p>
-          Qualitative observation is combined
-          with repeatable metrics to evaluate architecture
-          as social infrastructure without reducing
-          social life to a single score.
-        </p>
-        `,
-
-      type:
-        "post-occupancy research / methodology",
-
-      role:
-        "mixed methods / sensors / behavioral observation",
-
-      image:
-        "socially-measured-building.jpg",
-
-      caption:
-        "Socially Measured Building / sample / 2032"
-    }
-
-  ];
-
-
-
-  /* ======================================
-     ELEMENTS
-  ====================================== */
-
-  const cvView =
-    document.getElementById("cvView");
-
-  const projectView =
-    document.getElementById("projectView");
-
-  const entryImage =
-    document.getElementById("entryImage");
-
-  const projectIndex =
-    document.getElementById("projectIndex");
-
-  const cvButton =
-    document.getElementById("cvButton");
-
-
-  const projectNumber =
-    document.getElementById("projectNumber");
-
-  const projectTitle =
-    document.getElementById("projectTitle");
-
-  const projectYear =
-    document.getElementById("projectYear");
-
-  const projectLabels =
-    document.getElementById("projectLabels");
-
-  const projectDescription =
-    document.getElementById("projectDescription");
-
-  const projectMetadata =
-    document.getElementById("projectMetadata");
-
-  const projectImage =
-    document.getElementById("projectImage");
-
-  const imageCaption =
-    document.getElementById("imageCaption");
-
-  const indexButtons =
-    document.querySelectorAll(".index-button");
-
-
-
-  /* ======================================
-     LOAD PROJECT
-  ====================================== */
-
-  function loadProject(index) {
-
-    const project =
-      projects[index];
-
-
-    projectNumber.textContent =
-      project.number;
-
-    projectTitle.textContent =
-      project.title;
-
-    projectYear.textContent =
-      project.year;
-
-    projectLabels.innerHTML =
-      project.labels;
-
-    projectDescription.innerHTML =
-      project.description;
-
-
-    projectMetadata.innerHTML =
-      `
-      <div class="metadata-row">
-
-        <span class="metadata-label">
-          type
-        </span>
-
-        <span>
-          ${project.type}
-        </span>
-
-      </div>
-
-
-      <div class="metadata-row">
-
-        <span class="metadata-label">
-          role / methods
-        </span>
-
-        <span>
-          ${project.role}
-        </span>
-
-      </div>
-
-
-      <div class="metadata-row">
-
-        <span class="metadata-label">
-          year
-        </span>
-
-        <span>
-          ${project.year}
-        </span>
-
-      </div>
-
-
-      <div class="metadata-row">
-
-        <span class="metadata-label">
-          status
-        </span>
-
-        <span>
-          speculative sample
-        </span>
-
-      </div>
-      `;
-
-
-    projectImage.src =
-      project.image;
-
-    projectImage.alt =
-      project.title;
-
-    imageCaption.textContent =
-      project.caption;
-
-
-    indexButtons.forEach(
-      button =>
-        button.classList.remove("active")
-    );
-
-
-    indexButtons[index]
-      .classList
-      .add("active");
-
-  }
-
-
-
-  /* ======================================
-     ENTER PROJECTS
-  ====================================== */
-
-  function enterProjects() {
-
-    cvView.style.display =
-      "none";
-
-    projectView.classList.add(
-      "active"
-    );
-
-
-    entryImage.style.display =
-      "none";
-
-    projectIndex.classList.add(
-      "active"
-    );
-
-
-    loadProject(0);
-
-  }
-
-
-
-  /* ======================================
-     RETURN TO CV
-  ====================================== */
-
-  function showCV() {
-
-    projectView.classList.remove(
-      "active"
-    );
-
-    cvView.style.display =
-      "block";
-
-
-    projectIndex.classList.remove(
-      "active"
-    );
-
-    entryImage.style.display =
-      "block";
-
-
-    projectImage.src =
-      "portrait.jpg";
-
-    projectImage.alt =
-      "Portrait";
-
-    imageCaption.textContent =
-      "Mohamed Benmansour / portrait";
-
-
-    cvView.scrollTop =
-      0;
-
-  }
-
-
-
-  /* ======================================
-     EVENTS
-  ====================================== */
-
-  entryImage.addEventListener(
-    "click",
-    enterProjects
-  );
-
-
-  cvButton.addEventListener(
-    "click",
-    showCV
-  );
-
-
-  indexButtons.forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const projectIndex =
-          Number(
-            button.dataset.project
-          );
-
-        loadProject(
-          projectIndex
-        );
-
-      }
-    );
-
-  });
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
 </script>
 
