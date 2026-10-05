@@ -7,30 +7,37 @@
 <title>Mohamed Benmansour</title>
 
 <style>
+/* =========================================================
+   ROOT
+========================================================= */
 
 :root{
-  --bg:#ededeb;
-  --text:#171717;
-  --muted:#73736f;
-  --rule:#bdbdb7;
-
-  --serif:
-    "Times New Roman",
-    Times,
-    serif;
+  --bg:#f3f3f1;
+  --paper:#f8f8f6;
+  --text:#242424;
+  --muted:#777773;
+  --faint:#a6a6a1;
+  --line:#cececa;
+  --soft:#e8e8e4;
 
   --sans:
     Arial,
     Helvetica,
     sans-serif;
 
-  --mono:
-    "Courier New",
-    Courier,
-    monospace;
+  --serif:
+    "Times New Roman",
+    Times,
+    serif;
 
-  --image-width:235px;
+  --max:1600px;
+  --image-width:18vw;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -42,338 +49,330 @@ html{
 
 body{
   margin:0;
+
   background:var(--bg);
   color:var(--text);
-  font-family:var(--serif);
-  font-size:15px;
-  line-height:1.45;
+
+  font-family:var(--sans);
+  font-size:12px;
+  line-height:1.35;
 }
 
 a{
   color:inherit;
-  text-decoration:underline;
-  text-decoration-thickness:1px;
-  text-underline-offset:3px;
+  text-decoration:none;
 }
 
 a:hover{
-  text-decoration-style:dotted;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+::selection{
+  background:#d7d7d2;
 }
 
 
 /* =========================================================
-   OVERALL PAGE
+   PAGE STRUCTURE
 ========================================================= */
 
 .site{
+  max-width:var(--max);
   min-height:100vh;
+
+  margin:0 auto;
 
   display:grid;
   grid-template-columns:minmax(0,1fr) var(--image-width);
-}
 
-.page{
-  min-width:0;
-  padding:28px 42px 90px 38px;
+  background:var(--paper);
 }
 
 
 /* =========================================================
-   IMAGE
+   MAIN COLUMN
 ========================================================= */
 
-.image-column{
+.main{
+  min-width:0;
+
+  padding:
+    22px
+    36px
+    100px
+    30px;
+}
+
+
+/* =========================================================
+   TOP NAV
+========================================================= */
+
+.topbar{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    auto;
+
+  gap:40px;
+
+  align-items:start;
+}
+
+.site-name{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+
+.nav{
+  display:flex;
+  gap:18px;
+
+  font-size:10px;
+  color:var(--muted);
+
+  text-transform:lowercase;
+}
+
+.nav a:hover{
+  color:var(--text);
+}
+
+
+/* =========================================================
+   LANDING / MANIFESTO
+========================================================= */
+
+.landing{
+  min-height:92vh;
+
   position:relative;
-  border-left:1px solid var(--rule);
+
+  padding-top:82px;
 }
 
-.image-column img{
-  position:sticky;
-  top:0;
 
-  display:block;
-  width:100%;
-  height:100vh;
+/* left introductory identity */
 
-  object-fit:cover;
-  object-position:center;
-  filter:grayscale(100%);
+.identity{
+  width:250px;
 }
 
-.image-note{
+.identity-role{
+  margin-top:20px;
+
+  padding-left:28px;
+
+  color:var(--muted);
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+
+/* research block */
+
+.currently{
+  margin-top:68px;
+  margin-left:72px;
+
+  width:210px;
+}
+
+.currently-label{
+  margin-bottom:13px;
+
+  font-size:10px;
+  color:var(--muted);
+}
+
+.currently-list{
+  padding-left:19px;
+
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:1.45;
+}
+
+
+/* design statement */
+
+.statement{
   position:absolute;
-  bottom:17px;
-  left:14px;
+
+  top:245px;
+  left:43%;
+
+  width:300px;
+}
+
+.statement-text{
+  font-family:var(--serif);
+
+  font-size:26px;
+  line-height:1.1;
+
+  letter-spacing:-.02em;
+}
+
+.statement-text em{
+  font-weight:normal;
+}
+
+.statement-line{
+  width:100%;
+  margin-top:17px;
+
+  border-top:1px solid var(--text);
+}
+
+
+/* biography */
+
+.bio{
+  position:absolute;
+
+  left:43%;
+  bottom:75px;
+
+  width:min(470px,45%);
+
+  font-family:var(--serif);
+
+  font-size:16px;
+  line-height:1.55;
+}
+
+.bio p{
+  margin:0;
+}
+
+
+/* little margin note */
+
+.margin-note{
+  position:absolute;
+
+  right:5%;
+  bottom:78px;
 
   writing-mode:vertical-rl;
   transform:rotate(180deg);
 
-  font-family:var(--mono);
   font-size:9px;
-  color:#fff;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+  color:var(--faint);
 
-  text-shadow:0 1px 5px rgba(0,0,0,.4);
+  letter-spacing:.05em;
 }
 
 
 /* =========================================================
-   HEADER
+   GENERAL CONTENT
 ========================================================= */
 
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:30px;
+.section{
+  padding:
+    25px
+    0
+    100px;
 
-  margin-bottom:72px;
+  border-top:1px solid var(--line);
 }
 
-.wordmark{
-  font-family:var(--sans);
-  font-size:13px;
-  font-weight:bold;
-}
-
-nav{
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-
-  font-family:var(--mono);
-  font-size:10px;
-  text-transform:lowercase;
-}
-
-nav a{
-  text-decoration:none;
-}
-
-nav a:hover{
-  text-decoration:underline;
-}
-
-
-/* =========================================================
-   INTRO COMPOSITION
-========================================================= */
-
-.intro{
-  min-height:680px;
-  position:relative;
-}
-
-.intro-name{
-  margin:0;
-
-  font-family:var(--sans);
-  font-size:clamp(38px,5vw,72px);
-  font-weight:400;
-  line-height:.94;
-  letter-spacing:-.055em;
-}
-
-.intro-layout{
-  margin-top:42px;
-
+.section-header{
   display:grid;
+
   grid-template-columns:
-    minmax(140px,.65fr)
-    minmax(200px,.9fr)
-    minmax(240px,1.15fr);
+    80px
+    180px
+    minmax(0,1fr);
 
-  gap:30px;
+  gap:18px;
+
+  margin-bottom:65px;
 }
 
-.identity{
-  font-family:var(--mono);
-  font-size:11px;
-  line-height:1.65;
-}
-
-.identity-label{
-  color:var(--muted);
-  margin-bottom:3px;
-}
-
-.researching{
-  font-family:var(--mono);
-  font-size:11px;
-  line-height:1.65;
-}
-
-.researching-label{
-  color:var(--muted);
-  margin-bottom:12px;
-}
-
-.research-list{
-  margin-left:22px;
-}
-
-.statement{
-  padding-top:77px;
-
-  font-family:var(--serif);
-  font-size:25px;
-  line-height:1.08;
-}
-
-.statement em{
-  font-style:italic;
-}
-
-.intro-rule{
-  margin-top:60px;
-  border-top:1px solid var(--text);
-  width:100%;
-}
-
-.intro-bio{
-  width:57%;
-  min-width:460px;
-
-  margin-top:30px;
-  margin-left:auto;
-  padding-right:7%;
-
-  font-family:var(--serif);
-  font-size:18px;
-  line-height:1.55;
-}
-
-
-/* =========================================================
-   GENERIC SECTIONS
-========================================================= */
-
-section.content-section{
-  padding:58px 0 68px;
-  border-top:1px solid var(--rule);
-}
-
-.section-head{
-  display:grid;
-  grid-template-columns:160px 1fr;
-  gap:25px;
-
-  margin-bottom:38px;
+.section-number{
+  color:var(--faint);
+  font-size:9px;
 }
 
 .section-title{
-  font-family:var(--mono);
-  font-size:10px;
+  margin:0;
+
+  font-size:11px;
   font-weight:normal;
+
   text-transform:lowercase;
 }
 
 .section-note{
-  max-width:550px;
+  max-width:380px;
 
-  font-size:14px;
-  line-height:1.55;
-}
-
-
-/* =========================================================
-   WORK
-========================================================= */
-
-.work-list{
-  margin-left:185px;
-}
-
-.work{
-  display:grid;
-  grid-template-columns:62px minmax(0,1fr) 125px;
-  gap:18px;
-
-  padding:14px 0 17px;
-
-  border-top:1px solid var(--rule);
-}
-
-.work:last-child{
-  border-bottom:1px solid var(--rule);
-}
-
-.work-year{
-  font-family:var(--mono);
-  font-size:9px;
-  color:var(--muted);
-  padding-top:3px;
-}
-
-.work-title{
-  font-size:17px;
-  line-height:1.25;
-}
-
-.work-title a{
-  text-decoration:none;
-}
-
-.work-title a:hover{
-  text-decoration:underline;
-}
-
-.work-description{
-  margin-top:4px;
-
-  max-width:590px;
   color:var(--muted);
 
-  font-size:12px;
-  line-height:1.5;
-}
-
-.work-type{
-  text-align:right;
-
-  font-family:var(--mono);
-  font-size:9px;
-  color:var(--muted);
+  font-family:var(--serif);
+  font-size:13px;
   line-height:1.45;
 }
 
 
 /* =========================================================
-   RESEARCH
+   PROJECTS
 ========================================================= */
 
-.research-body{
-  margin-left:185px;
-  max-width:760px;
+.projects{
+  margin-left:98px;
 }
 
-.research-large{
-  margin:0 0 35px;
+.project{
+  display:grid;
 
-  font-size:25px;
-  line-height:1.3;
+  grid-template-columns:
+    55px
+    minmax(180px,1fr)
+    130px
+    65px;
+
+  gap:20px;
+
+  padding:
+    13px
+    0;
+
+  border-top:1px solid var(--line);
 }
 
-.research-columns{
-  columns:2;
-  column-gap:55px;
-
-  font-size:13px;
-  line-height:1.65;
+.project:last-child{
+  border-bottom:1px solid var(--line);
 }
 
-.research-columns p{
-  margin:0 0 20px;
-  break-inside:avoid;
+.project:hover{
+  background:rgba(0,0,0,.018);
 }
 
-.research-columns strong{
-  font-family:var(--mono);
+.project-number,
+.project-year{
+  color:var(--faint);
+
   font-size:9px;
-  font-weight:normal;
-  text-transform:uppercase;
-  letter-spacing:.03em;
+}
+
+.project-title{
+  font-family:var(--serif);
+
+  font-size:15px;
+  line-height:1.25;
+}
+
+.project-type{
+  color:var(--muted);
+
+  font-size:9px;
+  line-height:1.4;
 }
 
 
@@ -382,39 +381,98 @@ section.content-section{
 ========================================================= */
 
 .writing-list{
-  margin-left:185px;
+  margin-left:98px;
+
+  max-width:850px;
 }
 
 .writing-item{
   display:grid;
-  grid-template-columns:62px 1fr;
-  gap:18px;
 
-  padding:14px 0;
+  grid-template-columns:
+    70px
+    minmax(0,1fr);
 
-  border-top:1px solid var(--rule);
+  gap:20px;
+
+  padding:
+    16px
+    0;
+
+  border-top:1px solid var(--line);
 }
 
 .writing-item:last-child{
-  border-bottom:1px solid var(--rule);
+  border-bottom:1px solid var(--line);
 }
 
 .writing-year{
-  font-family:var(--mono);
+  color:var(--faint);
+
   font-size:9px;
-  color:var(--muted);
 }
 
 .writing-title{
-  font-size:16px;
+  font-family:var(--serif);
+
+  font-size:15px;
+  line-height:1.3;
 }
 
 .writing-meta{
-  margin-top:3px;
+  margin-top:4px;
 
-  font-family:var(--mono);
-  font-size:9px;
   color:var(--muted);
+
+  font-size:9px;
+}
+
+
+/* =========================================================
+   RESEARCH INTERESTS
+========================================================= */
+
+.research-grid{
+  margin-left:98px;
+
+  max-width:850px;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 50px;
+}
+
+.research-item{
+  padding:
+    13px
+    0
+    24px;
+
+  border-top:1px solid var(--line);
+}
+
+.research-number{
+  margin-bottom:18px;
+
+  color:var(--faint);
+
+  font-size:9px;
+}
+
+.research-title{
+  margin-bottom:8px;
+
+  font-family:var(--serif);
+  font-size:15px;
+}
+
+.research-description{
+  max-width:330px;
+
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.5;
 }
 
 
@@ -423,44 +481,72 @@ section.content-section{
 ========================================================= */
 
 .cv{
-  margin-left:185px;
+  margin-left:98px;
+
+  max-width:900px;
 }
 
 .cv-group{
   display:grid;
-  grid-template-columns:125px 1fr;
-  gap:25px;
 
-  padding:18px 0;
+  grid-template-columns:
+    145px
+    minmax(0,1fr);
 
-  border-top:1px solid var(--rule);
+  gap:35px;
+
+  padding:
+    20px
+    0
+    48px;
+
+  border-top:1px solid var(--line);
 }
 
-.cv-label{
-  font-family:var(--mono);
-  font-size:9px;
+.cv-category{
   color:var(--muted);
+
+  font-size:9px;
   text-transform:lowercase;
 }
 
 .cv-entry{
-  margin-bottom:17px;
+  display:grid;
+
+  grid-template-columns:
+    70px
+    minmax(0,1fr)
+    130px;
+
+  gap:18px;
+
+  padding-bottom:15px;
 }
 
 .cv-entry:last-child{
-  margin-bottom:0;
+  padding-bottom:0;
 }
 
-.cv-entry-title{
-  font-size:14px;
-}
+.cv-year{
+  color:var(--faint);
 
-.cv-meta{
-  margin-top:2px;
-
-  font-family:var(--mono);
   font-size:9px;
+}
+
+.cv-role{
+  font-size:11px;
+}
+
+.cv-role strong{
+  font-weight:normal;
+}
+
+.cv-place{
   color:var(--muted);
+
+  font-size:9px;
+
+  text-align:right;
 }
 
 
@@ -469,24 +555,90 @@ section.content-section{
 ========================================================= */
 
 .contact{
-  margin-left:185px;
+  margin-left:98px;
 
   display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:70px;
+
+  grid-template-columns:
+    minmax(250px,500px)
+    200px;
+
+  gap:100px;
 }
 
 .contact-statement{
-  max-width:480px;
+  font-family:var(--serif);
 
   font-size:23px;
-  line-height:1.25;
+  line-height:1.2;
 }
 
 .contact-links{
-  font-family:var(--mono);
   font-size:10px;
-  line-height:2;
+  line-height:1.9;
+}
+
+.contact-links span{
+  color:var(--faint);
+
+  display:inline-block;
+  width:55px;
+}
+
+
+/* =========================================================
+   RIGHT IMAGE STRIP
+========================================================= */
+
+.image-strip{
+  position:relative;
+
+  min-height:100vh;
+
+  border-left:1px solid var(--line);
+
+  background:#e5e5e2;
+}
+
+.image-inner{
+  position:sticky;
+  top:0;
+
+  width:100%;
+  height:100vh;
+}
+
+.image-inner img{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+  object-position:center;
+
+  filter:grayscale(100%);
+}
+
+.image-caption{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  padding:
+    8px
+    9px;
+
+  background:rgba(248,248,246,.94);
+
+  border-top:1px solid var(--line);
+
+  color:var(--muted);
+
+  font-size:8px;
+  line-height:1.4;
 }
 
 
@@ -494,148 +646,171 @@ section.content-section{
    FOOTER
 ========================================================= */
 
-footer{
-  margin-top:50px;
-  padding-top:18px;
-
-  border-top:1px solid var(--rule);
-
+.footer{
   display:flex;
   justify-content:space-between;
 
-  font-family:var(--mono);
+  padding-top:20px;
+
+  border-top:1px solid var(--line);
+
+  color:var(--faint);
+
   font-size:8px;
-  color:var(--muted);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
-@media(max-width:1000px){
-
-  :root{
-    --image-width:190px;
-  }
-
-  .page{
-    padding-left:28px;
-    padding-right:28px;
-  }
-
-  .intro-layout{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .statement{
-    grid-column:2;
-    padding-top:20px;
-  }
-
-  .work-list,
-  .research-body,
-  .writing-list,
-  .cv,
-  .contact{
-    margin-left:100px;
-  }
-
-}
-
-
-@media(max-width:720px){
+@media(max-width:800px){
 
   .site{
     display:block;
   }
 
-  .page{
-    padding:22px 20px 60px;
+  .main{
+    padding:
+      18px
+      18px
+      60px;
   }
 
-  .image-column{
-    height:65vh;
-    border-left:0;
-    border-top:1px solid var(--rule);
-  }
-
-  .image-column img{
-    position:relative;
-    height:100%;
-  }
-
-  header{
+  .topbar{
     display:block;
-    margin-bottom:55px;
   }
 
-  nav{
-    margin-top:18px;
+  .nav{
+    margin-top:15px;
+
+    flex-wrap:wrap;
   }
 
-  .intro{
+  .landing{
     min-height:auto;
-    padding-bottom:70px;
+
+    padding:
+      70px
+      0
+      100px;
   }
 
-  .intro-layout{
-    display:block;
+  .identity{
+    width:auto;
   }
 
-  .researching{
-    margin-top:35px;
+  .currently{
+    margin:
+      65px
+      0
+      0
+      30px;
   }
 
   .statement{
-    margin-top:55px;
-    padding-top:0;
-    max-width:260px;
+    position:relative;
+
+    top:auto;
+    left:auto;
+
+    margin:
+      90px
+      0
+      0
+      25%;
   }
 
-  .intro-bio{
-    width:100%;
-    min-width:0;
-    padding:0;
+  .bio{
+    position:relative;
+
+    left:auto;
+    bottom:auto;
+
+    width:auto;
+
+    margin:
+      100px
+      0
+      0
+      20%;
   }
 
-  .section-head{
-    grid-template-columns:70px 1fr;
+  .margin-note{
+    display:none;
   }
 
-  .work-list,
-  .research-body,
+  .section-header{
+    grid-template-columns:
+      40px
+      110px
+      1fr;
+
+    margin-bottom:45px;
+  }
+
+  .projects,
   .writing-list,
+  .research-grid,
   .cv,
   .contact{
     margin-left:0;
   }
 
-  .work{
-    grid-template-columns:48px 1fr;
+  .project{
+    grid-template-columns:
+      30px
+      1fr;
+
+    gap:8px 12px;
   }
 
-  .work-type{
+  .project-type,
+  .project-year{
     grid-column:2;
-    text-align:left;
   }
 
-  .research-columns{
-    columns:1;
+  .research-grid{
+    grid-template-columns:1fr;
   }
 
   .cv-group{
-    grid-template-columns:90px 1fr;
+    grid-template-columns:1fr;
+
+    gap:20px;
+  }
+
+  .cv-entry{
+    grid-template-columns:
+      55px
+      1fr;
+  }
+
+  .cv-place{
+    grid-column:2;
+
+    text-align:left;
   }
 
   .contact{
     grid-template-columns:1fr;
+
+    gap:50px;
   }
 
-}
+  .image-strip{
+    min-height:70vh;
 
-::selection{
-  background:#cacac5;
+    border-left:0;
+    border-top:1px solid var(--line);
+  }
+
+  .image-inner{
+    position:relative;
+
+    height:70vh;
+  }
+
 }
 
 </style>
@@ -646,23 +821,26 @@ footer{
 
 <div class="site">
 
-<div class="page">
-
 
 <!-- =====================================================
-     HEADER
-===================================================== -->
+     MAIN
+====================================================== -->
 
-<header>
+<main class="main">
 
-  <div class="wordmark">
+
+<!-- TOP BAR -->
+
+<header class="topbar">
+
+  <div class="site-name">
     Mohamed Benmansour
   </div>
 
-  <nav>
+  <nav class="nav">
     <a href="#work">work</a>
-    <a href="#research">research</a>
     <a href="#writing">writing</a>
+    <a href="#research">research</a>
     <a href="#cv">cv</a>
     <a href="#contact">contact</a>
   </nav>
@@ -670,37 +848,29 @@ footer{
 </header>
 
 
+
 <!-- =====================================================
-     INTRO
-===================================================== -->
+     LANDING
+====================================================== -->
 
-<main class="intro">
-
-  <h1 class="intro-name">
-    Mohamed Benmansour
-  </h1>
+<section class="landing">
 
 
-  <div class="intro-layout">
+  <div class="identity">
 
-    <div class="identity">
-
-      <div class="identity-label">
-        designer, researcher,
-      </div>
-
+    <div class="identity-role">
+      designer, researcher,<br>
       architecture student.
-
     </div>
 
 
-    <div class="researching">
+    <div class="currently">
 
-      <div class="researching-label">
+      <div class="currently-label">
         currently researching
       </div>
 
-      <div class="research-list">
+      <div class="currently-list">
         public space<br>
         infrastructure<br>
         environmental systems<br>
@@ -710,606 +880,836 @@ footer{
 
     </div>
 
+  </div>
 
-    <div class="statement">
+
+
+  <div class="statement">
+
+    <div class="statement-text">
       Design as a way<br>
       of <em>looking.</em>
     </div>
 
-  </div>
-
-
-  <div class="intro-rule"></div>
-
-
-  <div class="intro-bio">
-
-    An architecture student and designer–researcher interested
-    in the systems that shape how people inhabit cities.
-
-    My work moves between spatial research, public infrastructure,
-    environmental systems, cultural programming, computation,
-    and civic design.
+    <div class="statement-line"></div>
 
   </div>
 
-</main>
+
+
+  <div class="bio">
+
+    <p>
+      An architecture student and designer–researcher
+      interested in the systems that shape how people
+      inhabit cities. My work moves between spatial
+      research, public infrastructure, environmental
+      systems, cultural programming, computation,
+      and civic design.
+    </p>
+
+  </div>
+
+
+  <div class="margin-note">
+    architecture / research / computation
+  </div>
+
+
+</section>
+
 
 
 <!-- =====================================================
      WORK
-===================================================== -->
+====================================================== -->
 
-<section class="content-section" id="work">
+<section
+  class="section"
+  id="work"
+>
 
-  <div class="section-head">
+  <header class="section-header">
 
-    <div class="section-title">
+    <div class="section-number">
+      01
+    </div>
+
+    <h2 class="section-title">
       selected work
-    </div>
+    </h2>
 
     <div class="section-note">
-      Design projects, independent investigations,
-      computational work, spatial research, and collaborative practice.
+      Ongoing architectural, computational, civic,
+      and spatial research.
     </div>
 
-  </div>
+  </header>
 
 
-  <div class="work-list">
+  <div class="projects">
 
 
-    <article class="work">
+    <a
+      href="#"
+      class="project"
+    >
 
-      <div class="work-year">
-        2026
-      </div>
+      <span class="project-number">
+        01
+      </span>
 
-      <div>
+      <span class="project-title">
+        Spatial Audit Atlas
+      </span>
 
-        <div class="work-title">
-          <a href="#">Project Title</a>
-        </div>
-
-        <div class="work-description">
-          A short description of the project, its central question,
-          context, and method of investigation.
-        </div>
-
-      </div>
-
-      <div class="work-type">
-        architecture<br>
-        research
-      </div>
-
-    </article>
-
-
-    <article class="work">
-
-      <div class="work-year">
-        2026
-      </div>
-
-      <div>
-
-        <div class="work-title">
-          <a href="#">Project Title</a>
-        </div>
-
-        <div class="work-description">
-          Computational and spatial research investigating relationships
-          between systems, environments, and everyday occupation.
-        </div>
-
-      </div>
-
-      <div class="work-type">
-        computation<br>
-        design
-      </div>
-
-    </article>
-
-
-    <article class="work">
-
-      <div class="work-year">
-        2025
-      </div>
-
-      <div>
-
-        <div class="work-title">
-          <a href="#">Project Title</a>
-        </div>
-
-        <div class="work-description">
-          Research into public infrastructure, civic systems,
-          and the social organization of space.
-        </div>
-
-      </div>
-
-      <div class="work-type">
-        public space<br>
+      <span class="project-type">
+        spatial research<br>
         infrastructure
-      </div>
+      </span>
 
-    </article>
+      <span class="project-year">
+        2026
+      </span>
 
-
-    <article class="work">
-
-      <div class="work-year">
-        2025
-      </div>
-
-      <div>
-
-        <div class="work-title">
-          <a href="#">Project Title</a>
-        </div>
-
-        <div class="work-description">
-          Environmental investigation connecting architectural
-          observation, representation, and systems analysis.
-        </div>
-
-      </div>
-
-      <div class="work-type">
-        environment<br>
-        research
-      </div>
-
-    </article>
+    </a>
 
 
-    <article class="work">
+    <a
+      href="#"
+      class="project"
+    >
 
-      <div class="work-year">
-        2024
-      </div>
+      <span class="project-number">
+        02
+      </span>
 
-      <div>
+      <span class="project-title">
+        Third Place Movement
+      </span>
 
-        <div class="work-title">
-          <a href="#">Project Title</a>
-        </div>
+      <span class="project-type">
+        public space<br>
+        social infrastructure
+      </span>
 
-        <div class="work-description">
-          Cultural and spatial investigation developed through
-          field observation, mapping, and architectural representation.
-        </div>
+      <span class="project-year">
+        2025–
+      </span>
 
-      </div>
-
-      <div class="work-type">
-        ethnography<br>
-        mapping
-      </div>
-
-    </article>
+    </a>
 
 
-  </div>
+    <a
+      href="#"
+      class="project"
+    >
 
-</section>
+      <span class="project-number">
+        03
+      </span>
 
+      <span class="project-title">
+        Ethnomathematics of the Courtyard
+      </span>
 
-<!-- =====================================================
-     RESEARCH
-===================================================== -->
+      <span class="project-type">
+        computation<br>
+        vernacular systems
+      </span>
 
-<section class="content-section" id="research">
+      <span class="project-year">
+        2026
+      </span>
 
-  <div class="section-head">
-
-    <div class="section-title">
-      research
-    </div>
-
-    <div class="section-note">
-      Ongoing questions, methods, and fields of inquiry.
-    </div>
-
-  </div>
-
-
-  <div class="research-body">
-
-    <p class="research-large">
-      I am interested in architecture not only as an object
-      of design, but as a way of reading relationships between
-      people, systems, knowledge, and space.
-    </p>
+    </a>
 
 
-    <div class="research-columns">
+    <a
+      href="#"
+      class="project"
+    >
 
-      <p>
-        <strong>Computation</strong><br>
-        Algorithms, computational visualization, modeling,
-        simulation, generative systems, and spatial computation
-        as methods of design and inquiry.
-      </p>
+      <span class="project-number">
+        04
+      </span>
 
-      <p>
-        <strong>Ethnomathematics</strong><br>
-        Cultural systems of measurement, pattern, spatial reasoning,
-        construction, and mathematical knowledge.
-      </p>
+      <span class="project-title">
+        Heat, Shade, Wait
+      </span>
 
-      <p>
-        <strong>Anthropology + Ethnography</strong><br>
-        Everyday occupation, cultural practice, lived environments,
-        informal knowledge, and relationships between people and place.
-      </p>
+      <span class="project-type">
+        climate<br>
+        transit
+      </span>
 
-      <p>
-        <strong>Sociology</strong><br>
-        Institutions, governance, social organization, infrastructure,
-        and the systems through which cities distribute resources,
-        access, and power.
-      </p>
+      <span class="project-year">
+        2026
+      </span>
 
-      <p>
-        <strong>Environmental Systems</strong><br>
-        Climate, material systems, infrastructure, ecology,
-        environmental performance, and relationships between
-        architecture and larger physical networks.
-      </p>
+    </a>
 
-      <p>
-        <strong>Decolonial Inquiry</strong><br>
-        Questioning which forms of architectural and mathematical
-        knowledge are treated as universal, and which cultural
-        knowledge systems remain outside formal institutions.
-      </p>
 
-    </div>
+    <a
+      href="#"
+      class="project"
+    >
+
+      <span class="project-number">
+        05
+      </span>
+
+      <span class="project-title">
+        Civic Access Graph
+      </span>
+
+      <span class="project-type">
+        computation<br>
+        civic systems
+      </span>
+
+      <span class="project-year">
+        2026
+      </span>
+
+    </a>
+
+
+    <a
+      href="#"
+      class="project"
+    >
+
+      <span class="project-number">
+        06
+      </span>
+
+      <span class="project-title">
+        Counter-Mapping the Planned City
+      </span>
+
+      <span class="project-type">
+        cartography<br>
+        planning
+      </span>
+
+      <span class="project-year">
+        2026
+      </span>
+
+    </a>
+
 
   </div>
 
 </section>
+
 
 
 <!-- =====================================================
      WRITING
-===================================================== -->
+====================================================== -->
 
-<section class="content-section" id="writing">
+<section
+  class="section"
+  id="writing"
+>
 
-  <div class="section-head">
+  <header class="section-header">
 
-    <div class="section-title">
-      writing
+    <div class="section-number">
+      02
     </div>
+
+    <h2 class="section-title">
+      writing
+    </h2>
 
     <div class="section-note">
-      Papers, essays, research notes, publications,
-      and works in progress.
+      Papers, essays, talks, notes, and ongoing
+      research.
     </div>
 
-  </div>
+  </header>
 
 
   <div class="writing-list">
 
-    <div class="writing-item">
 
-      <div class="writing-year">
+    <a
+      href="#"
+      class="writing-item"
+    >
+
+      <span class="writing-year">
         2026
-      </div>
+      </span>
 
-      <div>
+      <span>
 
-        <div class="writing-title">
-          <a href="#">
-            Paper / Essay Title
-          </a>
-        </div>
+        <span class="writing-title">
+          Title of Paper or Essay
+        </span>
 
-        <div class="writing-meta">
-          research paper · institution / publication
-        </div>
+        <span class="writing-meta">
+          research paper / architecture + society
+        </span>
 
-      </div>
+      </span>
 
-    </div>
+    </a>
 
 
-    <div class="writing-item">
+    <a
+      href="#"
+      class="writing-item"
+    >
 
-      <div class="writing-year">
+      <span class="writing-year">
+        2026
+      </span>
+
+      <span>
+
+        <span class="writing-title">
+          Title of Paper or Essay
+        </span>
+
+        <span class="writing-meta">
+          essay / computation + cultural mathematics
+        </span>
+
+      </span>
+
+    </a>
+
+
+    <a
+      href="#"
+      class="writing-item"
+    >
+
+      <span class="writing-year">
         2025
-      </div>
+      </span>
 
-      <div>
+      <span>
 
-        <div class="writing-title">
-          <a href="#">
-            Paper / Essay Title
-          </a>
-        </div>
+        <span class="writing-title">
+          Title of Talk or Research Note
+        </span>
 
-        <div class="writing-meta">
-          essay · architecture / computation
-        </div>
+        <span class="writing-meta">
+          lecture / public infrastructure
+        </span>
 
-      </div>
+      </span>
 
-    </div>
+    </a>
 
-
-    <div class="writing-item">
-
-      <div class="writing-year">
-        2025
-      </div>
-
-      <div>
-
-        <div class="writing-title">
-          <a href="#">
-            Paper / Essay Title
-          </a>
-        </div>
-
-        <div class="writing-meta">
-          research · ethnography / spatial systems
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="writing-item">
-
-      <div class="writing-year">
-        2024
-      </div>
-
-      <div>
-
-        <div class="writing-title">
-          <a href="#">
-            Paper / Essay Title
-          </a>
-        </div>
-
-        <div class="writing-meta">
-          field notes · environmental systems
-        </div>
-
-      </div>
-
-    </div>
 
   </div>
 
 </section>
 
 
+
 <!-- =====================================================
-     CV
-===================================================== -->
+     RESEARCH
+====================================================== -->
 
-<section class="content-section" id="cv">
+<section
+  class="section"
+  id="research"
+>
 
-  <div class="section-head">
+  <header class="section-header">
 
-    <div class="section-title">
-      cv
+    <div class="section-number">
+      03
     </div>
+
+    <h2 class="section-title">
+      research
+    </h2>
 
     <div class="section-note">
-      Selected education, research, practice,
-      publications, exhibitions, awards, and related experience.
-      <a href="#">Full CV ↗</a>
+      I am interested in how social, mathematical,
+      environmental, and political systems become spatial.
     </div>
 
+  </header>
+
+
+  <div class="research-grid">
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        01
+      </div>
+
+      <div class="research-title">
+        Public space + social infrastructure
+      </div>
+
+      <div class="research-description">
+        Third places, gathering, civic interiors,
+        public institutions, access, and everyday
+        forms of collective life.
+      </div>
+
+    </div>
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        02
+      </div>
+
+      <div class="research-title">
+        Computation + algorithms
+      </div>
+
+      <div class="research-description">
+        Computational visualization, modeling,
+        simulation, algorithmic systems, and their
+        use as architectural research methods.
+      </div>
+
+    </div>
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        03
+      </div>
+
+      <div class="research-title">
+        Ethnography + anthropology
+      </div>
+
+      <div class="research-description">
+        Observation, lived environments, cultural
+        practice, informal spatial systems, and
+        relationships between people and place.
+      </div>
+
+    </div>
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        04
+      </div>
+
+      <div class="research-title">
+        Ethnomathematics
+      </div>
+
+      <div class="research-description">
+        Cultural mathematics, vernacular geometry,
+        alternative systems of measurement, pattern,
+        proportion, and spatial reasoning.
+      </div>
+
+    </div>
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        05
+      </div>
+
+      <div class="research-title">
+        Environmental systems
+      </div>
+
+      <div class="research-description">
+        Climate, heat, water, material systems,
+        infrastructure, technology, and the environmental
+        conditions of everyday space.
+      </div>
+
+    </div>
+
+
+    <div class="research-item">
+
+      <div class="research-number">
+        06
+      </div>
+
+      <div class="research-title">
+        Architecture + governance
+      </div>
+
+      <div class="research-description">
+        Spatial policy, institutions, public systems,
+        planning, and the ways governance becomes
+        material through architecture.
+      </div>
+
+    </div>
+
+
   </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CV
+====================================================== -->
+
+<section
+  class="section"
+  id="cv"
+>
+
+  <header class="section-header">
+
+    <div class="section-number">
+      04
+    </div>
+
+    <h2 class="section-title">
+      curriculum vitae
+    </h2>
+
+    <div class="section-note">
+      Selected research, design, civic, and
+      academic experience.
+    </div>
+
+  </header>
 
 
   <div class="cv">
 
 
+    <!-- CURRENT -->
+
     <div class="cv-group">
 
-      <div class="cv-label">
+      <div class="cv-category">
+        current
+      </div>
+
+      <div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026–
+          </span>
+
+          <span class="cv-role">
+            Make &amp; Design Ambassador<br>
+            Autodesk
+          </span>
+
+          <span class="cv-place">
+            Maryland
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026–
+          </span>
+
+          <span class="cv-role">
+            Urban Research Contributor<br>
+            Urban Praxis Studio
+          </span>
+
+          <span class="cv-place">
+            Toronto
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026–
+          </span>
+
+          <span class="cv-role">
+            Research Intern / Teen Lead<br>
+            KID Museum
+          </span>
+
+          <span class="cv-place">
+            Bethesda, MD
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026–
+          </span>
+
+          <span class="cv-role">
+            Working Group Member<br>
+            U.S. Green Building Council
+          </span>
+
+          <span class="cv-place">
+            Washington, D.C.
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RESEARCH -->
+
+    <div class="cv-group">
+
+      <div class="cv-category">
+        research / public space
+      </div>
+
+      <div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2025–
+          </span>
+
+          <span class="cv-role">
+            Founder / Executive Director<br>
+            Third Place Movement
+          </span>
+
+          <span class="cv-place">
+            Maryland
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2025–26
+          </span>
+
+          <span class="cv-role">
+            Infrastructure Policy Director<br>
+            Montgomery County Public Schools
+          </span>
+
+          <span class="cv-place">
+            Montgomery County
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026
+          </span>
+
+          <span class="cv-role">
+            Mathematics Curriculum Advisor<br>
+            Montgomery County Public Schools
+          </span>
+
+          <span class="cv-place">
+            Montgomery County
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2026–
+          </span>
+
+          <span class="cv-role">
+            Intern<br>
+            Reed Society for the Sacred Arts
+          </span>
+
+          <span class="cv-place">
+            Washington, D.C.
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- COMMUNITY -->
+
+    <div class="cv-group">
+
+      <div class="cv-category">
+        community / environment
+      </div>
+
+      <div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2025–26
+          </span>
+
+          <span class="cv-role">
+            Environmental Education Director<br>
+            Eco MoCo
+          </span>
+
+          <span class="cv-place">
+            Montgomery County
+          </span>
+
+        </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2025–
+          </span>
+
+          <span class="cv-role">
+            Co-Founder<br>
+            mlih cafe
+          </span>
+
+          <span class="cv-place">
+            Maryland
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- EDUCATION -->
+
+    <div class="cv-group">
+
+      <div class="cv-category">
         education
       </div>
 
       <div>
 
-        <div class="cv-entry">
-          <div class="cv-entry-title">
-            Architecture
-          </div>
 
-          <div class="cv-meta">
-            University Name · 20XX—present
-          </div>
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2024–26
+          </span>
+
+          <span class="cv-role">
+            Associate's Degree,
+            General Integrated Studies<br>
+            Montgomery College
+          </span>
+
+          <span class="cv-place">
+            Maryland
+          </span>
+
         </div>
+
+
+        <div class="cv-entry">
+
+          <span class="cv-year">
+            2022–26
+          </span>
+
+          <span class="cv-role">
+            High School Diploma<br>
+            Northwest High School
+          </span>
+
+          <span class="cv-place">
+            Maryland
+          </span>
+
+        </div>
+
 
       </div>
 
     </div>
 
 
+
+    <!-- RECOGNITION -->
+
     <div class="cv-group">
 
-      <div class="cv-label">
-        research
+      <div class="cv-category">
+        recognition / speaking
       </div>
 
       <div>
 
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Research Position / Laboratory / Project
-          </div>
-
-          <div class="cv-meta">
-            Institution · 2026
-          </div>
-
-        </div>
-
 
         <div class="cv-entry">
 
-          <div class="cv-entry-title">
-            Research Position / Project
-          </div>
+          <span class="cv-year">
+            selected
+          </span>
 
-          <div class="cv-meta">
-            Institution · 2025
-          </div>
+          <span class="cv-role">
+            TEDx Montgomery College Speaker<br>
+            Opening Presenter, Cherry Blossom Conference<br>
+            National First-Generation Recognition Award<br>
+            AP Scholar with Distinction<br>
+            Humanitarian Award Recipient
+          </span>
 
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="cv-group">
-
-      <div class="cv-label">
-        practice
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Design / Research Position
-          </div>
-
-          <div class="cv-meta">
-            Office / Organization · 2026
-          </div>
+          <span class="cv-place">
+            Maryland / D.C.
+          </span>
 
         </div>
 
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Design / Research Position
-          </div>
-
-          <div class="cv-meta">
-            Office / Organization · 2025
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="cv-group">
-
-      <div class="cv-label">
-        publications
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            “Paper or Publication Title”
-          </div>
-
-          <div class="cv-meta">
-            publication / institution · 2026
-          </div>
-
-        </div>
-
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            “Paper or Publication Title”
-          </div>
-
-          <div class="cv-meta">
-            publication · 2025
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="cv-group">
-
-      <div class="cv-label">
-        awards
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Award / Fellowship / Scholarship
-          </div>
-
-          <div class="cv-meta">
-            organization · 2026
-          </div>
-
-        </div>
-
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Award / Recognition
-          </div>
-
-          <div class="cv-meta">
-            organization · 2025
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="cv-group">
-
-      <div class="cv-label">
-        selected methods
-      </div>
-
-      <div>
-
-        <div class="cv-entry">
-
-          <div class="cv-entry-title">
-            Computational design · spatial analysis ·
-            architectural representation · field documentation ·
-            mapping · ethnographic research · archival research
-          </div>
-
-        </div>
 
       </div>
 
@@ -1321,62 +1721,68 @@ footer{
 </section>
 
 
+
 <!-- =====================================================
      CONTACT
-===================================================== -->
+====================================================== -->
 
-<section class="content-section" id="contact">
+<section
+  class="section"
+  id="contact"
+>
 
-  <div class="section-head">
+  <header class="section-header">
 
-    <div class="section-title">
+    <div class="section-number">
+      05
+    </div>
+
+    <h2 class="section-title">
       contact
-    </div>
+    </h2>
 
-    <div class="section-note">
-      correspondence / collaboration / research
-    </div>
+    <div></div>
 
-  </div>
+  </header>
 
 
   <div class="contact">
 
     <div class="contact-statement">
-      Interested in conversations across architecture,
-      computation, public systems, culture, and research.
+      Interested in research, design,
+      public space, computation, and
+      interdisciplinary collaboration.
     </div>
 
 
     <div class="contact-links">
 
-      <a href="mailto:email@example.com">
-        email@example.com
+      <span>email</span>
+
+      <a href="mailto:mobenmansour27@gmail.com">
+        write
       </a>
+
       <br>
 
-      <a href="#">
-        instagram ↗
+
+      <span>linkedin</span>
+
+      <a
+        href="https://www.linkedin.com/in/mohamedbenmansour"
+        target="_blank"
+        rel="noopener"
+      >
+        profile
       </a>
+
       <br>
 
-      <a href="#">
-        linkedin ↗
-      </a>
-      <br>
+
+      <span>cv</span>
 
       <a href="#">
-        github ↗
-      </a>
-      <br>
-
-      <a href="#">
-        google scholar ↗
-      </a>
-      <br>
-
-      <a href="#">
-        orcid ↗
+        pdf
       </a>
 
     </div>
@@ -1386,53 +1792,52 @@ footer{
 </section>
 
 
+
 <!-- =====================================================
      FOOTER
-===================================================== -->
+====================================================== -->
 
-<footer>
+<footer class="footer">
 
   <span>
-    © <span id="year"></span> Mohamed Benmansour
+    Mohamed Benmansour
   </span>
 
   <span>
-    design / research / architecture
+    architecture / research / 2026
   </span>
 
 </footer>
 
 
-</div>
+</main>
+
 
 
 <!-- =====================================================
-     VERTICAL IMAGE
-===================================================== -->
+     RIGHT IMAGE STRIP
+====================================================== -->
 
-<aside class="image-column">
+<aside class="image-strip">
 
-  <img
-    src="portrait.jpg"
-    alt="Mohamed Benmansour"
-  >
+  <div class="image-inner">
 
-  <div class="image-note">
-    Mohamed Benmansour
+    <img
+      src="portrait.jpg"
+      alt="Mohamed Benmansour"
+    >
+
+    <div class="image-caption">
+      Mohamed Benmansour<br>
+      designer / researcher / architecture student
+    </div>
+
   </div>
 
 </aside>
 
 
 </div>
-
-
-<script>
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-</script>
 
 </body>
 </html>
